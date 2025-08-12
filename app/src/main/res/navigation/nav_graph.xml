@@ -20,6 +20,13 @@
         <argument
             android:name="artwork_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.esmanureral.artframe.FavoritesFragment"
+        android:label="FavoritesFragment" />
 
 </navigation>
