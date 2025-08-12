@@ -16,3 +16,19 @@ data class Artwork(
     @SerializedName("image_id")
     val imageId: String?
 )
+data class ArtworkDetailResponse(
+    val data: ArtworkDetail
+)
+
+data class ArtworkDetail(
+    val id: Int,
+    val title: String?,
+    val artist_display: String?,
+    val date_display: String?,
+    val medium_display: String?,
+    val dimensions: String?,
+    val credit_line: String?,
+    val description: String?,
+    val short_description: String?,
+    val image_id: String?
+)

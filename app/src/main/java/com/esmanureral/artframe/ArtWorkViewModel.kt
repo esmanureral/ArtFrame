@@ -9,6 +9,10 @@ import kotlinx.coroutines.launch
 class ArtWorkViewModel : ViewModel() {
     private val _artworks = MutableLiveData<List<Artwork>>()
     val artworks: LiveData<List<Artwork>> get() = _artworks
+
+    private val _artworkDetail = MutableLiveData<ArtworkDetail?>()
+    val artworkDetail: LiveData<ArtworkDetail?> = _artworkDetail
+
     private val allArtworks = mutableListOf<Artwork>()
     private var currentPage = 1
     private var isLoading = false
@@ -25,6 +29,17 @@ class ArtWorkViewModel : ViewModel() {
                 currentPage++
             }
             isLoading = false
+        }
+    }
+
+    fun fetchArtworkDetail(id: Int) {
+        viewModelScope.launch {
+            val response = ApiClient.api.getArtworkDetail(id)
+            if (response.isSuccessful) {
+                _artworkDetail.value = response.body()?.data
+            } else {
+                _artworkDetail.value = null
+            }
         }
     }
 }
