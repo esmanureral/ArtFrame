@@ -36,15 +36,13 @@ class DetailFragment : Fragment() {
             detail?.let {
                 with(binding){
                     tvTitle.text = it.title ?: "-"
-                    tvArtist.text = it.artist_display ?: "-"
-                    tvDate.text = it.date_display ?: "-"
-                    tvMedium.text = it.medium_display ?: "-"
-                    tvDimensions.text = it.dimensions ?: "-"
-                    tvCredit.text = it.credit_line ?: "-"
+                    tvArtist.text = it.artistDisplay ?: "-"
+                    tvDate.text = it.dateDisplay ?: "-"
+                    tvMedium.text = it.mediumDisplay ?: "-"
                     tvDescription.text =
                         Html.fromHtml(it.description ?: "", Html.FROM_HTML_MODE_COMPACT)
                 }
-                val imageUrl = "https://www.artic.edu/iiif/2/${it.image_id}/full/843,/0/default.jpg"
+                val imageUrl = "https://www.artic.edu/iiif/2/${it.imageId}/full/843,/0/default.jpg"
                 binding.ivArtwork.load(imageUrl) {
                     crossfade(true)
                     placeholder(R.drawable.ic_launcher_background)
