@@ -1,20 +1,31 @@
 package com.esmanureral.artframe
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.esmanureral.artframe.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: ArtWorkViewModel by viewModels()
+    private lateinit var adapter: ArtworkAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = ArtworkAdapter(mutableListOf()) { }
+        binding.recyclerView.adapter = adapter
+
+        viewModel.artworks.observe(this) { list ->
+            adapter.updateData(list)
         }
+
+        viewModel.fetchArtworks()
     }
 }
