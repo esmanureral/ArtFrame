@@ -36,10 +36,10 @@ class ArtworkAdapter(
 
     override fun getItemCount() = artworks.size
 
-    fun updateData(newArtworks: List<Artwork>) {
-        artworks.clear()
+    fun addData(newArtworks: List<Artwork>) {
+        val startPos = artworks.size
         artworks.addAll(newArtworks)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(startPos, newArtworks.size)
     }
 }
 

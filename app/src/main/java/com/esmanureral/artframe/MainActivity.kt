@@ -1,10 +1,10 @@
 package com.esmanureral.artframe
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,15 +17,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        with(binding) {
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val totalItemCount = layoutManager.itemCount
+                    val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                    if (lastVisibleItem >= totalItemCount - 2) {
+                        viewModel.fetchArtworks()
+                    }
+                }
+            })
+            recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = ArtworkAdapter(mutableListOf()) { }
+            recyclerView.adapter = adapter
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ArtworkAdapter(mutableListOf()) { }
-        binding.recyclerView.adapter = adapter
-
-        viewModel.artworks.observe(this) { list ->
-            adapter.updateData(list)
         }
-
+        viewModel.artworks.observe(this) { newItems ->
+            adapter.addData(newItems)
+        }
         viewModel.fetchArtworks()
     }
 }
