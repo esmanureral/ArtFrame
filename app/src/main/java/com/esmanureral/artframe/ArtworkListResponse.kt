@@ -11,24 +11,29 @@ data class Artwork(
     val id: Int,
     @SerializedName("title")
     val title: String?,
-    @SerializedName("artist_display")
-    val artistDisplay: String?,
     @SerializedName("image_id")
     val imageId: String?
 )
+
 data class ArtworkDetailResponse(
     val data: ArtworkDetail
 )
 
 data class ArtworkDetail(
+    @SerializedName("id")
     val id: Int,
+    @SerializedName("title")
     val title: String?,
-    val artist_display: String?,
-    val date_display: String?,
-    val medium_display: String?,
-    val dimensions: String?,
-    val credit_line: String?,
+    @SerializedName("artist_display")
+    val artistDisplay: String?,
+    @SerializedName("date_display")
+    val dateDisplay: String?,
+    @SerializedName("medium_display")
+    val mediumDisplay: String?,
+    @SerializedName("description")
     val description: String?,
-    val short_description: String?,
-    val image_id: String?
+    @SerializedName("short_description")
+    val shortDescription: String?,
+    @SerializedName("image_id")
+    val imageId: String?
 )
