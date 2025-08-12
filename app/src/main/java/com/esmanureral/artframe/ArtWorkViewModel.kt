@@ -23,7 +23,9 @@ class ArtWorkViewModel : ViewModel() {
         viewModelScope.launch {
             val response = ApiClient.api.getArtWorks(page = currentPage)
             if (response.isSuccessful) {
-                val newData = response.body()?.data ?: emptyList()
+                val newData =
+                    response.body()?.data?.filter { !it.imageId.isNullOrBlank() }
+                        ?: emptyList()
                 allArtworks.addAll(newData)
                 _artworks.postValue(newData)
                 currentPage++
