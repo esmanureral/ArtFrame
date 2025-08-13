@@ -27,6 +27,11 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.esmanureral.artframe.FavoritesFragment"
-        android:label="FavoritesFragment" />
+        android:label="FavoritesFragment" >
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_artworkListFragment"
+            app:destination="@id/artworkListFragment" />
+    </fragment>
 
 </navigation>
