@@ -11,23 +11,27 @@ class ArtworkAdapter(
     private val onItemClick: (Artwork) -> Unit
 ) : RecyclerView.Adapter<ArtworkAdapter.ArtworkViewHolder>() {
 
-    inner class ArtworkViewHolder(private val binding: ItemArtworkBinding) :
+    class ArtworkViewHolder(
+        private val binding: ItemArtworkBinding,
+        private val onItemClick: (Artwork) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Artwork) {
-            binding.title.text = item.title
-            val imageUrl = "https://www.artic.edu/iiif/2/${item.imageId}/full/843,/0/default.jpg"
-            binding.image.load(imageUrl) {
-                crossfade(true)
-            }
-            binding.root.setOnClickListener {
-                onItemClick(item)
+            with(binding) {
+                root.setOnClickListener { onItemClick(item) }
+                tvTitle.text = item.title
+                val imageUrl =
+                    "https://www.artic.edu/iiif/2/${item.imageId}/full/843,/0/default.jpg"
+                ivImage.load(imageUrl) {
+                    crossfade(true)
+                }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtworkViewHolder {
         val binding = ItemArtworkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ArtworkViewHolder(binding)
+        return ArtworkViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: ArtworkViewHolder, position: Int) {

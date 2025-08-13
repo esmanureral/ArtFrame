@@ -14,9 +14,9 @@ class FavoritesAdapter(
     inner class FavoriteViewHolder(val binding: ItemArtworkBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(artwork: ArtworkDetail) {
-            binding.title.text = artwork.title ?: "-"
+            binding.tvTitle.text = artwork.title ?: "-"
             val imageUrl = "https://www.artic.edu/iiif/2/${artwork.imageId}/full/200,/0/default.jpg"
-            binding.image.load(imageUrl) {
+            binding.ivImage.load(imageUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_launcher_background)
                 error(R.drawable.ic_launcher_foreground)
