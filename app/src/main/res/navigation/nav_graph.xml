@@ -24,18 +24,39 @@
             android:id="@+id/action_detailFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.esmanureral.artframe.FavoritesFragment"
-        android:label="FavoritesFragment" >
+        android:label="FavoritesFragment">
 
         <action
             android:id="@+id/action_favoritesFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/artistListFragment"
         android:name="com.esmanureral.artframe.ArtistListFragment"
-        android:label="ArtistListFragment" />
+        android:label="ArtistListFragment">
+        <action
+            android:id="@+id/action_artistListFragment_to_artistArtworkFragment"
+            app:destination="@id/artistArtworkFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/artistArtworkFragment"
+        android:name="com.esmanureral.artframe.ArtistArtworkFragment"
+        android:label="ArtistArtworkFragment">
+        <argument
+            android:name="artistId"
+            app:argType="integer" />
+        <argument
+            android:name="artistName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_artistArtworkFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
 </navigation>

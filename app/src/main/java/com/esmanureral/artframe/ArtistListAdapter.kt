@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.databinding.ItemArtistBinding
 
-class ArtistListAdapter : RecyclerView.Adapter<ArtistListAdapter.ArtistViewHolder>() {
+class ArtistListAdapter(
+    private val onItemClick: (Artists) -> Unit
+) : RecyclerView.Adapter<ArtistListAdapter.ArtistViewHolder>() {
     private val artistItems = mutableListOf<Artists>()
 
     inner class ArtistViewHolder(private val binding: ItemArtistBinding) :
@@ -17,6 +19,10 @@ class ArtistListAdapter : RecyclerView.Adapter<ArtistListAdapter.ArtistViewHolde
                 val birth = artists.birthDate ?: context.getString(R.string.year_unknown)
                 val death = artists.deathDate ?: context.getString(R.string.year_unknown)
                 tvYears.text = context.getString(R.string.artist_years, birth, death)
+
+                root.setOnClickListener {
+                    onItemClick(artists)
+                }
             }
         }
     }

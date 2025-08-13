@@ -64,11 +64,32 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
             val response = api.getArtists(page = artistPage)
             if (response.isSuccessful) {
                 val newData = response.body()?.data ?: emptyList()
-                allArtists.addAll(newData)
+                val artistsWithArtwork = newData.filter { artist ->
+                    val artworksResponse = api.getArtworksByArtist(artist.id)
+                    artworksResponse.isSuccessful &&
+                            artworksResponse.body()?.data?.any { !it.imageId.isNullOrBlank() } == true
+                }
+                allArtists.addAll(artistsWithArtwork)
                 _artist.postValue(allArtists)
                 artistPage++
             }
             isLoadingArtists = false
+        }
+    }
+
+    fun fetchArtworksByArtist(artistId: Int) {
+        if (isLoading) return
+        isLoading = true
+        viewModelScope.launch {
+            val response = api.getArtworksByArtist(artistId)
+            if (response.isSuccessful) {
+                val artworksWithImages = response.body()?.data
+                    ?.filter { !it.imageId.isNullOrBlank() }
+                    ?: emptyList()
+
+                _artworks.postValue(artworksWithImages)
+            }
+            isLoading = false
         }
     }
 }
