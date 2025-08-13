@@ -11,8 +11,8 @@
 
         <ImageView
             android:id="@+id/ivArtwork"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

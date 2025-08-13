@@ -22,7 +22,7 @@ class ArtworkAdapter(
                 tvTitle.text = item.title
                 val imageUrl =
                     "https://www.artic.edu/iiif/2/${item.imageId}/full/843,/0/default.jpg"
-                ivImage.load(imageUrl) {
+                ivArtwork.load(imageUrl) {
                     crossfade(true)
                 }
             }
