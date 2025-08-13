@@ -2,11 +2,17 @@ package com.esmanureral.artframe
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 
-class ArtWorkViewModel : ViewModel() {
+class ArtWorkViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val api: ApiService by lazy {
+        ApiClient.getApi(getApplication())
+    }
+
     private val _artworks = MutableLiveData<List<Artwork>>()
     val artworks: LiveData<List<Artwork>> get() = _artworks
 
@@ -21,7 +27,7 @@ class ArtWorkViewModel : ViewModel() {
         if (isLoading) return
         isLoading = true
         viewModelScope.launch {
-            val response = ApiClient.api.getArtWorks(page = currentPage)
+            val response = api.getArtWorks(page = currentPage)
             if (response.isSuccessful) {
                 val newData =
                     response.body()?.data?.filter { !it.imageId.isNullOrBlank() }
@@ -36,7 +42,7 @@ class ArtWorkViewModel : ViewModel() {
 
     fun fetchArtworkDetail(id: Int) {
         viewModelScope.launch {
-            val response = ApiClient.api.getArtworkDetail(id)
+            val response = api.getArtworkDetail(id)
             if (response.isSuccessful) {
                 _artworkDetail.value = response.body()?.data
             } else {
