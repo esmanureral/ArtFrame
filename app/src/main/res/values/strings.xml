@@ -1,3 +1,8 @@
 <resources>
+
     <string name="app_name">ArtFrame</string>
+    <string name="artist_unknown">Bilinmiyor</string>
+    <string name="year_unknown">"?"</string>
+    <string name="artist_years">%1$s - %2$s</string>
+
 </resources>
