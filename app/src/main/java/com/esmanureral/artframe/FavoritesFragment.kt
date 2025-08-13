@@ -27,7 +27,7 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
-        favoritesList = favoritesPrefs.loadFavorites()
+        favoritesList = favoritesPrefs.loadFavorites().reversed().toMutableList()
         adapter = FavoritesAdapter(favoritesList) { artwork ->
             findNavController().navigate(
                 FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(artwork.id)
