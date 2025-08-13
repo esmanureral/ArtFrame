@@ -44,25 +44,28 @@ class DetailFragment : Fragment() {
                     tvMedium.text = it.mediumDisplay ?: "-"
                     tvDescription.text =
                         Html.fromHtml(it.description ?: "", Html.FROM_HTML_MODE_COMPACT)
-                }
-                val imageUrl = "https://www.artic.edu/iiif/2/${it.imageId}/full/843,/0/default.jpg"
-                binding.ivArtwork.load(imageUrl) {
-                    crossfade(true)
-                    placeholder(R.drawable.ic_launcher_background)
-                    error(R.drawable.ic_launcher_foreground)
-                }
-                updateFavoriteIcon(it)
-                binding.imageView.setOnClickListener {
-                    currentArtwork?.let { artwork ->
-                        if (favoritesPrefs.isFavorite(artwork)) {
-                            favoritesPrefs.removeFavorite(artwork)
-                        } else {
-                            favoritesPrefs.addFavorite(artwork)
-                        }
-                        updateFavoriteIcon(artwork)
+
+                    val imageUrl =
+                        "https://www.artic.edu/iiif/2/${it.imageId}/full/843,/0/default.jpg"
+                    ivArtwork.load(imageUrl) {
+                        crossfade(true)
+                        placeholder(R.drawable.ic_launcher_background)
+                        error(R.drawable.ic_launcher_foreground)
                     }
-                    val action = DetailFragmentDirections.actionDetailFragmentToFavoritesFragment()
-                    findNavController().navigate(action)
+                    updateFavoriteIcon(it)
+                    imageView.setOnClickListener {
+                        currentArtwork?.let { artwork ->
+                            if (favoritesPrefs.isFavorite(artwork)) {
+                                favoritesPrefs.removeFavorite(artwork)
+                            } else {
+                                favoritesPrefs.addFavorite(artwork)
+                            }
+                            updateFavoriteIcon(artwork)
+                        }
+                        val action =
+                            DetailFragmentDirections.actionDetailFragmentToFavoritesFragment()
+                        findNavController().navigate(action)
+                    }
                 }
             }
         }

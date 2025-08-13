@@ -28,31 +28,47 @@ class ArtworkListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupRecyclerView()
+        observeViewModel()
+        viewModel.fetchArtworks()
+    }
+
+    private fun setupRecyclerView() {
         adapter = ArtworkAdapter(mutableListOf()) { artwork ->
-            val action = ArtworkListFragmentDirections
-                .actionArtworkListFragmentToDetailFragment(artwork.id)
-            findNavController().navigate(action)
+            navigateToDetail(artwork.id)
         }
+        with(binding) {
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.adapter = adapter
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(rv, dx, dy)
+                    checkForPagination(rv)
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
-
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(rv, dx, dy)
-                val layoutManager = rv.layoutManager as LinearLayoutManager
-                val totalItemCount = layoutManager.itemCount
-                val lastVisible = layoutManager.findLastVisibleItemPosition()
-                if (lastVisible >= totalItemCount - 2) {
-                    viewModel.fetchArtworks()
                 }
-            }
-        })
+            })
+        }
+    }
 
+    private fun checkForPagination(rv: RecyclerView) {
+        val layoutManager = rv.layoutManager as LinearLayoutManager
+        val totalItemCount = layoutManager.itemCount
+        val lastVisible = layoutManager.findLastVisibleItemPosition()
+        if (lastVisible >= totalItemCount - 2) {
+            viewModel.fetchArtworks()
+        }
+    }
+
+    private fun navigateToDetail(artworkId: Int) {
+        val action = ArtworkListFragmentDirections
+            .actionArtworkListFragmentToDetailFragment(artworkId)
+        findNavController().navigate(action)
+    }
+
+    private fun observeViewModel() {
         viewModel.artworks.observe(viewLifecycleOwner) { newItems ->
             adapter.addData(newItems)
         }
-        viewModel.fetchArtworks()
     }
 
     override fun onDestroyView() {

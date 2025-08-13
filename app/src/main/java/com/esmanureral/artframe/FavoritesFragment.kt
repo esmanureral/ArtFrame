@@ -29,8 +29,11 @@ class FavoritesFragment : Fragment() {
         favoritesList = favoritesPrefs.loadFavorites()
         adapter = FavoritesAdapter(favoritesList) { artwork ->
         }
-        binding.rvFavorites.adapter = adapter
-        binding.rvFavorites.layoutManager = LinearLayoutManager(requireContext())
+        with(binding){
+            rvFavorites.adapter = adapter
+            rvFavorites.layoutManager = LinearLayoutManager(requireContext())
+        }
+
     }
 
     override fun onDestroyView() {
