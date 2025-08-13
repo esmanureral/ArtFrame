@@ -17,4 +17,11 @@ interface ApiService {
     suspend fun getArtworkDetail(
         @Path("id") id: Int
     ): Response<ArtworkDetailResponse>
+
+    @GET("artists")
+    suspend fun getArtists(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int = 10,
+        @Query("fields") fields: String = "id,title,birth_date,death_date"
+    ): Response<ArtistsListResponse>
 }
