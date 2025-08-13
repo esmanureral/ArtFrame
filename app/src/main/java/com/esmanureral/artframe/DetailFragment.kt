@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.esmanureral.artframe.databinding.FragmentDetailBinding
 
@@ -37,15 +38,26 @@ class DetailFragment : Fragment() {
             detail?.let {
                 currentArtwork = it
                 with(binding) {
-                    tvTitle.text = it.title ?: "-"
-                    tvArtist.text = it.artistDisplay ?: "-"
-                    tvDate.text = it.dateDisplay ?: "-"
-                    tvMedium.text = it.mediumDisplay ?: "-"
-                    tvDescription.text =
-                        Html.fromHtml(it.description ?: "", Html.FROM_HTML_MODE_COMPACT)
-
+                    tvTitle.text =
+                        getString(R.string.artwork_title, it.title ?: getString(R.string.unknown))
+                    tvArtist.text = getString(
+                        R.string.artwork_artist,
+                        it.artistDisplay ?: getString(R.string.unknown)
+                    )
+                    tvDate.text = getString(
+                        R.string.artwork_date,
+                        it.dateDisplay ?: getString(R.string.unknown)
+                    )
+                    tvMedium.text = getString(
+                        R.string.artwork_medium,
+                        it.mediumDisplay ?: getString(R.string.unknown)
+                    )
+                    tvDescription.text = Html.fromHtml(
+                        getString(R.string.artwork_description, it.description ?: ""),
+                        Html.FROM_HTML_MODE_COMPACT
+                    )
                     val imageUrl =
-                        "https://www.artic.edu/iiif/2/${it.imageId}/full/843,/0/default.jpg"
+                        "https://www.artic.edu/iiif/2/${it.imageId}/full/!1080,1920/0/default.jpg"
                     ivArtwork.load(imageUrl) {
                         crossfade(true)
                         placeholder(R.drawable.ic_launcher_background)
@@ -62,6 +74,17 @@ class DetailFragment : Fragment() {
                             updateFavoriteIcon(artwork)
                         }
                     }
+                    cardArtist.setOnClickListener {
+                        currentArtwork?.artistId?.let { id ->
+                            val action = DetailFragmentDirections
+                                .actionDetailFragmentToArtistArtworkFragment(
+                                    artistId = id,
+                                    artistName = currentArtwork?.artistDisplay ?: "-"
+                                )
+                            findNavController().navigate(action)
+                        }
+                    }
+
                 }
             }
         }

@@ -35,7 +35,9 @@ data class ArtworkDetail(
     @SerializedName("short_description")
     val shortDescription: String?,
     @SerializedName("image_id")
-    val imageId: String?
+    val imageId: String?,
+    @SerializedName("artist_id")
+    val artistId: Int
 )
 
 data class ArtistsListResponse(

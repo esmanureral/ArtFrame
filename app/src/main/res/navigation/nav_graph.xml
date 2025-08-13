@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_detailFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_artistArtworkFragment"
+            app:destination="@id/artistArtworkFragment" />
     </fragment>
 
     <fragment

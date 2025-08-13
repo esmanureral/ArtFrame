@@ -4,5 +4,11 @@
     <string name="artist_unknown">Bilinmiyor</string>
     <string name="year_unknown">"?"</string>
     <string name="artist_years">%1$s - %2$s</string>
+    <string name="unknown">-</string>
+    <string name="artwork_title">Başlık: %1$s</string>
+    <string name="artwork_artist">Sanatçı: %1$s</string>
+    <string name="artwork_date">Eserin yapıldığı tarih: %1$s</string>
+    <string name="artwork_medium">Teknik / Malzeme: %1$s</string>
+    <string name="artwork_description">Açıklama: %1$s</string>
 
 </resources>
