@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
 
@@ -28,6 +29,9 @@ class FavoritesFragment : Fragment() {
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
         favoritesList = favoritesPrefs.loadFavorites()
         adapter = FavoritesAdapter(favoritesList) { artwork ->
+            findNavController().navigate(
+                FavoritesFragmentDirections.actionFavoritesFragmentToArtworkListFragment()
+            )
         }
         with(binding){
             rvFavorites.adapter = adapter
