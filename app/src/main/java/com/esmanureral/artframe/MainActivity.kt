@@ -15,27 +15,6 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.artworkListFragment -> {
-                    navController.navigate(R.id.artworkListFragment)
-                    true
-                }
-
-                R.id.favoritesFragment -> {
-                    navController.navigate(R.id.favoritesFragment)
-                    true
-                }
-
-                R.id.detailFragment -> {
-                    navController.navigate(R.id.detailFragment)
-                    true
-                }
-
-                else -> false
-            }
-        }
+        binding.bottomNavigationView.setupWithNavController(navController)
     }
 }
-
