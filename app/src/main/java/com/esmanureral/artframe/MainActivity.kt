@@ -3,7 +3,6 @@ package com.esmanureral.artframe
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.esmanureral.artframe.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -25,11 +24,6 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.favoritesFragment -> {
                     navController.navigate(R.id.favoritesFragment)
-                    true
-                }
-
-                R.id.detailFragment -> {
-                    navController.navigate(R.id.detailFragment)
                     true
                 }
 
