@@ -21,7 +21,7 @@ interface ApiService {
     @GET("artists")
     suspend fun getArtists(
         @Query("page") page: Int,
-        @Query("limit") limit: Int = 10,
+        @Query("limit") limit: Int = 20,
         @Query("fields") fields: String = "id,title,birth_date,death_date"
     ): Response<ArtistsListResponse>
 

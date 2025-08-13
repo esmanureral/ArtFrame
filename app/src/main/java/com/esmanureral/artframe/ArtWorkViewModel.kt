@@ -64,10 +64,14 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
             val response = api.getArtists(page = artistPage)
             if (response.isSuccessful) {
                 val newData = response.body()?.data ?: emptyList()
-                val artistsWithArtwork = newData.filter { artist ->
+                val artistsWithArtwork = mutableListOf<Artists>()
+                for (artist in newData) {
                     val artworksResponse = api.getArtworksByArtist(artist.id)
-                    artworksResponse.isSuccessful &&
-                            artworksResponse.body()?.data?.any { !it.imageId.isNullOrBlank() } == true
+                    if (artworksResponse.isSuccessful) {
+                        val hasValidArtwork = artworksResponse.body()?.data
+                            ?.any { !it.imageId.isNullOrBlank() } == true
+                        if (hasValidArtwork) artistsWithArtwork.add(artist)
+                    }
                 }
                 allArtists.addAll(artistsWithArtwork)
                 _artist.postValue(allArtists)
