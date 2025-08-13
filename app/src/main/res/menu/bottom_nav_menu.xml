@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/artworkListFragment"
+        android:icon="@drawable/list"
+        android:title="Liste" />
+
+    <item
+        android:id="@+id/favoritesFragment"
+        android:icon="@drawable/favorite_24"
+        android:title="Favoriler" />
+
+</menu>
