@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.databinding.FragmentArtworkListBinding
@@ -60,9 +60,10 @@ class ArtworkListFragment : Fragment() {
     }
 
     private fun navigateToDetail(artworkId: Int) {
-        val action = ArtworkListFragmentDirections
-            .actionArtworkListFragmentToDetailFragment(artworkId)
-        findNavController().navigate(action)
+        val navController = requireActivity().findNavController(R.id.nav_host_fragment)
+        navController.navigate(
+            ArtworkListFragmentDirections.actionArtworkListFragmentToDetailFragment(artworkId)
+        )
     }
 
     private fun observeViewModel() {
