@@ -9,4 +9,9 @@
         android:icon="@drawable/favorite_24"
         android:title="Favoriler" />
 
+    <item
+        android:id="@+id/artistListFragment"
+        android:icon="@drawable/artist"
+        android:title="Artist" />
+
 </menu>
