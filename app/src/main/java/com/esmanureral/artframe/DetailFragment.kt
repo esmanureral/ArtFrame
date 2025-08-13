@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import coil.load
 import com.esmanureral.artframe.databinding.FragmentDetailBinding
 
@@ -53,7 +52,7 @@ class DetailFragment : Fragment() {
                         error(R.drawable.ic_launcher_foreground)
                     }
                     updateFavoriteIcon(it)
-                    imageView.setOnClickListener {
+                    ivFavorite.setOnClickListener {
                         currentArtwork?.let { artwork ->
                             if (favoritesPrefs.isFavorite(artwork)) {
                                 favoritesPrefs.removeFavorite(artwork)
@@ -62,9 +61,6 @@ class DetailFragment : Fragment() {
                             }
                             updateFavoriteIcon(artwork)
                         }
-                        val action =
-                            DetailFragmentDirections.actionDetailFragmentToFavoritesFragment()
-                        findNavController().navigate(action)
                     }
                 }
             }
@@ -74,9 +70,9 @@ class DetailFragment : Fragment() {
     private fun updateFavoriteIcon(artwork: ArtworkDetail) {
         val isFav = favoritesPrefs.isFavorite(artwork)
         if (isFav) {
-            binding.imageView.setImageResource(R.drawable.favorite_24)
+            binding.ivFavorite.setImageResource(R.drawable.favorite_24)
         } else {
-            binding.imageView.setImageResource(R.drawable.favorite_border)
+            binding.ivFavorite.setImageResource(R.drawable.favorite_border)
         }
     }
 
