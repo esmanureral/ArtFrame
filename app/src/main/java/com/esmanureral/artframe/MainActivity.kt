@@ -26,7 +26,10 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.favoritesFragment)
                     true
                 }
-
+                R.id.artistListFragment -> {
+                    navController.navigate(R.id.artistListFragment)
+                    true
+                }
                 else -> false
             }
         }

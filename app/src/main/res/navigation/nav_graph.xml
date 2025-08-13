@@ -33,5 +33,9 @@
             android:id="@+id/action_favoritesFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/artistListFragment"
+        android:name="com.esmanureral.artframe.ArtistListFragment"
+        android:label="ArtistListFragment" />
 
 </navigation>
