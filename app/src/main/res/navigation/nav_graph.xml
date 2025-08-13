@@ -30,8 +30,8 @@
         android:label="FavoritesFragment" >
 
         <action
-            android:id="@+id/action_favoritesFragment_to_artworkListFragment"
-            app:destination="@id/artworkListFragment" />
+            android:id="@+id/action_favoritesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 
 </navigation>

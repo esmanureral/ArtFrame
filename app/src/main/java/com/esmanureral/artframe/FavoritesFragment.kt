@@ -30,7 +30,7 @@ class FavoritesFragment : Fragment() {
         favoritesList = favoritesPrefs.loadFavorites()
         adapter = FavoritesAdapter(favoritesList) { artwork ->
             findNavController().navigate(
-                FavoritesFragmentDirections.actionFavoritesFragmentToArtworkListFragment()
+                FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(artwork.id)
             )
         }
         with(binding){
