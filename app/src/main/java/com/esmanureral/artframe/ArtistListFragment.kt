@@ -60,7 +60,7 @@ class ArtistListFragment : Fragment() {
         val layoutManager = rv.layoutManager as LinearLayoutManager
         val totalItemCount = layoutManager.itemCount
         val lastVisible = layoutManager.findLastVisibleItemPosition()
-        if (lastVisible >= totalItemCount - 2) {
+        if (lastVisible >= totalItemCount - 5) {
             viewModel.fetchArtists()
         }
     }

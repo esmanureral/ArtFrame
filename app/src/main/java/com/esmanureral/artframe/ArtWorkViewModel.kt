@@ -70,9 +70,8 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
                             artworksResponse.body()?.data?.any { !it.imageId.isNullOrBlank() } == true
                     if (hasValidArtwork) artist else null
                 }
-
                 allArtists.addAll(artistsWithArtworks)
-                _artist.postValue(allArtists)
+                _artist.postValue(artistsWithArtworks)
                 artistPage++
             }
             isLoadingArtists = false

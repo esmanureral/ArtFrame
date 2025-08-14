@@ -15,19 +15,16 @@
         <ImageView
             android:id="@+id/ivArtwork"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="300dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"/>
-
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:padding="8dp"
-            android:text="Eser Başlığı"/>
-
-
+            android:textStyle="bold"
+            android:text="Eser Başlığı" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
