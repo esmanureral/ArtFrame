@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.databinding.FragmentArtworkListBinding
@@ -38,7 +39,7 @@ class ArtworkListFragment : Fragment() {
             navigateToDetail(artwork.id)
         }
         with(binding) {
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
             recyclerView.adapter = adapter
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
