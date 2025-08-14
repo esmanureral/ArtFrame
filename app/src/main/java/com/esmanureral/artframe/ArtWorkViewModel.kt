@@ -28,16 +28,17 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
     private var currentPage = 1
     private var isLoading = false
     private var isLoadingArtists = false
-
     fun fetchArtworks() {
         if (isLoading) return
         isLoading = true
         viewModelScope.launch {
             val response = api.getArtWorks(page = currentPage)
+            val excludedClassifications = listOf("punch bowl", "bowl", "vase", "sugar bowl", "beaker")
             if (response.isSuccessful) {
-                val newData =
-                    response.body()?.data?.filter { !it.imageId.isNullOrBlank() }
-                        ?: emptyList()
+                val newData = response.body()?.data
+                    ?.filter { !it.imageId.isNullOrBlank() }
+                    ?.filter { it.classificationTitle !in excludedClassifications }
+                    ?: emptyList()
                 allArtworks.addAll(newData)
                 _artworks.postValue(newData)
                 currentPage++
@@ -45,6 +46,7 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
             isLoading = false
         }
     }
+
 
     fun fetchArtworkDetail(id: Int) {
         viewModelScope.launch {

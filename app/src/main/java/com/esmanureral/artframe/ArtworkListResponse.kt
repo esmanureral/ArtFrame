@@ -12,7 +12,10 @@ data class Artwork(
     @SerializedName("title")
     val title: String?,
     @SerializedName("image_id")
-    val imageId: String?
+    val imageId: String?,
+    @SerializedName("classification_title")
+    val classificationTitle: String?,
+
 )
 
 data class ArtworkDetailResponse(
