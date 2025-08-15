@@ -20,6 +20,7 @@ class ArtworkAdapter(
             with(binding) {
                 root.setOnClickListener { onItemClick(item) }
                 tvTitle.text = item.title
+                tvclassificationTitle.text = item.classificationTitle
                 val imageUrl =
                     "https://www.artic.edu/iiif/2/${item.imageId}/full/1600,/0/default.jpg"
                 ivArtwork.load(imageUrl) {

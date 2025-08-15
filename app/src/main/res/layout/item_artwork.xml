@@ -33,5 +33,18 @@
             android:text="Eser Başlığı"
             android:textColor="?attr/colorPrimaryDark"
             android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tvclassificationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:fontFamily="@font/lora_regular"
+            android:maxLines="1"
+            android:padding="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="Eser Başlığı"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textSize="16sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
