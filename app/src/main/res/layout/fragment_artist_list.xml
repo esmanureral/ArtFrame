@@ -1,17 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="?attr/colorPrimaryDark">
+    android:background="?attr/colorPrimaryDark"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
-        android:paddingStart="4dp"
-        android:textColor="?attr/colorPrimary"
         app:contentInsetStart="0dp">
 
         <ImageView
@@ -26,14 +25,15 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/playfair_display"
             android:text="Sanatçılar"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColor="?attr/colorPrimary" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvArtists"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingTop="8dp" />
+        android:paddingTop="8dp"
+        tools:listitem="@layout/item_artist" />
 </LinearLayout>
