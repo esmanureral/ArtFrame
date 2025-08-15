@@ -26,35 +26,42 @@ class ArtistArtworkFragment : Fragment() {
     ) = FragmentArtistArtworkBinding.inflate(inflater, container, false).also { _binding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.tvArtistTitle.text = args.artistName
-
-        adapter = ArtistArtworkAdapter { artwork ->
-            val action = ArtistArtworkFragmentDirections
-                .actionArtistArtworkFragmentToDetailFragment(artwork.id)
-            findNavController().navigate(action)
-        }
-
-        with(binding) {
-            rvArtworks.adapter = adapter
-            rvArtworks.layoutManager = LinearLayoutManager(requireContext())
-            ivArrowLeft.setOnClickListener {
-                findNavController().navigate(R.id.artistListFragment)
+        PermissionHelper.requestNotificationPermission(this) { granted ->
+            if (granted) {
+                println(" Notification permission granted")
+            } else {
+                println(" Notification permission denied")
             }
+            binding.tvArtistTitle.text = args.artistName
+
+            adapter = ArtistArtworkAdapter { artwork ->
+                val action = ArtistArtworkFragmentDirections
+                    .actionArtistArtworkFragmentToDetailFragment(artwork.id)
+                findNavController().navigate(action)
+            }
+
+            with(binding) {
+                rvArtworks.adapter = adapter
+                rvArtworks.layoutManager = LinearLayoutManager(requireContext())
+                ivArrowLeft.setOnClickListener {
+                    findNavController().navigate(R.id.artistListFragment)
+                }
+            }
+            viewModel.artworks.observe(viewLifecycleOwner) { list ->
+                list?.let { adapter.setData(it) }
+            }
+
+            viewModel.fetchArtworksByArtist(args.artistId)
+
+            binding.rvArtworks.adapter = adapter
+            binding.rvArtworks.layoutManager = LinearLayoutManager(requireContext())
+
+            viewModel.artworks.observe(viewLifecycleOwner) { list ->
+                list?.let { adapter.setData(it) }
+            }
+
+            viewModel.fetchArtworksByArtist(args.artistId)
         }
-        viewModel.artworks.observe(viewLifecycleOwner) { list ->
-            list?.let { adapter.setData(it) }
-        }
-
-        viewModel.fetchArtworksByArtist(args.artistId)
-
-        binding.rvArtworks.adapter = adapter
-        binding.rvArtworks.layoutManager = LinearLayoutManager(requireContext())
-
-        viewModel.artworks.observe(viewLifecycleOwner) { list ->
-            list?.let { adapter.setData(it) }
-        }
-
-        viewModel.fetchArtworksByArtist(args.artistId)
     }
 
     override fun onDestroyView() {

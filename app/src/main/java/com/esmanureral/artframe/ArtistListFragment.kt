@@ -27,9 +27,16 @@ class ArtistListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupRecyclerView()
-        observeViewModel()
-        viewModel.fetchArtists()
+        PermissionHelper.requestNotificationPermission(this) { granted ->
+            if (granted) {
+                println(" Notification permission granted")
+            } else {
+                println(" Notification permission denied")
+            }
+            setupRecyclerView()
+            observeViewModel()
+            viewModel.fetchArtists()
+        }
     }
 
     private fun setupRecyclerView() {

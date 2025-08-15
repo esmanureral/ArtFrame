@@ -26,25 +26,30 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        favoritesPrefs = ArtWorkSharedPreferences(requireContext())
-        favoritesList = favoritesPrefs.loadFavorites().reversed().toMutableList()
-        adapter = FavoritesAdapter(favoritesList) { artwork ->
-            findNavController().navigate(
-                FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(artwork.id)
-            )
-        }
-        with(binding) {
-            rvFavorites.adapter = adapter
-            rvFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
-            ivArrowLeft.setOnClickListener {
-                findNavController().navigate(R.id.artworkListFragment)
+        PermissionHelper.requestNotificationPermission(this) { granted ->
+            if (granted) {
+                println(" Notification permission granted")
+            } else {
+                println(" Notification permission denied")
+            }
+            favoritesPrefs = ArtWorkSharedPreferences(requireContext())
+            favoritesList = favoritesPrefs.loadFavorites().reversed().toMutableList()
+            adapter = FavoritesAdapter(favoritesList) { artwork ->
+                findNavController().navigate(
+                    FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(artwork.id)
+                )
+            }
+            with(binding) {
+                rvFavorites.adapter = adapter
+                rvFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
+                ivArrowLeft.setOnClickListener {
+                    findNavController().navigate(R.id.artworkListFragment)
+                }
             }
         }
-
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
     }
-}

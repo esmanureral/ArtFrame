@@ -28,6 +28,13 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        PermissionHelper.requestNotificationPermission(this) { granted ->
+            if (granted) {
+                println(" Notification permission granted")
+            } else {
+                println(" Notification permission denied")
+            }
+        }
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
 
         val artworkId = arguments?.getInt("artwork_id") ?: return
