@@ -1,6 +1,7 @@
 package com.esmanureral.artframe
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.esmanureral.artframe.databinding.ActivityMainBinding
@@ -31,6 +32,13 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 else -> false
+            }
+        }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.fullScreenImageFragment) {
+                binding.bottomNavigationView.visibility = View.GONE
+            } else {
+                binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }
     }

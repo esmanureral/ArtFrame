@@ -26,6 +26,10 @@
         <action
             android:id="@+id/action_detailFragment_to_artistArtworkFragment"
             app:destination="@id/artistArtworkFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_fullScreenImageFragment"
+            app:destination="@id/fullScreenImageFragment" />
+
     </fragment>
 
     <fragment
@@ -60,6 +64,15 @@
         <action
             android:id="@+id/action_artistArtworkFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fullScreenImageFragment"
+        android:name="com.esmanureral.artframe.FullScreenImageFragment"
+        android:label="FullScreenImageFragment">
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
     </fragment>
 
 </navigation>

@@ -84,7 +84,13 @@ class DetailFragment : Fragment() {
                             findNavController().navigate(action)
                         }
                     }
-
+                    ivArtwork.setOnClickListener {
+                        val action =
+                            DetailFragmentDirections.actionDetailFragmentToFullScreenImageFragment(
+                                imageUrl
+                            )
+                        findNavController().navigate(action)
+                    }
                 }
             }
         }
