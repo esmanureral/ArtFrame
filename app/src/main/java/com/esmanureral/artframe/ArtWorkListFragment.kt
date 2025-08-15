@@ -37,7 +37,6 @@ class ArtworkListFragment : Fragment() {
             }
             setupRecyclerView()
             observeViewModel()
-            viewModel.fetchArtworks()
         }
     }
 

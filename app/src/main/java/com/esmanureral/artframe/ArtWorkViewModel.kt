@@ -29,6 +29,10 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
     private var isLoading = false
     private var isLoadingArtists = false
 
+    init {
+        fetchArtworks()
+    }
+
     fun fetchArtworks() {
         if (isLoading) return
         isLoading = true
