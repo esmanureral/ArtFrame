@@ -39,7 +39,7 @@ class ArtworkListFragment : Fragment() {
             navigateToDetail(artwork.id)
         }
         with(binding) {
-            recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
+            recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
             recyclerView.adapter = adapter
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
 
 class FavoritesFragment : Fragment() {
@@ -33,9 +33,12 @@ class FavoritesFragment : Fragment() {
                 FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(artwork.id)
             )
         }
-        with(binding){
+        with(binding) {
             rvFavorites.adapter = adapter
-            rvFavorites.layoutManager = LinearLayoutManager(requireContext())
+            rvFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
+            ivArrowLeft.setOnClickListener {
+                findNavController().navigate(R.id.artworkListFragment)
+            }
         }
 
     }

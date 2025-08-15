@@ -41,11 +41,14 @@ class ArtistListFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
-        binding.rvArtists.adapter = adapter
         with(binding) {
+            rvArtists.adapter = adapter
             rvArtists.adapter = adapter
             rvArtists.layoutManager = LinearLayoutManager(requireContext())
 
+            ivArrowLeft.setOnClickListener {
+                findNavController().popBackStack()
+            }
             rvArtists.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(rv, dx, dy)

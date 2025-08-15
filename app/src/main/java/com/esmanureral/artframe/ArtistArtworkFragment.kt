@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esmanureral.artframe.databinding.FragmentArtistArtworkBinding
+
 class ArtistArtworkFragment : Fragment() {
 
     private var _binding: FragmentArtistArtworkBinding? = null
@@ -33,9 +34,13 @@ class ArtistArtworkFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        binding.rvArtworks.adapter = adapter
-        binding.rvArtworks.layoutManager = LinearLayoutManager(requireContext())
-
+        with(binding) {
+            rvArtworks.adapter = adapter
+            rvArtworks.layoutManager = LinearLayoutManager(requireContext())
+            ivArrowLeft.setOnClickListener {
+                findNavController().navigate(R.id.artistListFragment)
+            }
+        }
         viewModel.artworks.observe(viewLifecycleOwner) { list ->
             list?.let { adapter.setData(it) }
         }
