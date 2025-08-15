@@ -5,10 +5,7 @@
     <string name="year_unknown">"?"</string>
     <string name="artist_years">%1$s - %2$s</string>
     <string name="unknown">-</string>
-    <string name="artwork_title">%1$s</string>
-    <string name="artwork_artist">%1$s</string>
-    <string name="artwork_date">Eserin yapıldığı tarih: %1$s</string>
-    <string name="artwork_medium">Teknik / Malzeme: %1$s</string>
     <string name="artwork_description">%1$s</string>
+    <string name="variable">%1$s</string>
 
 </resources>

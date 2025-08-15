@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="3dp"
-    android:clipToOutline="true"
+    android:layout_margin="4dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp"
     app:cardUseCompatPadding="true">
@@ -38,11 +37,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_margin="4dp"
+                    android:layout_margin="8dp"
                     android:padding="8dp"
                     android:src="@drawable/favorite_border"
                     app:layout_collapseMode="parallax"
-                    app:tint="@android:color/black" />
+                    app:tint="?android:colorPrimaryDark" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -73,73 +72,69 @@
                     android:textStyle="italic"
                     tools:text="Kedi ile Çocuk" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipArtist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    tools:text="Sebastiano del Piombo"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    app:chipBackgroundColor="@color/black"
+                    app:chipCornerRadius="24dp"
+                    app:chipIconVisible="false" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="1dp"
+                    android:background="@color/light_grey" />
+
                 <TextView
                     android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/lora_regular"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
                     tools:text="1908" />
 
                 <TextView
                     android:id="@+id/tvMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    tools:text="Oil on canvas" />
+
+                <TextView
+                    android:id="@+id/tvDimensions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="@font/lora_regular"
-                    android:padding="0dp"
-                    android:textColor="@android:color/white"
-                    tools:text="Medium bilgisi..." />
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    tools:text="91.8 × 150.2 cm" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardArtist"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="12dp"
-                    android:backgroundTint="#363333"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/lora_regular"
-                    app:cardCornerRadius="24dp"
-                    app:strokeWidth="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="16dp">
-
-                        <TextView
-                            android:id="@+id/tvArtist"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/lora_regular"
-                            android:text="Sanatçı Adı"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:src="@drawable/baseline_arrow_right_24"
-                            app:tint="@color/white" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/tvCreditLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    tools:text="Mr. and Mrs. Lewis Larned Coburn Memorial Collection" />
 
                 <TextView
                     android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/lora_regular"
-                    android:padding="8dp"
-                    android:textColor="@android:color/white"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/didot_regular"
+                    android:letterSpacing="0.1"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
                     tools:text="Açıklama..." />
 
             </LinearLayout>
