@@ -11,11 +11,11 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.esmanureral.artframe.databinding.FragmentDetailBinding
 
-class DetailFragment : Fragment() {
+class ArtWorkDetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ArtWorkViewModel by viewModels()
+    private val viewModel: ArtWorkDetailViewModel by viewModels()
     private var currentArtwork: ArtworkDetail? = null
     private lateinit var favoritesPrefs: ArtWorkSharedPreferences
     override fun onCreateView(
@@ -76,7 +76,7 @@ class DetailFragment : Fragment() {
                     }
                     chipArtist.setOnClickListener {
                         currentArtwork?.artistId?.let { id ->
-                            val action = DetailFragmentDirections
+                            val action = ArtWorkDetailFragmentDirections
                                 .actionDetailFragmentToArtistArtworkFragment(
                                     artistId = id,
                                     artistName = currentArtwork?.artistTitle ?: "-"
@@ -86,7 +86,7 @@ class DetailFragment : Fragment() {
                     }
                     ivArtwork.setOnClickListener {
                         val action =
-                            DetailFragmentDirections.actionDetailFragmentToFullScreenImageFragment(
+                            ArtWorkDetailFragmentDirections.actionDetailFragmentToFullScreenImageFragment(
                                 imageUrl
                             )
                         findNavController().navigate(action)

@@ -16,9 +16,6 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
     private val _artworks = MutableLiveData<List<Artwork>>()
     val artworks: LiveData<List<Artwork>> get() = _artworks
 
-    private val _artworkDetail = MutableLiveData<ArtworkDetail?>()
-    val artworkDetail: LiveData<ArtworkDetail?> = _artworkDetail
-
     private val _artist = MutableLiveData<List<Artists>>()
     val artists: LiveData<List<Artists>> get() = _artist
 
@@ -53,17 +50,6 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-
-    fun fetchArtworkDetail(id: Int) {
-        viewModelScope.launch {
-            val response = api.getArtworkDetail(id)
-            if (response.isSuccessful) {
-                _artworkDetail.value = response.body()?.data
-            } else {
-                _artworkDetail.value = null
-            }
-        }
-    }
 
     fun fetchArtists() {
         if (isLoadingArtists) return

@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.esmanureral.artframe.DetailFragment"
+        android:name="com.esmanureral.artframe.ArtWorkDetailFragment"
         android:label="DetailFragment">
         <argument
             android:name="artwork_id"
