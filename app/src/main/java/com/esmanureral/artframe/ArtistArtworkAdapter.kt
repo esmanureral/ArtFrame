@@ -16,7 +16,7 @@ class ArtistArtworkAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Artwork) {
             binding.tvArtworkTitle.text = item.title
-            val imageUrl = "https://www.artic.edu/iiif/2/${item.imageId}/full/843,/0/default.jpg"
+            val imageUrl = "https://www.artic.edu/iiif/2/${item.imageId}/full/1600,/0/default.jpg"
             binding.ivArtworkImage.load(imageUrl) { crossfade(true) }
             binding.root.setOnClickListener { onItemClick(item) }
         }

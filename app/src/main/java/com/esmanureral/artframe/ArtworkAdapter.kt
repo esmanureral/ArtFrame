@@ -21,7 +21,7 @@ class ArtworkAdapter(
                 root.setOnClickListener { onItemClick(item) }
                 tvTitle.text = item.title
                 val imageUrl =
-                    "https://www.artic.edu/iiif/2/${item.imageId}/full/843,/0/default.jpg"
+                    "https://www.artic.edu/iiif/2/${item.imageId}/full/1600,/0/default.jpg"
                 ivArtwork.load(imageUrl) {
                     crossfade(true)
                 }
