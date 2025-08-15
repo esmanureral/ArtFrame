@@ -57,7 +57,7 @@ class ArtWorkDetailFragment : Fragment() {
                     tvDimensions.text = getString(R.string.variable, it.dimensions ?: "")
                     tvCreditLine.text = getString(R.string.variable, it.creditLine ?: "")
                     val imageUrl =
-                        "https://www.artic.edu/iiif/2/${it.imageId}/full/!1080,1920/0/default.jpg"
+                        "https://www.artic.edu/iiif/2/${it.imageId}/full/!1280,720/0/default.jpg"
                     ivArtwork.load(imageUrl) {
                         crossfade(true)
                         placeholder(R.drawable.ic_launcher_background)

@@ -29,14 +29,18 @@ class ArtworkListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupPermission()
+        setupRecyclerView()
+        observeViewModel()
+    }
+
+    private fun setupPermission() {
         PermissionHelper.requestNotificationPermission(this) { granted ->
             if (granted) {
                 println(" Notification permission granted")
             } else {
                 println(" Notification permission denied")
             }
-            setupRecyclerView()
-            observeViewModel()
         }
     }
 
@@ -51,7 +55,6 @@ class ArtworkListFragment : Fragment() {
                 override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(rv, dx, dy)
                     checkForPagination(rv)
-
                 }
             })
         }
@@ -76,7 +79,7 @@ class ArtworkListFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.artworks.observe(viewLifecycleOwner) { newItems ->
             adapter.addData(newItems)
-            if(newItems.size<10){
+            if (newItems.size < 10) {
                 viewModel.fetchArtworks()
             }
         }
