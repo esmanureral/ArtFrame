@@ -38,24 +38,16 @@ class DetailFragment : Fragment() {
             detail?.let {
                 currentArtwork = it
                 with(binding) {
-                    tvTitle.text =
-                        getString(R.string.artwork_title, it.title ?: getString(R.string.unknown))
-                    tvArtist.text = getString(
-                        R.string.artwork_artist,
-                        it.artistDisplay ?: getString(R.string.unknown)
-                    )
-                    tvDate.text = getString(
-                        R.string.artwork_date,
-                        it.dateDisplay ?: getString(R.string.unknown)
-                    )
-                    tvMedium.text = getString(
-                        R.string.artwork_medium,
-                        it.mediumDisplay ?: getString(R.string.unknown)
-                    )
+                    tvTitle.text = getString(R.string.variable, it.title)
+                    chipArtist.text = getString(R.string.variable, it.artistTitle)
+                    tvDate.text = getString(R.string.variable, it.dateDisplay)
+                    tvMedium.text = getString(R.string.variable, it.thumbnail?.altText)
                     tvDescription.text = Html.fromHtml(
-                        getString(R.string.artwork_description, it.description ?: ""),
+                        getString(R.string.artwork_description, it.description),
                         Html.FROM_HTML_MODE_COMPACT
                     )
+                    tvDimensions.text = getString(R.string.variable, it.dimensions)
+                    tvCreditLine.text = getString(R.string.variable, it.creditLine)
                     val imageUrl =
                         "https://www.artic.edu/iiif/2/${it.imageId}/full/!1080,1920/0/default.jpg"
                     ivArtwork.load(imageUrl) {
@@ -74,12 +66,12 @@ class DetailFragment : Fragment() {
                             updateFavoriteIcon(artwork)
                         }
                     }
-                    cardArtist.setOnClickListener {
+                    chipArtist.setOnClickListener {
                         currentArtwork?.artistId?.let { id ->
                             val action = DetailFragmentDirections
                                 .actionDetailFragmentToArtistArtworkFragment(
                                     artistId = id,
-                                    artistName = currentArtwork?.artistDisplay ?: "-"
+                                    artistName = currentArtwork?.artistTitle ?: "-"
                                 )
                             findNavController().navigate(action)
                         }
