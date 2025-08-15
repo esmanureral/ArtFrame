@@ -30,7 +30,8 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             val response = api.getArtWorks(page = currentPage)
             val includedClassifications =
-                listOf("etching",
+                listOf(
+                    "etching",
                     "oil on canvas",
                     "ink or chalk wash",
                     "salted paper print",
@@ -61,7 +62,8 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
                     "modern and contemporary art",
                     "pen and ink drawings",
                     "gelatin silver",
-                    "screenprint")
+                    "screenprint"
+                )
             if (response.isSuccessful) {
                 val newData = response.body()?.data
                     ?.filter { !it.imageId.isNullOrBlank() }
@@ -70,23 +72,6 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
                 allArtworks.addAll(newData)
                 _artworks.postValue(newData)
                 currentPage++
-            }
-            isLoading = false
-        }
-    }
-
-
-    fun fetchArtworksByArtist(artistId: Int) {
-        if (isLoading) return
-        isLoading = true
-        viewModelScope.launch {
-            val response = api.getArtworksByArtist(artistId)
-            if (response.isSuccessful) {
-                val artworksWithImages = response.body()?.data
-                    ?.filter { !it.imageId.isNullOrBlank() }
-                    ?: emptyList()
-
-                _artworks.postValue(artworksWithImages)
             }
             isLoading = false
         }

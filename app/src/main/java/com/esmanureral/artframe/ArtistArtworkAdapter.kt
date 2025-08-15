@@ -15,10 +15,13 @@ class ArtistArtworkAdapter(
         private val binding: ItemArtistArtworkBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Artwork) {
-            binding.tvArtworkTitle.text = item.title
-            val imageUrl = "https://www.artic.edu/iiif/2/${item.imageId}/full/1600,/0/default.jpg"
-            binding.ivArtworkImage.load(imageUrl) { crossfade(true) }
-            binding.root.setOnClickListener { onItemClick(item) }
+            with(binding) {
+                tvArtworkTitle.text = item.title
+                val imageUrl =
+                    "https://www.artic.edu/iiif/2/${item.imageId}/full/1600,/0/default.jpg"
+                ivArtworkImage.load(imageUrl) { crossfade(true) }
+                root.setOnClickListener { onItemClick(item) }
+            }
         }
     }
 

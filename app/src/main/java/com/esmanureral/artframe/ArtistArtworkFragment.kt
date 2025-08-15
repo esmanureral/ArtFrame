@@ -17,7 +17,7 @@ class ArtistArtworkFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: ArtistArtworkFragmentArgs by navArgs()
-    private val viewModel: ArtWorkViewModel by viewModels()
+    private val viewModel: ArtistArtworkViewModel by viewModels()
     private lateinit var adapter: ArtistArtworkAdapter
 
     override fun onCreateView(
@@ -26,39 +26,42 @@ class ArtistArtworkFragment : Fragment() {
     ) = FragmentArtistArtworkBinding.inflate(inflater, container, false).also { _binding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.tvArtistTitle.text = args.artistName
+        setupAdapter()
+        observeViewModel()
+        setupPermission()
+        viewModel.fetchArtworksByArtist(args.artistId)
+        setupBackButton()
+    }
+
+    private fun setupAdapter() {
+        adapter = ArtistArtworkAdapter { artwork ->
+            val action = ArtistArtworkFragmentDirections
+                .actionArtistArtworkFragmentToDetailFragment(artwork.id)
+            findNavController().navigate(action)
+        }
+        with(binding) {
+            rvArtworks.adapter = adapter
+            rvArtworks.layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.artworks.observe(viewLifecycleOwner) { list ->
+            list?.let { adapter.setData(it) }
+        }
+    }
+
+    private fun setupPermission() {
         PermissionHelper.requestNotificationPermission(this) { granted ->
-            if (granted) {
-                println(" Notification permission granted")
-            } else {
-                println(" Notification permission denied")
-            }
-            binding.tvArtistTitle.text = args.artistName
+            if (granted) println("Notification permission granted")
+            else println("Notification permission denied")
+        }
+    }
 
-            adapter = ArtistArtworkAdapter { artwork ->
-                val action = ArtistArtworkFragmentDirections
-                    .actionArtistArtworkFragmentToDetailFragment(artwork.id)
-                findNavController().navigate(action)
-            }
-
-            with(binding) {
-                rvArtworks.adapter = adapter
-                rvArtworks.layoutManager = LinearLayoutManager(requireContext())
-                ivArrowLeft.setOnClickListener {
-                    findNavController().navigate(R.id.artistListFragment)
-                }
-            }
-            viewModel.artworks.observe(viewLifecycleOwner) { list ->
-                list?.let { adapter.setData(it) }
-            }
-
-            viewModel.fetchArtworksByArtist(args.artistId)
-
-            binding.rvArtworks.adapter = adapter
-            binding.rvArtworks.layoutManager = LinearLayoutManager(requireContext())
-
-            viewModel.artworks.observe(viewLifecycleOwner) { list ->
-                list?.let { adapter.setData(it) }
-            }
+    private fun setupBackButton() {
+        binding.ivArrowLeft.setOnClickListener {
+            findNavController().navigate(R.id.artistListFragment)
         }
     }
 
