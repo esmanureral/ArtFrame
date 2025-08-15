@@ -59,8 +59,6 @@ class ArtistArtworkFragment : Fragment() {
             viewModel.artworks.observe(viewLifecycleOwner) { list ->
                 list?.let { adapter.setData(it) }
             }
-
-            viewModel.fetchArtworksByArtist(args.artistId)
         }
     }
 

@@ -15,7 +15,7 @@ import com.esmanureral.artframe.databinding.FragmentArtistListBinding
 class ArtistListFragment : Fragment() {
     private var _binding: FragmentArtistListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ArtWorkViewModel by viewModels()
+    private val viewModel: ArtistListViewModel by viewModels()
     private lateinit var adapter: ArtistListAdapter
 
     override fun onCreateView(
@@ -49,7 +49,6 @@ class ArtistListFragment : Fragment() {
             findNavController().navigate(action)
         }
         with(binding) {
-            rvArtists.adapter = adapter
             rvArtists.adapter = adapter
             rvArtists.layoutManager = LinearLayoutManager(requireContext())
 

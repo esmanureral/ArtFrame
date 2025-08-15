@@ -76,6 +76,9 @@ class ArtworkListFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.artworks.observe(viewLifecycleOwner) { newItems ->
             adapter.addData(newItems)
+            if(newItems.size<10){
+                viewModel.fetchArtworks()
+            }
         }
     }
 
