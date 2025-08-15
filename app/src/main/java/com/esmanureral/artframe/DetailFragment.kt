@@ -38,16 +38,17 @@ class DetailFragment : Fragment() {
             detail?.let {
                 currentArtwork = it
                 with(binding) {
-                    tvTitle.text = getString(R.string.variable, it.title)
-                    chipArtist.text = getString(R.string.variable, it.artistTitle)
-                    tvDate.text = getString(R.string.variable, it.dateDisplay)
-                    tvMedium.text = getString(R.string.variable, it.thumbnail?.altText)
+                    tvTitle.text =
+                        getString(R.string.variable, it.title ?: "")
+                    chipArtist.text = getString(R.string.variable, it.artistTitle ?: "")
+                    tvDate.text = getString(R.string.variable, it.dateDisplay ?: "")
+                    tvMedium.text = getString(R.string.variable, it.thumbnail?.altText ?: "")
                     tvDescription.text = Html.fromHtml(
-                        getString(R.string.artwork_description, it.description),
+                        getString(R.string.artwork_description, it.description ?: ""),
                         Html.FROM_HTML_MODE_COMPACT
                     )
-                    tvDimensions.text = getString(R.string.variable, it.dimensions)
-                    tvCreditLine.text = getString(R.string.variable, it.creditLine)
+                    tvDimensions.text = getString(R.string.variable, it.dimensions ?: "")
+                    tvCreditLine.text = getString(R.string.variable, it.creditLine ?: "")
                     val imageUrl =
                         "https://www.artic.edu/iiif/2/${it.imageId}/full/!1080,1920/0/default.jpg"
                     ivArtwork.load(imageUrl) {
