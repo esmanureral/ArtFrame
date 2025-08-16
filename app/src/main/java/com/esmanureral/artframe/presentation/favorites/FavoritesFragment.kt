@@ -46,9 +46,6 @@ class FavoritesFragment : Fragment() {
             with(binding) {
                 rvFavorites.adapter = adapter
                 rvFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
-                ivArrowLeft.setOnClickListener {
-                    findNavController().navigate(R.id.artworkListFragment)
-                }
             }
         }
     }
