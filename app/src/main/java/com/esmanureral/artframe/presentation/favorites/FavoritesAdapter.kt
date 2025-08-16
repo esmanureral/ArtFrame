@@ -1,9 +1,11 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.favorites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.esmanureral.artframe.R
+import com.esmanureral.artframe.data.network.ArtworkDetail
 import com.esmanureral.artframe.databinding.ItemArtworkBinding
 
 class FavoritesAdapter(

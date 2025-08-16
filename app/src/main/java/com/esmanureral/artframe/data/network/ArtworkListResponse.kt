@@ -1,4 +1,4 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.data.network
 
 import com.google.gson.annotations.SerializedName
 

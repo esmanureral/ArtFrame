@@ -1,4 +1,4 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
+import com.esmanureral.artframe.PermissionHelper
+import com.esmanureral.artframe.R
+import com.esmanureral.artframe.data.network.ArtworkDetail
 import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
 
 class FavoritesFragment : Fragment() {

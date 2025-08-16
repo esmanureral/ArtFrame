@@ -1,4 +1,4 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.artwork
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.esmanureral.artframe.PermissionHelper
+import com.esmanureral.artframe.R
 import com.esmanureral.artframe.databinding.FragmentArtworkListBinding
 
 class ArtworkListFragment : Fragment() {

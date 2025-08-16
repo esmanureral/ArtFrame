@@ -1,4 +1,4 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.artist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.esmanureral.artframe.PermissionHelper
 import com.esmanureral.artframe.databinding.FragmentArtistListBinding
 
 

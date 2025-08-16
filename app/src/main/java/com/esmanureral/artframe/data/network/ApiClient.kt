@@ -1,4 +1,4 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.data.network
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor

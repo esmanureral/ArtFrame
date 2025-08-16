@@ -1,4 +1,4 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.artist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.esmanureral.artframe.PermissionHelper
+import com.esmanureral.artframe.R
 import com.esmanureral.artframe.databinding.FragmentArtistArtworkBinding
 
 class ArtistArtworkFragment : Fragment() {

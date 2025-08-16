@@ -1,10 +1,13 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.artist
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.esmanureral.artframe.data.network.ApiClient
+import com.esmanureral.artframe.data.network.ApiService
+import com.esmanureral.artframe.data.network.Artists
 import kotlinx.coroutines.launch
 
 class ArtistListViewModel(application: Application) : AndroidViewModel(application) {

@@ -1,4 +1,4 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.artwork
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,6 +6,9 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.esmanureral.artframe.data.network.ApiClient
+import com.esmanureral.artframe.data.network.ApiService
+import com.esmanureral.artframe.data.network.Artwork
 
 class ArtWorkViewModel(application: Application) : AndroidViewModel(application) {
 

@@ -1,4 +1,4 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.artwork
 
 import android.os.Bundle
 import android.text.Html
@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
+import com.esmanureral.artframe.PermissionHelper
+import com.esmanureral.artframe.R
+import com.esmanureral.artframe.data.network.ArtworkDetail
 import com.esmanureral.artframe.databinding.FragmentDetailBinding
 
 class ArtWorkDetailFragment : Fragment() {

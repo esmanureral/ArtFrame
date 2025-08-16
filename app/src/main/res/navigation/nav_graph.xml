@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/artworkListFragment"
-        android:name="com.esmanureral.artframe.ArtworkListFragment"
+        android:name="com.esmanureral.artframe.presentation.artwork.ArtworkListFragment"
         android:label="ArtworkListFragment">
         <action
             android:id="@+id/action_artworkListFragment_to_detailFragment"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.esmanureral.artframe.ArtWorkDetailFragment"
+        android:name="com.esmanureral.artframe.presentation.artwork.ArtWorkDetailFragment"
         android:label="DetailFragment">
         <argument
             android:name="artwork_id"
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.esmanureral.artframe.FavoritesFragment"
+        android:name="com.esmanureral.artframe.presentation.favorites.FavoritesFragment"
         android:label="FavoritesFragment">
 
         <action
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/artistListFragment"
-        android:name="com.esmanureral.artframe.ArtistListFragment"
+        android:name="com.esmanureral.artframe.presentation.artist.ArtistListFragment"
         android:label="ArtistListFragment">
         <action
             android:id="@+id/action_artistListFragment_to_artistArtworkFragment"
@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/artistArtworkFragment"
-        android:name="com.esmanureral.artframe.ArtistArtworkFragment"
+        android:name="com.esmanureral.artframe.presentation.artist.ArtistArtworkFragment"
         android:label="ArtistArtworkFragment">
         <argument
             android:name="artistId"

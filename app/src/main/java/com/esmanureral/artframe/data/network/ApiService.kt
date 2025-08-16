@@ -1,4 +1,4 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.data.network
 
 import retrofit2.Response
 import retrofit2.http.GET

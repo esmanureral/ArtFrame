@@ -1,8 +1,10 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.artist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.esmanureral.artframe.R
+import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.databinding.ItemArtistBinding
 
 class ArtistListAdapter(

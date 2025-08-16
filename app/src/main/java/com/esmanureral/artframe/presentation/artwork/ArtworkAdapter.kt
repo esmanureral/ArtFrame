@@ -1,9 +1,10 @@
-package com.esmanureral.artframe
+package com.esmanureral.artframe.presentation.artwork
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.esmanureral.artframe.data.network.Artwork
 import com.esmanureral.artframe.databinding.ItemArtworkBinding
 
 class ArtworkAdapter(
