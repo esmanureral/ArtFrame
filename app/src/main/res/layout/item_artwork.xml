@@ -12,29 +12,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ivArtwork"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:adjustViewBounds="true"
-            android:background="@color/black"
-            android:scaleType="centerCrop" />
+            android:layout_height="160dp">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:shimmer_auto_start="true"
+                app:shimmer_duration="1800">
+
+                <ImageView
+                    android:id="@+id/ivPlaceholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    android:scaleType="centerCrop" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <ImageView
+                android:id="@+id/ivArtwork"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:fontFamily="@font/lora_regular"
-            android:maxLines="1"
-            android:padding="4dp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:text="Eser Başlığı"
-            android:textColor="?attr/colorPrimaryDark"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/tvclassificationTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"

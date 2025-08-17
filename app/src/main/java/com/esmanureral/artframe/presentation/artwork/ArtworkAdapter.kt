@@ -3,9 +3,10 @@ package com.esmanureral.artframe.presentation.artwork
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.network.Artwork
 import com.esmanureral.artframe.databinding.ItemArtworkBinding
+import com.esmanureral.artframe.loadWithShimmer
 
 class ArtworkAdapter(
     private val artworks: MutableList<Artwork>,
@@ -21,17 +22,21 @@ class ArtworkAdapter(
             with(binding) {
                 root.setOnClickListener { onItemClick(item) }
                 tvTitle.text = item.title
+
                 val imageUrl =
                     "https://www.artic.edu/iiif/2/${item.imageId}/full/!1280,720/0/default.jpg"
-                ivArtwork.load(imageUrl) {
-                    crossfade(true)
-                }
+                ivArtwork.loadWithShimmer(
+                    url = imageUrl,
+                    shimmerLayout = shimmerLayout,
+                    errorRes = R.drawable.error
+                )
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtworkViewHolder {
-        val binding = ItemArtworkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemArtworkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ArtworkViewHolder(binding, onItemClick)
     }
 
