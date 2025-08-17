@@ -31,10 +31,13 @@ class ArtistListAdapter(
                 ivFavorite.setOnClickListener {
                     if (favoritesPrefs.isArtistFavorite(artists)) {
                         favoritesPrefs.removeArtistFavorite(artists)
+                        artistItems.removeAt(adapterPosition)
+                        notifyItemRemoved(adapterPosition)
                     } else {
                         favoritesPrefs.addArtistFavorite(artists)
+                        artistItems[adapterPosition] = artists
+                        notifyItemChanged(adapterPosition)
                     }
-                    notifyDataSetChanged()
                 }
 
                 root.setOnClickListener {

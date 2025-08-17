@@ -33,22 +33,18 @@
     </fragment>
 
     <fragment
-        android:id="@+id/favoritesFragment"
-        android:name="com.esmanureral.artframe.presentation.favorites.FavoritesFragment"
-        android:label="FavoritesFragment">
-
-        <action
-            android:id="@+id/action_favoritesFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/artistListFragment"
         android:name="com.esmanureral.artframe.presentation.artist.ArtistListFragment"
         android:label="ArtistListFragment">
+        <argument
+            android:name="artist_id"
+            app:argType="integer" />
         <action
             android:id="@+id/action_artistListFragment_to_artistArtworkFragment"
             app:destination="@id/artistArtworkFragment" />
+        <action
+            android:id="@+id/action_artistListFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
 
     <fragment
@@ -73,6 +69,19 @@
         <argument
             android:name="imageUrl"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.esmanureral.artframe.presentation.favorites.FavoritesFragment"
+        android:label="FavoritesFragment">
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_artistArtworkFragment"
+            app:destination="@id/artistArtworkFragment" />
     </fragment>
 
 </navigation>

@@ -29,8 +29,8 @@ class FullScreenImageFragment : Fragment() {
 
         binding.ivFullScreen.load(args.imageUrl) {
             crossfade(true)
-            placeholder(R.drawable.ic_launcher_background)
-            error(R.drawable.ic_launcher_foreground)
+            placeholder(R.drawable.logo)
+            error(R.drawable.error)
         }
 
         binding.ivFullScreen.setOnClickListener {
