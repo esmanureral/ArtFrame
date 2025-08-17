@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.R
+import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.databinding.ItemArtistBinding
 
 class ArtistListAdapter(
+    private val favoritesPrefs: ArtWorkSharedPreferences,
     private val onItemClick: (Artists) -> Unit
 ) : RecyclerView.Adapter<ArtistListAdapter.ArtistViewHolder>() {
     private val artistItems = mutableListOf<Artists>()
@@ -21,6 +23,19 @@ class ArtistListAdapter(
                 val birth = artists.birthDate ?: context.getString(R.string.year_unknown)
                 val death = artists.deathDate ?: context.getString(R.string.year_unknown)
                 tvYears.text = context.getString(R.string.artist_years, birth, death)
+
+                ivFavorite.setImageResource(
+                    if (favoritesPrefs.isArtistFavorite(artists)) R.drawable.favorite_24
+                    else R.drawable.favorite_border
+                )
+                ivFavorite.setOnClickListener {
+                    if (favoritesPrefs.isArtistFavorite(artists)) {
+                        favoritesPrefs.removeArtistFavorite(artists)
+                    } else {
+                        favoritesPrefs.addArtistFavorite(artists)
+                    }
+                    notifyDataSetChanged()
+                }
 
                 root.setOnClickListener {
                     onItemClick(artists)

@@ -39,9 +39,11 @@ class ArtWorkDetailFragment : Fragment() {
         val artworkId = arguments?.getInt("artwork_id") ?: return
 
         viewModel.fetchArtworkDetail(artworkId)
-
         setupClickListeners()
+        observeArtworkDetail()
+    }
 
+    private fun observeArtworkDetail() {
         viewModel.artworkDetail.observe(viewLifecycleOwner) { detail ->
             detail?.let {
                 currentArtwork = it
@@ -80,6 +82,22 @@ class ArtWorkDetailFragment : Fragment() {
     }
 
     private fun updateUI(artwork: ArtworkDetail) {
+        bindTextFields(artwork)
+        loadArtworkImage(artwork)
+        updateFavoriteIcon(artwork)
+    }
+
+    private fun loadArtworkImage(artwork: ArtworkDetail) {
+        val imageUrl =
+            "https://www.artic.edu/iiif/2/${artwork.imageId}/full/!1280,720/0/default.jpg"
+        binding.ivArtwork.load(imageUrl) {
+            crossfade(true)
+            placeholder(R.drawable.black)
+            error(R.drawable.error)
+        }
+    }
+
+    private fun bindTextFields(artwork: ArtworkDetail) {
         with(binding) {
             tvTitle.text = artwork.title ?: ""
             chipArtist.text = artwork.artistTitle ?: ""
@@ -91,33 +109,23 @@ class ArtWorkDetailFragment : Fragment() {
                 artwork.description ?: "",
                 Html.FROM_HTML_MODE_COMPACT
             )
-
-            val imageUrl =
-                "https://www.artic.edu/iiif/2/${artwork.imageId}/full/!1280,720/0/default.jpg"
-            ivArtwork.load(imageUrl) {
-                crossfade(true)
-                placeholder(R.drawable.black)
-                error(R.drawable.error)
-            }
-
-            updateFavoriteIcon(artwork)
         }
     }
 
     private fun toggleFavorite(artwork: ArtworkDetail) {
-        if (favoritesPrefs.isFavorite(artwork)) favoritesPrefs.removeFavorite(artwork)
-        else favoritesPrefs.addFavorite(artwork)
+        if (favoritesPrefs.isArtworkFavorite(artwork)) favoritesPrefs.removeArtworkFavorite(artwork)
+        else favoritesPrefs.addArtworkFavorite(artwork)
         updateFavoriteIcon(artwork)
     }
 
     private fun updateFavoriteIcon(artwork: ArtworkDetail) {
-        val res = if (favoritesPrefs.isFavorite(artwork)) R.drawable.favorite_24
+        val res = if (favoritesPrefs.isArtworkFavorite(artwork)) R.drawable.favorite_24
         else R.drawable.favorite_border
         binding.ivFavorite.setImageResource(res)
     }
 
     private fun navigateToArtistArtworks(artwork: ArtworkDetail) {
-        artwork.artistId?.let { id ->
+        artwork.artistId.let { id ->
             val action = ArtWorkDetailFragmentDirections
                 .actionDetailFragmentToArtistArtworkFragment(
                     artistId = id,
