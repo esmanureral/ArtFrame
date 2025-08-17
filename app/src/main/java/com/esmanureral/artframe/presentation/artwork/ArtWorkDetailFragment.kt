@@ -22,6 +22,7 @@ class ArtWorkDetailFragment : Fragment() {
     private val viewModel: ArtWorkDetailViewModel by viewModels()
     private var currentArtwork: ArtworkDetail? = null
     private lateinit var favoritesPrefs: ArtWorkSharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,81 +33,104 @@ class ArtWorkDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        PermissionHelper.requestNotificationPermission(this) { granted ->
-            if (granted) {
-                println(" Notification permission granted")
-            } else {
-                println(" Notification permission denied")
-            }
-        }
-        favoritesPrefs = ArtWorkSharedPreferences(requireContext())
+        setupPermission()
 
+        favoritesPrefs = ArtWorkSharedPreferences(requireContext())
         val artworkId = arguments?.getInt("artwork_id") ?: return
 
         viewModel.fetchArtworkDetail(artworkId)
 
+        setupClickListeners()
+
         viewModel.artworkDetail.observe(viewLifecycleOwner) { detail ->
             detail?.let {
                 currentArtwork = it
-                with(binding) {
-                    tvTitle.text =
-                        getString(R.string.variable, it.title ?: "")
-                    chipArtist.text = getString(R.string.variable, it.artistTitle ?: "")
-                    tvDate.text = getString(R.string.variable, it.dateDisplay ?: "")
-                    tvMedium.text = getString(R.string.variable, it.thumbnail?.altText ?: "")
-                    tvDescription.text = Html.fromHtml(
-                        getString(R.string.artwork_description, it.description ?: ""),
-                        Html.FROM_HTML_MODE_COMPACT
-                    )
-                    tvDimensions.text = getString(R.string.variable, it.dimensions ?: "")
-                    tvCreditLine.text = getString(R.string.variable, it.creditLine ?: "")
-                    val imageUrl =
-                        "https://www.artic.edu/iiif/2/${it.imageId}/full/!1280,720/0/default.jpg"
-                    ivArtwork.load(imageUrl) {
-                        crossfade(true)
-                        placeholder(R.drawable.ic_launcher_background)
-                        error(R.drawable.ic_launcher_foreground)
-                    }
-                    updateFavoriteIcon(it)
-                    ivFavorite.setOnClickListener {
-                        currentArtwork?.let { artwork ->
-                            if (favoritesPrefs.isFavorite(artwork)) {
-                                favoritesPrefs.removeFavorite(artwork)
-                            } else {
-                                favoritesPrefs.addFavorite(artwork)
-                            }
-                            updateFavoriteIcon(artwork)
-                        }
-                    }
-                    chipArtist.setOnClickListener {
-                        currentArtwork?.artistId?.let { id ->
-                            val action = ArtWorkDetailFragmentDirections
-                                .actionDetailFragmentToArtistArtworkFragment(
-                                    artistId = id,
-                                    artistName = currentArtwork?.artistTitle ?: "-"
-                                )
-                            findNavController().navigate(action)
-                        }
-                    }
-                    ivArtwork.setOnClickListener {
-                        val action =
-                            ArtWorkDetailFragmentDirections.actionDetailFragmentToFullScreenImageFragment(
-                                imageUrl
-                            )
-                        findNavController().navigate(action)
-                    }
-                }
+                updateUI(it)
             }
         }
     }
 
-    private fun updateFavoriteIcon(artwork: ArtworkDetail) {
-        val isFav = favoritesPrefs.isFavorite(artwork)
-        if (isFav) {
-            binding.ivFavorite.setImageResource(R.drawable.favorite_24)
-        } else {
-            binding.ivFavorite.setImageResource(R.drawable.favorite_border)
+    private fun setupPermission() {
+        PermissionHelper.requestNotificationPermission(this) { granted ->
+            println("Notification permission ${if (granted) "granted" else "denied"}")
         }
+    }
+
+    private fun setupClickListeners() {
+        with(binding) {
+            ivFavorite.setOnClickListener {
+                currentArtwork?.let { artwork -> toggleFavorite(artwork) }
+            }
+
+            chipArtist.setOnClickListener {
+                currentArtwork?.let { artwork -> navigateToArtistArtworks(artwork) }
+            }
+
+            ivArtwork.setOnClickListener {
+                currentArtwork?.let { artwork ->
+                    val imageUrl =
+                        "https://www.artic.edu/iiif/2/${artwork.imageId}/full/!1280,720/0/default.jpg"
+                    navigateToFullScreenImage(imageUrl)
+                }
+            }
+            ivArrowLeft.setOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun updateUI(artwork: ArtworkDetail) {
+        with(binding) {
+            tvTitle.text = artwork.title ?: ""
+            chipArtist.text = artwork.artistTitle ?: ""
+            tvDate.text = artwork.dateDisplay ?: ""
+            tvMedium.text = artwork.thumbnail?.altText ?: ""
+            tvDimensions.text = artwork.dimensions ?: ""
+            tvCreditLine.text = artwork.creditLine ?: ""
+            tvDescription.text = Html.fromHtml(
+                artwork.description ?: "",
+                Html.FROM_HTML_MODE_COMPACT
+            )
+
+            val imageUrl =
+                "https://www.artic.edu/iiif/2/${artwork.imageId}/full/!1280,720/0/default.jpg"
+            ivArtwork.load(imageUrl) {
+                crossfade(true)
+                placeholder(R.drawable.ic_launcher_background)
+                error(R.drawable.ic_launcher_foreground)
+            }
+
+            updateFavoriteIcon(artwork)
+        }
+    }
+
+    private fun toggleFavorite(artwork: ArtworkDetail) {
+        if (favoritesPrefs.isFavorite(artwork)) favoritesPrefs.removeFavorite(artwork)
+        else favoritesPrefs.addFavorite(artwork)
+        updateFavoriteIcon(artwork)
+    }
+
+    private fun updateFavoriteIcon(artwork: ArtworkDetail) {
+        val res = if (favoritesPrefs.isFavorite(artwork)) R.drawable.favorite_24
+        else R.drawable.favorite_border
+        binding.ivFavorite.setImageResource(res)
+    }
+
+    private fun navigateToArtistArtworks(artwork: ArtworkDetail) {
+        artwork.artistId?.let { id ->
+            val action = ArtWorkDetailFragmentDirections
+                .actionDetailFragmentToArtistArtworkFragment(
+                    artistId = id,
+                    artistName = artwork.artistTitle ?: "-"
+                )
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun navigateToFullScreenImage(imageUrl: String) {
+        val action = ArtWorkDetailFragmentDirections
+            .actionDetailFragmentToFullScreenImageFragment(imageUrl)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
