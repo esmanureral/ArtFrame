@@ -8,10 +8,12 @@ import com.facebook.shimmer.ShimmerFrameLayout
 fun ImageView.loadWithShimmer(
     url: String,
     shimmerLayout: ShimmerFrameLayout,
-    errorRes: Int = R.drawable.error
+    errorRes: Int = R.drawable.error,
+    placeRes:Int=R.drawable.logo
 ) {
     this.load(url) {
         crossfade(true)
+        placeholder(placeRes)
         error(errorRes)
         listener(
             onSuccess = { _, _ ->

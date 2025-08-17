@@ -20,8 +20,8 @@ class FavoritesAdapter(
             val imageUrl = "https://www.artic.edu/iiif/2/${artwork.imageId}/full/1600,/0/default.jpg"
             binding.ivArtwork.load(imageUrl) {
                 crossfade(true)
-                placeholder(R.drawable.ic_launcher_background)
-                error(R.drawable.ic_launcher_foreground)
+                placeholder(R.drawable.black)
+                error(R.drawable.error)
             }
             binding.root.setOnClickListener {
                 onItemClick(artwork)

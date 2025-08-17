@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.network.Artwork
 import com.esmanureral.artframe.databinding.ItemArtistArtworkBinding
 
@@ -20,7 +21,11 @@ class ArtistArtworkAdapter(
                 tvArtworkTitle.text = item.title
                 val imageUrl =
                     "https://www.artic.edu/iiif/2/${item.imageId}/full/1600,/0/default.jpg"
-                ivArtworkImage.load(imageUrl) { crossfade(true) }
+                ivArtworkImage.load(imageUrl) {
+                    placeholder(R.drawable.logo)
+                    error(R.drawable.error)
+                    crossfade(true)
+                }
                 root.setOnClickListener { onItemClick(item) }
             }
         }
