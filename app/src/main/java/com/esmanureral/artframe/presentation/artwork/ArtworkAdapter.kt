@@ -7,18 +7,19 @@ import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.network.Artwork
 import com.esmanureral.artframe.databinding.ItemArtworkBinding
 import com.esmanureral.artframe.loadWithShimmer
+import com.esmanureral.artframe.presentation.artwork.model.ArtworkUI
 
 class ArtworkAdapter(
-    private val artworks: MutableList<Artwork>,
-    private val onItemClick: (Artwork) -> Unit
+    private val artworks: MutableList<ArtworkUI>,
+    private val onItemClick: (ArtworkUI) -> Unit
 ) : RecyclerView.Adapter<ArtworkAdapter.ArtworkViewHolder>() {
 
     class ArtworkViewHolder(
         private val binding: ItemArtworkBinding,
-        private val onItemClick: (Artwork) -> Unit
+        private val onItemClick: (ArtworkUI) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Artwork) {
+        fun bind(item: ArtworkUI) {
             with(binding) {
                 root.setOnClickListener { onItemClick(item) }
                 tvTitle.text = item.title
@@ -46,7 +47,7 @@ class ArtworkAdapter(
 
     override fun getItemCount() = artworks.size
 
-    fun addData(newArtworks: List<Artwork>) {
+    fun addData(newArtworks: List<ArtworkUI>) {
         val startPos = artworks.size
         artworks.addAll(newArtworks)
         notifyItemRangeInserted(startPos, newArtworks.size)

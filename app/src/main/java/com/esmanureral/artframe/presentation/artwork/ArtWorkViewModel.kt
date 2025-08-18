@@ -9,6 +9,8 @@ import androidx.lifecycle.AndroidViewModel
 import com.esmanureral.artframe.data.network.ApiClient
 import com.esmanureral.artframe.data.network.ApiService
 import com.esmanureral.artframe.data.network.Artwork
+import com.esmanureral.artframe.presentation.artwork.model.ArtworkUI
+import com.esmanureral.artframe.presentation.artwork.model.toUIModel
 
 class ArtWorkViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -16,10 +18,10 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
         ApiClient.getApi(getApplication())
     }
 
-    private val _artworks = MutableLiveData<List<Artwork>>()
-    val artworks: LiveData<List<Artwork>> get() = _artworks
+    private val _artworks = MutableLiveData<List<ArtworkUI>>()
+    val artworks: LiveData<List<ArtworkUI>> get() = _artworks
 
-    private val allArtworks = mutableListOf<Artwork>()
+    private val allArtworks = mutableListOf<ArtworkUI>()
     private var currentPage = 1
     private var isLoading = false
 
@@ -71,6 +73,7 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
                 val newData = response.body()?.data
                     ?.filter { !it.imageId.isNullOrBlank() }
                     ?.filter { it.classificationTitle in includedClassifications }
+                    ?.map { it.toUIModel() }
                     ?: emptyList()
                 allArtworks.addAll(newData)
                 _artworks.postValue(newData)
