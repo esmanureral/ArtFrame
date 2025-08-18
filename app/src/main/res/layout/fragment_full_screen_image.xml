@@ -1,14 +1,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/ivFullScreen"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/full_screen"
         android:fitsSystemWindows="true"
         android:scaleType="fitCenter"
         app:layout_collapseMode="parallax"
@@ -17,39 +17,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ImageView
         android:id="@+id/saveIcon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_rounded"
-        android:contentDescription="Icon 1"
+        android:layout_width="@dimen/icon_full_screen_size"
+        android:layout_height="@dimen/icon_full_screen_size"
+        android:layout_margin="@dimen/toolbar_title_margin_start"
+        android:layout_marginBottom="@dimen/toolbar_title_margin_start"
+        android:contentDescription="@string/save_icon"
         android:src="@drawable/save_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/wallpaperIcon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="8dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="Icon 2"
+        android:layout_width="@dimen/icon_full_screen_size"
+        android:layout_height="@dimen/icon_full_screen_size"
+        android:layout_margin="@dimen/toolbar_title_margin_start"
+        android:layout_marginEnd="@dimen/toolbar_title_margin_start"
+        android:contentDescription="@string/wallpaper_icon"
         android:src="@drawable/wallpaper_icon"
         app:layout_constraintBottom_toTopOf="@+id/shareIcon"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/shareIcon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="8dp"
-        android:contentDescription="Icon 3"
+        android:layout_width="@dimen/icon_full_screen_size"
+        android:layout_height="@dimen/icon_full_screen_size"
+        android:layout_margin="@dimen/toolbar_title_margin_start"
+        android:contentDescription="@string/share_icon"
         android:src="@drawable/share_icon"
         app:layout_constraintBottom_toTopOf="@+id/saveIcon"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

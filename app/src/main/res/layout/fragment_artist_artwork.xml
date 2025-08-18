@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryDark">
+    android:background="@color/primary">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
-        android:paddingStart="4dp"
+        android:elevation="@dimen/toolbar_elevation"
+        android:padding="@dimen/toolbar_padding"
         app:contentInsetStart="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,39 +21,46 @@
             android:id="@+id/ivArrowLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:contentDescription="@string/iv_arrow_left_descr"
+            android:padding="@dimen/padding_8dp"
             android:src="@drawable/baseline_arrow_left_24" />
 
         <TextView
+            style="@style/ToolbarTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/playfair_display"
-            android:text="Sanatçının Eserleri"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="24sp" />
+            android:layout_marginStart="@dimen/toolbar_title_margin_start"
+            android:text="@string/artist_artworks_title" />
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/tvArtistTitle"
+        style="@style/ArtistTitleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:padding="4dp"
-        android:paddingBottom="8dp"
-        android:text="Sanatçı Adı"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginStart="@dimen/toolbar_title_margin_start"
+        android:padding="@dimen/toolbar_padding"
+        android:text="@string/artist_name_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <ImageView
+        android:id="@+id/ivFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/iv_favorite_margin"
+        android:contentDescription="@string/favorites_title"
+        android:padding="@dimen/padding_8dp"
+        android:src="@drawable/favorite_border"
+        app:layout_constraintEnd_toEndOf="@+id/tvArtistTitle"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvArtworks"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="4dp"
+        android:padding="@dimen/toolbar_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

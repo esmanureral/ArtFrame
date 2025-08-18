@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_margin="@dimen/margin_6dp"
+    app:cardCornerRadius="@dimen/header_padding"
+    app:cardElevation="@dimen/toolbar_padding">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         <FrameLayout
             android:id="@+id/frameArtwork"
             android:layout_width="0dp"
-            android:layout_height="160dp"
+            android:layout_height="@dimen/shimmer_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -29,7 +29,8 @@
                     android:id="@+id/ivPlaceholder"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/black"
+                    android:background="@color/onPrimary"
+                    android:contentDescription="@string/shimmer_frame_descr"
                     android:scaleType="centerCrop" />
 
             </com.facebook.shimmer.ShimmerFrameLayout>
@@ -38,15 +39,17 @@
                 android:id="@+id/ivArtwork"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/artworks_header"
                 android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/ivFavorite"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/icon_full_screen_size"
+                android:layout_height="@dimen/icon_full_screen_size"
                 android:layout_gravity="end"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/padding_8dp"
                 android:clickable="true"
+                android:contentDescription="@string/favorites_title"
                 android:focusable="true"
                 android:src="@drawable/favorite_border"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -57,13 +60,13 @@
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/onPrimary"
             android:fontFamily="@font/lora_regular"
             android:maxLines="1"
-            android:padding="4dp"
-            android:text="Eser Başlığı"
-            android:textColor="?attr/colorPrimaryDark"
-            android:textSize="16sp"
+            android:padding="@dimen/toolbar_padding"
+            android:text="@string/artworks_header"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/tv_title_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

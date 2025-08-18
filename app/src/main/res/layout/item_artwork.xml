@@ -2,55 +2,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    android:background="@color/black"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_margin="@dimen/margin_6dp"
+    android:background="@color/onPrimary"
+    app:cardCornerRadius="@dimen/header_padding"
+    app:cardElevation="@dimen/toolbar_elevation">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="160dp">
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:shimmer_auto_start="true"
-                app:shimmer_duration="1800">
-
-                <ImageView
-                    android:id="@+id/ivPlaceholder"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/black"
-                    android:scaleType="centerCrop" />
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/shimmer_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="1800">
 
             <ImageView
-                android:id="@+id/ivArtwork"
+                android:id="@+id/ivPlaceholder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/onPrimary"
+                android:contentDescription="@string/shimmer_frame_descr"
                 android:scaleType="centerCrop" />
-        </FrameLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <ImageView
+            android:id="@+id/ivArtwork"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/shimmer_layout"
+            android:background="@color/primary"
+            android:contentDescription="@string/artworks_header"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/onPrimary"
             android:fontFamily="@font/lora_regular"
             android:maxLines="1"
-            android:padding="4dp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:text="Eser Başlığı"
-            android:textColor="?attr/colorPrimaryDark"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:paddingStart="@dimen/header_padding"
+            android:paddingEnd="@dimen/header_padding"
+            android:text="@string/artworks_header"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/tv_title_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivArtwork" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

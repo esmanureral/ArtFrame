@@ -1,83 +1,51 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:colorPrimaryDark">
+    android:background="@color/primary">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
+        android:elevation="@dimen/toolbar_elevation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            style="@style/ToolbarTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/playfair_display"
-            android:text="Favoriler"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="24sp" />
+            android:layout_marginStart="@dimen/toolbar_title_margin_start"
+            android:text="@string/favorites_title" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerContainer"
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:tabIndicatorColor="@color/onPrimary"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/onPrimary"
+        app:tabTextColor="@color/grey">
 
-        <TextView
-            android:id="@+id/tvArtworkHeader"
-            android:layout_width="0dp"
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="Sanat Eserleri"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/tvArtistHeader"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/artworks_header" />
 
-        <View
-            android:id="@+id/viewArtworkIndicator"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="?attr/colorPrimary"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/tvArtworkHeader"
-            app:layout_constraintStart_toStartOf="@id/tvArtworkHeader"
-            app:layout_constraintEnd_toEndOf="@id/tvArtworkHeader"/>
-
-        <TextView
-            android:id="@+id/tvArtistHeader"
-            android:layout_width="0dp"
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="Sanatçılar"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvArtworkHeader"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/artists_header" />
 
-        <View
-            android:id="@+id/viewArtistIndicator"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="?attr/colorPrimary"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/tvArtistHeader"
-            app:layout_constraintStart_toStartOf="@id/tvArtistHeader"
-            app:layout_constraintEnd_toEndOf="@id/tvArtistHeader"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavorites"
@@ -86,5 +54,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerContainer" />
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

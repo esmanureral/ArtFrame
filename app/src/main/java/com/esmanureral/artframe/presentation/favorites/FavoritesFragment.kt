@@ -14,6 +14,7 @@ import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.data.network.ArtworkDetail
 import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
 import com.esmanureral.artframe.presentation.artist.ArtistListAdapter
+import com.google.android.material.tabs.TabLayout
 
 class FavoritesFragment : Fragment() {
     private var _binding: FavoritesFragmentBinding? = null
@@ -48,43 +49,29 @@ class FavoritesFragment : Fragment() {
         with(binding) {
             rvFavorites.adapter = adapter
             rvFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
-            viewArtworkIndicator.visibility = View.VISIBLE
-
         }
     }
 
     private fun setupTabClicks() {
-        with(binding) {
-            tvArtworkHeader.setOnClickListener {
-                isSelected = true
-                showCurrentList()
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> {
+                        binding.rvFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
+                        binding.rvFavorites.adapter = adapter
+                    }
+
+                    1 -> {
+                        binding.rvFavorites.layoutManager = LinearLayoutManager(requireContext())
+                        binding.rvFavorites.adapter = artistAdapter
+                    }
+                }
             }
-            tvArtistHeader.setOnClickListener {
-                isSelected = false
-                showCurrentList()
-            }
-        }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
     }
-
-    private fun showCurrentList() {
-        with(binding) {
-            if (isSelected) {
-                rvFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
-                rvFavorites.adapter = adapter
-
-                viewArtworkIndicator.visibility = View.VISIBLE
-                viewArtistIndicator.visibility = View.GONE
-
-            } else {
-                rvFavorites.layoutManager = LinearLayoutManager(requireContext())
-                rvFavorites.adapter = artistAdapter
-
-                viewArtworkIndicator.visibility = View.GONE
-                viewArtistIndicator.visibility = View.VISIBLE
-            }
-        }
-    }
-
 
     private fun setupAdapters() {
         adapter = FavoritesAdapter(

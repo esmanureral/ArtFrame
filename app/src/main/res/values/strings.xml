@@ -7,5 +7,18 @@
     <string name="unknown">-</string>
     <string name="artwork_description">%1$s</string>
     <string name="variable">%1$s</string>
+    <string name="favorites_title">Favoriler</string>
+    <string name="artworks_header">Sanat Eserleri</string>
+    <string name="artists_header">Sanatçılar</string>
+    <string name="artwork_header">Eserler</string>
+    <string name="artist_artworks_title">Sanatçının Eserleri</string>
+    <string name="artist_name_placeholder">Sanatçı Adı</string>
+    <string name="iv_arrow_left_descr">image view arrow left</string>
+    <string name="iv_favorite_descr">image view favorite</string>
+    <string name="save_icon">save icon</string>
+    <string name="wallpaper_icon">wallpaper icon</string>
+    <string name="share_icon">share icon</string>
+    <string name="shimmer_frame_descr">shimmer frame</string>
+    <string name="full_screen">full screen</string>
 
 </resources>
