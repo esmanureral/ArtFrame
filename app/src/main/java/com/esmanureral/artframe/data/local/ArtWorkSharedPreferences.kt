@@ -2,13 +2,14 @@ package com.esmanureral.artframe.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.esmanureral.artframe.FAVORITES_ARTWORK_KEY
-import com.esmanureral.artframe.FAVORITE_ARTISTS_KEY
-import com.esmanureral.artframe.PREFS_NAME
 import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.data.network.ArtworkDetail
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+
+private const val PREFS_NAME = "art_work"
+private const val FAVORITES_ARTWORK_KEY = "favorites_artwork_list"
+private const val FAVORITE_ARTISTS_KEY = "favorites_artist_list"
 
 class ArtWorkSharedPreferences(context: Context) {
     private val prefs: SharedPreferences =
