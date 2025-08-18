@@ -8,7 +8,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.esmanureral.artframe.data.network.ApiClient
 import com.esmanureral.artframe.data.network.ApiService
-import com.esmanureral.artframe.data.network.Artwork
 import com.esmanureral.artframe.presentation.artwork.model.ArtworkUI
 import com.esmanureral.artframe.presentation.artwork.model.toUIModel
 

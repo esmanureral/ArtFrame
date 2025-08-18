@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
-import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.databinding.FragmentArtistArtworkBinding
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 

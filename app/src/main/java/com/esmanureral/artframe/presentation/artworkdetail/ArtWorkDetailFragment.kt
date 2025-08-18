@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import coil.load
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.R
@@ -22,6 +23,7 @@ class ArtWorkDetailFragment : Fragment() {
     private val viewModel: ArtWorkDetailViewModel by viewModels()
     private var currentArtwork: ArtworkDetailUI? = null
     private lateinit var favoritesPrefs: ArtWorkSharedPreferences
+    private val args: ArtWorkDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +36,7 @@ class ArtWorkDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
-        val artworkId = arguments?.getInt("artwork_id") ?: return
-
+        val artworkId = args.artworkId
         viewModel.fetchArtworkDetail(artworkId)
         setupClickListeners()
         observeArtworkDetail()
@@ -54,7 +55,8 @@ class ArtWorkDetailFragment : Fragment() {
         with(binding) {
             ivFavorite.setOnClickListener {
                 viewModel.artworkDetail.value?.let {
-                    currentArtwork?.let { artwork -> toggleFavorite(artwork)
+                    currentArtwork?.let { artwork ->
+                        toggleFavorite(artwork)
 
                     }
                 }
@@ -102,7 +104,7 @@ class ArtWorkDetailFragment : Fragment() {
             tvDimensions.text = artwork.dimension
             tvCreditLine.text = artwork.creditLine
             tvDescription.text = Html.fromHtml(
-                artwork.description ,
+                artwork.description,
                 Html.FROM_HTML_MODE_COMPACT
             )
         }
