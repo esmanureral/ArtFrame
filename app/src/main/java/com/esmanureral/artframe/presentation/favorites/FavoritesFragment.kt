@@ -12,6 +12,7 @@ import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
 import com.esmanureral.artframe.presentation.artistlist.ArtistListAdapter
+import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.google.android.material.tabs.TabLayout
 
@@ -24,7 +25,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var adapter: FavoritesAdapter
     private lateinit var artistAdapter: ArtistListAdapter
     private var favoriteArtwork = mutableListOf<ArtworkDetailUI>()
-    private var favoriteArtists = mutableListOf<Artists>()
+    private var favoriteArtists = mutableListOf<ArtistListUI>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

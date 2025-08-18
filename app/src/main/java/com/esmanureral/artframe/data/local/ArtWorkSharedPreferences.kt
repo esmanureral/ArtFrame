@@ -3,6 +3,7 @@ package com.esmanureral.artframe.data.local
 import android.content.Context
 import android.content.SharedPreferences
 import com.esmanureral.artframe.data.network.Artists
+import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -50,20 +51,20 @@ class ArtWorkSharedPreferences(context: Context) {
         return favorites.any { it.id == artwork.id }
     }
 
-    private fun saveArtistFavorites(favorites: MutableList<Artists>) {
+    private fun saveArtistFavorites(favorites: MutableList<ArtistListUI>) {
         val json = Gson().toJson(favorites)
         prefs.edit().putString(FAVORITE_ARTISTS_KEY, json).apply()
     }
 
-    fun loadArtistFavorites(): MutableList<Artists> {
+    fun loadArtistFavorites(): MutableList<ArtistListUI> {
         val json = prefs.getString(FAVORITE_ARTISTS_KEY, null)
         return if (json != null) {
-            val type = object : TypeToken<MutableList<Artists>>() {}.type
+            val type = object : TypeToken<MutableList<ArtistListUI>>() {}.type
             Gson().fromJson(json, type)
         } else mutableListOf()
     }
 
-    fun addArtistFavorite(artist: Artists) {
+    fun addArtistFavorite(artist: ArtistListUI) {
         val favorites = loadArtistFavorites()
         if (favorites.none { it.id == artist.id }) {
             favorites.add(artist)
@@ -71,13 +72,13 @@ class ArtWorkSharedPreferences(context: Context) {
         }
     }
 
-    fun removeArtistFavorite(artist: Artists) {
+    fun removeArtistFavorite(artist: ArtistListUI) {
         val favorites = loadArtistFavorites()
         val newList = favorites.filter { it.id != artist.id }.toMutableList()
         saveArtistFavorites(newList)
     }
 
-    fun isArtistFavorite(artist: Artists): Boolean {
+    fun isArtistFavorite(artist: ArtistListUI): Boolean {
         return loadArtistFavorites().any { it.id == artist.id }
     }
 }

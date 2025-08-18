@@ -1,4 +1,4 @@
-package com.esmanureral.artframe.presentation.artist
+package com.esmanureral.artframe.presentation.artistlist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

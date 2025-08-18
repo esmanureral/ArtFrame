@@ -1,4 +1,4 @@
-package com.esmanureral.artframe.presentation.artist
+package com.esmanureral.artframe.presentation.artistdetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,10 +8,10 @@ import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.network.Artwork
 import com.esmanureral.artframe.databinding.ItemArtistArtworkBinding
 
-class ArtistArtworkAdapter(
+class ArtistDetailAdapter(
     private val artworks: MutableList<Artwork> = mutableListOf(),
     private val onItemClick: (Artwork) -> Unit = {}
-) : RecyclerView.Adapter<ArtistArtworkAdapter.ArtworkViewHolder>() {
+) : RecyclerView.Adapter<ArtistDetailAdapter.ArtworkViewHolder>() {
 
     inner class ArtworkViewHolder(
         private val binding: ItemArtistArtworkBinding

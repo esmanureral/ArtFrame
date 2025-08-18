@@ -1,4 +1,4 @@
-package com.esmanureral.artframe.presentation.artist
+package com.esmanureral.artframe.presentation.artistdetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,21 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.esmanureral.artframe.PermissionHelper
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.databinding.FragmentArtistArtworkBinding
+import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 
-class ArtistArtworkFragment : Fragment() {
+class ArtistDetailFragment : Fragment() {
 
     private var _binding: FragmentArtistArtworkBinding? = null
     private val binding get() = _binding!!
 
-    private val args: ArtistArtworkFragmentArgs by navArgs()
-    private val viewModel: ArtistArtworkViewModel by viewModels()
-    private lateinit var adapter: ArtistArtworkAdapter
+    private val args: ArtistDetailFragmentArgs by navArgs()
+    private val viewModel: ArtistDetailViewModel by viewModels()
+    private lateinit var adapter: ArtistDetailAdapter
     private lateinit var favoritesPrefs: ArtWorkSharedPreferences
 
     override fun onCreateView(
@@ -45,7 +44,7 @@ class ArtistArtworkFragment : Fragment() {
         updateFavoriteIcon(artist)
     }
 
-    private fun updateFavoriteIcon(artist: Artists) {
+    private fun updateFavoriteIcon(artist: ArtistListUI) {
         val iconRes = if (favoritesPrefs.isArtistFavorite(artist)) {
             R.drawable.favorite_24
         } else {
@@ -55,8 +54,8 @@ class ArtistArtworkFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        adapter = ArtistArtworkAdapter { artwork ->
-            val action = ArtistArtworkFragmentDirections
+        adapter = ArtistDetailAdapter { artwork ->
+            val action = ArtistDetailFragmentDirections
                 .actionArtistArtworkFragmentToDetailFragment(artwork.id)
             findNavController().navigate(action)
         }
@@ -85,8 +84,8 @@ class ArtistArtworkFragment : Fragment() {
         }
     }
 
-    private fun createArtist(): Artists {
-        return Artists(
+    private fun createArtist(): ArtistListUI {
+        return ArtistListUI(
             id = args.artistId,
             title = args.artistName,
             birthDate = null,

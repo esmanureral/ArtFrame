@@ -1,4 +1,4 @@
-package com.esmanureral.artframe.presentation.artist
+package com.esmanureral.artframe.presentation.artistdetail
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -10,7 +10,7 @@ import com.esmanureral.artframe.data.network.ApiService
 import com.esmanureral.artframe.data.network.Artwork
 import kotlinx.coroutines.launch
 
-class ArtistArtworkViewModel(application: Application) : AndroidViewModel(application) {
+class ArtistDetailViewModel(application: Application) : AndroidViewModel(application) {
     private val api: ApiService by lazy {
         ApiClient.getApi(getApplication())
     }
