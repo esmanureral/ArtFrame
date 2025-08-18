@@ -20,5 +20,10 @@
     <string name="share_icon">share icon</string>
     <string name="shimmer_frame_descr">shimmer frame</string>
     <string name="full_screen">full screen</string>
+    <string name="tv_date_label">Eserin yapılış tarihi:</string>
+    <string name="tv_medium_label">Eserin tekniği:</string>
+    <string name="tv_dimension_label">Eserin Boyutu:</string>
+    <string name="tv_credit_line_label">Koleksiyon:</string>
+    <string name="artwork_image_url">https://www.artic.edu/iiif/2/%s/full/1600,/0/default.jpg</string>
 
 </resources>

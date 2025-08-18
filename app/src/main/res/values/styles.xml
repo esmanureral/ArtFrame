@@ -36,12 +36,12 @@
     <style name="ItemYearsTitleText">
         <item name="android:textSize">@dimen/item_year_text_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">@color/surface</item>
     </style>
 
     <style name="TvTitle">
         <item name="android:textSize">@dimen/tv_title_text_size</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/onPrimary</item>
         <item name="android:textStyle">italic</item>
         <item name="android:fontFamily">@font/playfair_semibold</item>
     </style>

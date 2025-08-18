@@ -21,7 +21,6 @@
             android:text="@string/favorites_title" />
     </androidx.appcompat.widget.Toolbar>
 
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
@@ -33,7 +32,7 @@
         app:tabIndicatorColor="@color/onPrimary"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/onPrimary"
-        app:tabTextColor="@color/grey">
+        app:tabTextColor="@color/surface">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

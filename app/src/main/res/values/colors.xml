@@ -3,8 +3,7 @@
 
     <color name="primary">#FFFFFF</color>
     <color name="onPrimary">#000000</color>
-    <color name="grey">#918F8F</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="surface">#646464</color>
+    <color name="full_screen">#FFFFFF</color>
 
 </resources>
