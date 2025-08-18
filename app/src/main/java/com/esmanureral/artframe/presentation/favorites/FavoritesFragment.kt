@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
-import com.esmanureral.artframe.PermissionHelper
 import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.data.network.ArtworkDetail
 import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
@@ -37,7 +36,6 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupPermission()
 
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
         favoriteArtwork = favoritesPrefs.loadArtworkFavorites().reversed().toMutableList()
@@ -95,12 +93,6 @@ class FavoritesFragment : Fragment() {
             isRemoveFavorite = true
         )
         artistAdapter.addData(favoriteArtists)
-    }
-
-    private fun setupPermission() {
-        PermissionHelper.requestNotificationPermission(this) { granted ->
-            println("Notification permission ${if (granted) "granted" else "denied"}")
-        }
     }
 
     override fun onDestroyView() {

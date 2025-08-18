@@ -21,7 +21,7 @@ class FavoritesAdapter(
             with(binding) {
                 tvTitle.text = artwork.title ?: "-"
                 val imageUrl =
-                    "https://www.artic.edu/iiif/2/${artwork.imageId}/full/!1280,720/0/default.jpg"
+                    root.context.getString(R.string.artwork_image_url, artwork.imageId)
                 ivArtwork.load(imageUrl) {
                     crossfade(true)
                     placeholder(R.drawable.black)

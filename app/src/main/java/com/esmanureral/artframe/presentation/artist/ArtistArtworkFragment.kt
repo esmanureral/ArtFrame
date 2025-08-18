@@ -35,29 +35,14 @@ class ArtistArtworkFragment : Fragment() {
         binding.tvArtistTitle.text = args.artistName
         setupAdapter()
         observeViewModel()
-        setupPermission()
         viewModel.fetchArtworksByArtist(args.artistId)
-        setupBackButton()
+        setOnClickListener()
         setupFavoriteIcon()
     }
 
     private fun setupFavoriteIcon() {
-        val artist = Artists(
-            id = args.artistId,
-            title = args.artistName,
-            birthDate = null,
-            deathDate = null
-        )
+        val artist = createArtist()
         updateFavoriteIcon(artist)
-
-        binding.ivFavorite.setOnClickListener {
-            if (favoritesPrefs.isArtistFavorite(artist)) {
-                favoritesPrefs.removeArtistFavorite(artist)
-            } else {
-                favoritesPrefs.addArtistFavorite(artist)
-            }
-            updateFavoriteIcon(artist)
-        }
     }
 
     private fun updateFavoriteIcon(artist: Artists) {
@@ -75,10 +60,7 @@ class ArtistArtworkFragment : Fragment() {
                 .actionArtistArtworkFragmentToDetailFragment(artwork.id)
             findNavController().navigate(action)
         }
-        with(binding) {
-            rvArtworks.adapter = adapter
-            rvArtworks.layoutManager = LinearLayoutManager(requireContext())
-        }
+        binding.rvArtworks.adapter = adapter
     }
 
     private fun observeViewModel() {
@@ -87,17 +69,29 @@ class ArtistArtworkFragment : Fragment() {
         }
     }
 
-    private fun setupPermission() {
-        PermissionHelper.requestNotificationPermission(this) { granted ->
-            if (granted) println("Notification permission granted")
-            else println("Notification permission denied")
+    private fun setOnClickListener() = with(binding) {
+        ivArrowLeft.setOnClickListener {
+            findNavController().navigate(R.id.artistListFragment)
+        }
+
+        ivFavorite.setOnClickListener {
+            val artist = createArtist()
+            if (favoritesPrefs.isArtistFavorite(artist)) {
+                favoritesPrefs.removeArtistFavorite(artist)
+            } else {
+                favoritesPrefs.addArtistFavorite(artist)
+            }
+            updateFavoriteIcon(artist)
         }
     }
 
-    private fun setupBackButton() {
-        binding.ivArrowLeft.setOnClickListener {
-            findNavController().navigate(R.id.artistListFragment)
-        }
+    private fun createArtist(): Artists {
+        return Artists(
+            id = args.artistId,
+            title = args.artistName,
+            birthDate = null,
+            deathDate = null
+        )
     }
 
     override fun onDestroyView() {

@@ -15,10 +15,9 @@ class ArtWorkSharedPreferences(context: Context) {
     private val prefs: SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    private val gson = Gson()
 
     private fun saveArtworkFavorites(favorites: MutableList<ArtworkDetail>) {
-        val json = gson.toJson(favorites)
+        val json = Gson().toJson(favorites)
         prefs.edit().putString(FAVORITES_ARTWORK_KEY, json).apply()
     }
 
@@ -26,7 +25,7 @@ class ArtWorkSharedPreferences(context: Context) {
         val json = prefs.getString(FAVORITES_ARTWORK_KEY, null)
         return if (json != null) {
             val type = object : TypeToken<MutableList<ArtworkDetail>>() {}.type
-            gson.fromJson(json, type)
+            Gson().fromJson(json, type)
         } else {
             mutableListOf()
         }
@@ -52,7 +51,7 @@ class ArtWorkSharedPreferences(context: Context) {
     }
 
     private fun saveArtistFavorites(favorites: MutableList<Artists>) {
-        val json = gson.toJson(favorites)
+        val json = Gson().toJson(favorites)
         prefs.edit().putString(FAVORITE_ARTISTS_KEY, json).apply()
     }
 
@@ -60,7 +59,7 @@ class ArtWorkSharedPreferences(context: Context) {
         val json = prefs.getString(FAVORITE_ARTISTS_KEY, null)
         return if (json != null) {
             val type = object : TypeToken<MutableList<Artists>>() {}.type
-            gson.fromJson(json, type)
+            Gson().fromJson(json, type)
         } else mutableListOf()
     }
 

@@ -3,11 +3,10 @@ package com.esmanureral.artframe
 import android.os.Build
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 
 object PermissionHelper {
     fun requestNotificationPermission(
-        fragment: Fragment,
+        fragment: MainActivity,
         onResult: (granted: Boolean) -> Unit
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

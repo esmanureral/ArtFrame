@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.esmanureral.artframe.PermissionHelper
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.FragmentArtistListBinding
 
@@ -31,20 +30,9 @@ class ArtistListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
-        setupPermission()
         setupRecyclerView()
         observeViewModel()
         viewModel.fetchArtists()
-    }
-
-    private fun setupPermission() {
-        PermissionHelper.requestNotificationPermission(this) { granted ->
-            if (granted) {
-                println(" Notification permission granted")
-            } else {
-                println(" Notification permission denied")
-            }
-        }
     }
 
     private fun setupRecyclerView() {

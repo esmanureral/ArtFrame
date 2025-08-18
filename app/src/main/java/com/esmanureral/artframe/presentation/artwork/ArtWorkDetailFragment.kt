@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
-import com.esmanureral.artframe.PermissionHelper
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.network.ArtworkDetail
 import com.esmanureral.artframe.databinding.FragmentDetailBinding
@@ -33,8 +32,6 @@ class ArtWorkDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupPermission()
-
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
         val artworkId = arguments?.getInt("artwork_id") ?: return
 
@@ -52,12 +49,6 @@ class ArtWorkDetailFragment : Fragment() {
         }
     }
 
-    private fun setupPermission() {
-        PermissionHelper.requestNotificationPermission(this) { granted ->
-            println("Notification permission ${if (granted) "granted" else "denied"}")
-        }
-    }
-
     private fun setupClickListeners() {
         with(binding) {
             ivFavorite.setOnClickListener {
@@ -71,7 +62,7 @@ class ArtWorkDetailFragment : Fragment() {
             ivArtwork.setOnClickListener {
                 currentArtwork?.let { artwork ->
                     val imageUrl =
-                        "https://www.artic.edu/iiif/2/${artwork.imageId}/full/!1280,720/0/default.jpg"
+                        root.context.getString(R.string.artwork_image_url, artwork.imageId)
                     navigateToFullScreenImage(imageUrl)
                 }
             }

@@ -24,7 +24,7 @@ class ArtworkAdapter(
                 tvTitle.text = item.title
 
                 val imageUrl =
-                    "https://www.artic.edu/iiif/2/${item.imageId}/full/!1280,720/0/default.jpg"
+                    root.context.getString(R.string.artwork_image_url, item.imageId)
                 ivArtwork.loadWithShimmer(
                     url = imageUrl,
                     shimmerLayout = shimmerLayout,

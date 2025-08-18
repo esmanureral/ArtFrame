@@ -10,7 +10,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.esmanureral.artframe.PermissionHelper
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.databinding.FragmentArtworkListBinding
 
@@ -31,19 +30,8 @@ class ArtworkListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupPermission()
         setupRecyclerView()
         observeViewModel()
-    }
-
-    private fun setupPermission() {
-        PermissionHelper.requestNotificationPermission(this) { granted ->
-            if (granted) {
-                println(" Notification permission granted")
-            } else {
-                println(" Notification permission denied")
-            }
-        }
     }
 
     private fun setupRecyclerView() {
