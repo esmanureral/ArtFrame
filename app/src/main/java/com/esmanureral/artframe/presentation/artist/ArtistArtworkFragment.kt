@@ -11,6 +11,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esmanureral.artframe.PermissionHelper
 import com.esmanureral.artframe.R
+import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
+import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.databinding.FragmentArtistArtworkBinding
 
 class ArtistArtworkFragment : Fragment() {
@@ -21,6 +23,7 @@ class ArtistArtworkFragment : Fragment() {
     private val args: ArtistArtworkFragmentArgs by navArgs()
     private val viewModel: ArtistArtworkViewModel by viewModels()
     private lateinit var adapter: ArtistArtworkAdapter
+    private lateinit var favoritesPrefs: ArtWorkSharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,12 +31,42 @@ class ArtistArtworkFragment : Fragment() {
     ) = FragmentArtistArtworkBinding.inflate(inflater, container, false).also { _binding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        favoritesPrefs = ArtWorkSharedPreferences(requireContext())
         binding.tvArtistTitle.text = args.artistName
         setupAdapter()
         observeViewModel()
         setupPermission()
         viewModel.fetchArtworksByArtist(args.artistId)
         setupBackButton()
+        setupFavoriteIcon()
+    }
+
+    private fun setupFavoriteIcon() {
+        val artist = Artists(
+            id = args.artistId,
+            title = args.artistName,
+            birthDate = null,
+            deathDate = null
+        )
+        updateFavoriteIcon(artist)
+
+        binding.ivFavorite.setOnClickListener {
+            if (favoritesPrefs.isArtistFavorite(artist)) {
+                favoritesPrefs.removeArtistFavorite(artist)
+            } else {
+                favoritesPrefs.addArtistFavorite(artist)
+            }
+            updateFavoriteIcon(artist)
+        }
+    }
+
+    private fun updateFavoriteIcon(artist: Artists) {
+        val iconRes = if (favoritesPrefs.isArtistFavorite(artist)) {
+            R.drawable.favorite_24
+        } else {
+            R.drawable.favorite_border
+        }
+        binding.ivFavorite.setImageResource(iconRes)
     }
 
     private fun setupAdapter() {

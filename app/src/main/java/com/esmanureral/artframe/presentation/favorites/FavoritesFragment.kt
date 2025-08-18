@@ -27,8 +27,6 @@ class FavoritesFragment : Fragment() {
     private var favoriteArtwork = mutableListOf<ArtworkDetail>()
     private var favoriteArtists = mutableListOf<Artists>()
 
-    private var isSelected = true
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
