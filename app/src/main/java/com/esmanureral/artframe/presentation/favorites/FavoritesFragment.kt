@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.Artists
-import com.esmanureral.artframe.data.network.ArtworkDetail
 import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
-import com.esmanureral.artframe.presentation.artist.ArtistListAdapter
+import com.esmanureral.artframe.presentation.artistlist.ArtistListAdapter
+import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.google.android.material.tabs.TabLayout
 
 class FavoritesFragment : Fragment() {
@@ -23,7 +23,7 @@ class FavoritesFragment : Fragment() {
 
     private lateinit var adapter: FavoritesAdapter
     private lateinit var artistAdapter: ArtistListAdapter
-    private var favoriteArtwork = mutableListOf<ArtworkDetail>()
+    private var favoriteArtwork = mutableListOf<ArtworkDetailUI>()
     private var favoriteArtists = mutableListOf<Artists>()
 
     override fun onCreateView(

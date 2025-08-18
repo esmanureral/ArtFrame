@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.esmanureral.artframe.presentation.artwork.ArtWorkDetailFragment"
+        android:name="com.esmanureral.artframe.presentation.artworkdetail.ArtWorkDetailFragment"
         android:label="DetailFragment">
         <argument
             android:name="artwork_id"
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/artistListFragment"
-        android:name="com.esmanureral.artframe.presentation.artist.ArtistListFragment"
+        android:name="com.esmanureral.artframe.presentation.artistlist.ArtistListFragment"
         android:label="ArtistListFragment">
         <argument
             android:name="artist_id"
@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/artistArtworkFragment"
-        android:name="com.esmanureral.artframe.presentation.artist.ArtistArtworkFragment"
+        android:name="com.esmanureral.artframe.presentation.artistdetail.ArtistDetailFragment"
         android:label="ArtistArtworkFragment">
         <argument
             android:name="artistId"

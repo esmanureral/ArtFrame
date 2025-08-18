@@ -8,18 +8,19 @@ import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.ArtworkDetail
 import com.esmanureral.artframe.databinding.ItemFavArtworksBinding
+import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 
 class FavoritesAdapter(
     private val favoritesPrefs: ArtWorkSharedPreferences,
-    private val favorites: MutableList<ArtworkDetail>,
-    private val onItemClick: (ArtworkDetail) -> Unit
+    private val favorites: MutableList<ArtworkDetailUI>,
+    private val onItemClick: (ArtworkDetailUI) -> Unit
 ) : RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
 
     inner class FavoriteViewHolder(val binding: ItemFavArtworksBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(artwork: ArtworkDetail) {
+        fun bind(artwork: ArtworkDetailUI) {
             with(binding) {
-                tvTitle.text = artwork.title ?: "-"
+                tvTitle.text = artwork.title
                 val imageUrl =
                     root.context.getString(R.string.artwork_image_url, artwork.imageId)
                 ivArtwork.load(imageUrl) {

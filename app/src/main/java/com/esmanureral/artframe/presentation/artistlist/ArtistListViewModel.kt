@@ -1,4 +1,4 @@
-package com.esmanureral.artframe.presentation.artist
+package com.esmanureral.artframe.presentation.artistlist
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

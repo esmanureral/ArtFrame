@@ -3,7 +3,7 @@ package com.esmanureral.artframe.data.local
 import android.content.Context
 import android.content.SharedPreferences
 import com.esmanureral.artframe.data.network.Artists
-import com.esmanureral.artframe.data.network.ArtworkDetail
+import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -16,22 +16,22 @@ class ArtWorkSharedPreferences(context: Context) {
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
 
-    private fun saveArtworkFavorites(favorites: MutableList<ArtworkDetail>) {
+    private fun saveArtworkFavorites(favorites: MutableList<ArtworkDetailUI>) {
         val json = Gson().toJson(favorites)
         prefs.edit().putString(FAVORITES_ARTWORK_KEY, json).apply()
     }
 
-    fun loadArtworkFavorites(): MutableList<ArtworkDetail> {
+    fun loadArtworkFavorites(): MutableList<ArtworkDetailUI> {
         val json = prefs.getString(FAVORITES_ARTWORK_KEY, null)
         return if (json != null) {
-            val type = object : TypeToken<MutableList<ArtworkDetail>>() {}.type
+            val type = object : TypeToken<MutableList<ArtworkDetailUI>>() {}.type
             Gson().fromJson(json, type)
         } else {
             mutableListOf()
         }
     }
 
-    fun addArtworkFavorite(artwork: ArtworkDetail) {
+    fun addArtworkFavorite(artwork: ArtworkDetailUI) {
         val favorites = loadArtworkFavorites()
         if (favorites.none { it.id == artwork.id }) {
             favorites.add(artwork)
@@ -39,13 +39,13 @@ class ArtWorkSharedPreferences(context: Context) {
         }
     }
 
-    fun removeArtworkFavorite(artwork: ArtworkDetail) {
+    fun removeArtworkFavorite(artwork: ArtworkDetailUI) {
         val favorites = loadArtworkFavorites()
         val newList = favorites.filter { it.id != artwork.id }.toMutableList()
         saveArtworkFavorites(newList)
     }
 
-    fun isArtworkFavorite(artwork: ArtworkDetail): Boolean {
+    fun isArtworkFavorite(artwork: ArtworkDetailUI): Boolean {
         val favorites = loadArtworkFavorites()
         return favorites.any { it.id == artwork.id }
     }
