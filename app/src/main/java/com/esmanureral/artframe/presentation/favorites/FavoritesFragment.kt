@@ -106,7 +106,8 @@ class FavoritesFragment : Fragment() {
                         artist.title ?: ""
                     )
                 findNavController().navigate(action)
-            }
+            },
+            isRemoveFavorite = true
         )
         artistAdapter.addData(favoriteArtists)
     }

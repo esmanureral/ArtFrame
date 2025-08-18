@@ -48,14 +48,18 @@ class ArtistListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = ArtistListAdapter(favoritesPrefs) { artist ->
-            val action =
-                ArtistListFragmentDirections.actionArtistListFragmentToArtistArtworkFragment(
-                    artist.id,
-                    artist.title ?: ""
-                )
-            findNavController().navigate(action)
-        }
+        adapter = ArtistListAdapter(
+            favoritesPrefs, onItemClick = { artist ->
+                val action =
+                    ArtistListFragmentDirections.actionArtistListFragmentToArtistArtworkFragment(
+                        artist.id,
+                        artist.title ?: ""
+                    )
+                findNavController().navigate(action)
+            },
+            isRemoveFavorite = false
+        )
+
         with(binding) {
             rvArtists.adapter = adapter
             rvArtists.layoutManager = LinearLayoutManager(requireContext())

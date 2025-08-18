@@ -10,7 +10,8 @@ import com.esmanureral.artframe.databinding.ItemArtistBinding
 
 class ArtistListAdapter(
     private val favoritesPrefs: ArtWorkSharedPreferences,
-    private val onItemClick: (Artists) -> Unit
+    private val onItemClick: (Artists) -> Unit,
+    private val isRemoveFavorite: Boolean = false
 ) : RecyclerView.Adapter<ArtistListAdapter.ArtistViewHolder>() {
     private val artistItems = mutableListOf<Artists>()
 
@@ -31,11 +32,15 @@ class ArtistListAdapter(
                 ivFavorite.setOnClickListener {
                     if (favoritesPrefs.isArtistFavorite(artists)) {
                         favoritesPrefs.removeArtistFavorite(artists)
-                        artistItems.removeAt(adapterPosition)
-                        notifyItemRemoved(adapterPosition)
+
+                        if (isRemoveFavorite) {
+                            artistItems.removeAt(adapterPosition)
+                            notifyItemRemoved(adapterPosition)
+                        } else {
+                            notifyItemChanged(adapterPosition)
+                        }
                     } else {
                         favoritesPrefs.addArtistFavorite(artists)
-                        artistItems[adapterPosition] = artists
                         notifyItemChanged(adapterPosition)
                     }
                 }
