@@ -35,14 +35,10 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
             val response = api.getArtWorks(page = currentPage)
             val includedClassifications =
                 listOf(
-                    "etching",
                     "oil on canvas",
                     "ink or chalk wash",
-                    "salted paper print",
-                    "graphite",
                     "painting",
                     "woodblock print",
-                    "lithograph",
                     "watercolor",
                     "engraving",
                     "earthenware",
@@ -57,7 +53,6 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
                     "ink and wash",
                     "linocut",
                     "photograph",
-                    "prints and drawing",
                     "textile",
                     "oil on panel",
                     "pen and ink",

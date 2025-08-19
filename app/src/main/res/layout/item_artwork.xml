@@ -16,7 +16,6 @@
             android:layout_height="0dp"
             android:background="@color/primary"
             android:contentDescription="@string/artwork_header"
-            android:layout_marginBottom="@dimen/padding_8dp"
             android:scaleType="centerCrop"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,8 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shimmer_auto_start="true"
-            app:shimmer_duration="1500">
+            app:shimmer_auto_start="true">
 
             <ImageView
                 android:id="@+id/ivPlaceholder"
