@@ -78,6 +78,20 @@ class ArtistListFragment : Fragment() {
             currentList.addAll(newItems)
             adapter.submitList(currentList)
         }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            with(binding) {
+                if (isLoading) {
+                    shimmerLayout.startShimmer()
+                    shimmerLayout.visibility = View.VISIBLE
+                    rvArtists.visibility = View.GONE
+                } else {
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
+                    rvArtists.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

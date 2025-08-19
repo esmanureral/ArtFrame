@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.esmanureral.artframe.data.network.ApiClient
 import com.esmanureral.artframe.data.network.ApiService
-import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 import com.esmanureral.artframe.presentation.artistlist.model.toUIModel
 import kotlinx.coroutines.launch
@@ -21,6 +20,9 @@ class ArtistListViewModel(application: Application) : AndroidViewModel(applicati
     private val _artist = MutableLiveData<List<ArtistListUI>>()
     val artists: LiveData<List<ArtistListUI>> get() = _artist
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     private val allArtists = mutableListOf<ArtistListUI>()
     private var artistPage = 1
 
@@ -29,6 +31,7 @@ class ArtistListViewModel(application: Application) : AndroidViewModel(applicati
     fun fetchArtists() {
         if (isLoadingArtists) return
         isLoadingArtists = true
+        _isLoading.value = true
         viewModelScope.launch {
             val response = api.getArtists(page = artistPage)
             if (response.isSuccessful) {
@@ -39,6 +42,7 @@ class ArtistListViewModel(application: Application) : AndroidViewModel(applicati
                 artistPage++
             }
             isLoadingArtists = false
+            _isLoading.postValue(false)
         }
     }
 }

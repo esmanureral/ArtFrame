@@ -5,5 +5,6 @@
     <color name="onPrimary">#000000</color>
     <color name="surface">#646464</color>
     <color name="full_screen">#FFFFFF</color>
+    <color name="shimmer_color">#DDDDDD</color>
 
 </resources>
