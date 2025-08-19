@@ -14,7 +14,9 @@ data class ArtworkDetailUI(
     val artistId: Int,
     val thumbnail: Thumbnail?,
     val dimension: String,
-    val creditLine: String
+    val creditLine: String,
+    val artistDisplay: String,
+    val placeOfOrigin: String
 )
 
 fun ArtworkDetail.toUIModel() = ArtworkDetailUI(
@@ -27,5 +29,7 @@ fun ArtworkDetail.toUIModel() = ArtworkDetailUI(
     artistId = artistId,
     thumbnail = thumbnail,
     dimension = dimensions.orEmpty(),
-    creditLine = creditLine.orEmpty()
+    creditLine = creditLine.orEmpty(),
+    artistDisplay = artistDisplay.orEmpty(),
+    placeOfOrigin = placeOfOrigin.orEmpty()
 )

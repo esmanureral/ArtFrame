@@ -62,7 +62,7 @@ class ArtWorkDetailFragment : Fragment() {
                 }
             }
 
-            chipArtist.setOnClickListener {
+            ivArtistIcon.setOnClickListener {
                 currentArtwork?.let { artwork -> navigateToArtistArtworks(artwork) }
             }
 
@@ -98,11 +98,12 @@ class ArtWorkDetailFragment : Fragment() {
     private fun bindTextFields(artwork: ArtworkDetailUI) {
         with(binding) {
             tvTitle.text = artwork.title
-            chipArtist.text = artwork.artistTitle
+            tvArtistDisplay.text = artwork.artistDisplay
             tvDate.text = artwork.dateDisplay
             tvMedium.text = artwork.thumbnail?.altText
             tvDimensions.text = artwork.dimension
             tvCreditLine.text = artwork.creditLine
+            tvPlaceOrigin.text=artwork.placeOfOrigin
             tvDescription.text = Html.fromHtml(
                 artwork.description,
                 Html.FROM_HTML_MODE_COMPACT

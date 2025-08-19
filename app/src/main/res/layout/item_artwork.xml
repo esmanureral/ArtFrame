@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_6dp"
-    android:background="@color/onPrimary"
     app:cardCornerRadius="@dimen/header_padding"
     app:cardElevation="@dimen/toolbar_elevation">
 
@@ -16,7 +15,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/primary"
-            android:contentDescription="@string/artworks_header"
+            android:contentDescription="@string/artwork_header"
+            android:layout_marginBottom="@dimen/padding_8dp"
             android:scaleType="centerCrop"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +55,7 @@
             android:maxLines="1"
             android:paddingStart="@dimen/header_padding"
             android:paddingEnd="@dimen/header_padding"
-            android:text="@string/artworks_header"
+            android:text="@string/artwork_header"
             android:textColor="@color/primary"
             android:textSize="@dimen/tv_title_size"
             android:visibility="gone"

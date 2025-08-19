@@ -1,18 +1,19 @@
 <resources>
 
     <string name="app_name">ArtFrame</string>
-    <string name="artist_unknown">Bilinmiyor</string>
+    <string name="artist_unknown">Unknown</string>
     <string name="year_unknown">"?"</string>
     <string name="artist_years">%1$s - %2$s</string>
     <string name="unknown">-</string>
     <string name="artwork_description">%1$s</string>
     <string name="variable">%1$s</string>
-    <string name="favorites_title">Favoriler</string>
-    <string name="artworks_header">Sanat Eserleri</string>
-    <string name="artists_header">Sanatçılar</string>
-    <string name="artwork_header">Eserler</string>
-    <string name="artist_artworks_title">Sanatçının Eserleri</string>
-    <string name="artist_name_placeholder">Sanatçı Adı</string>
+    <string name="favorites_title">Favorites</string>
+    <string name="artists_header">Artists</string>
+    <string name="artist_label">Artist:</string>
+    <string name="artwork_header">Artworks</string>
+    <string name="date_header">1900 - 1950</string>
+    <string name="artist_artworks_title">Artist\'s Works</string>
+    <string name="artist_name_placeholder">Artist Name</string>
     <string name="iv_arrow_left_descr">image view arrow left</string>
     <string name="iv_favorite_descr">image view favorite</string>
     <string name="save_icon">save icon</string>
@@ -20,10 +21,11 @@
     <string name="share_icon">share icon</string>
     <string name="shimmer_frame_descr">shimmer frame</string>
     <string name="full_screen">full screen</string>
-    <string name="tv_date_label">Eserin yapılış tarihi:</string>
-    <string name="tv_medium_label">Eserin tekniği:</string>
-    <string name="tv_dimension_label">Eserin Boyutu:</string>
-    <string name="tv_credit_line_label">Koleksiyon:</string>
+    <string name="tv_date_label">Creation Date:</string>
+    <string name="tv_medium_label">Technique:</string>
+    <string name="tv_dimension_label">Dimensions:</string>
+    <string name="place_of_origin">Place of Origin:</string>
+    <string name="tv_credit_line_label">Collection:</string>
     <string name="artwork_image_url">https://www.artic.edu/iiif/2/%s/full/1600,/0/default.jpg</string>
 
 </resources>

@@ -39,13 +39,13 @@
                 android:id="@+id/ivArtwork"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/artworks_header"
+                android:contentDescription="@string/artwork_header"
                 android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/ivFavorite"
-                android:layout_width="@dimen/icon_full_screen_size"
-                android:layout_height="@dimen/icon_full_screen_size"
+                android:layout_width="@dimen/padding_32dp"
+                android:layout_height="@dimen/padding_32dp"
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/padding_8dp"
                 android:clickable="true"
@@ -65,7 +65,7 @@
             android:fontFamily="@font/lora_regular"
             android:maxLines="1"
             android:padding="@dimen/toolbar_padding"
-            android:text="@string/artworks_header"
+            android:text="@string/artwork_header"
             android:textColor="@color/primary"
             android:textSize="@dimen/tv_title_size"
             app:layout_constraintBottom_toBottomOf="parent"

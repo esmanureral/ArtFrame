@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/padding_8dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/ivArtworkImage"
         android:layout_width="@dimen/iv_artwork_image_size"
         android:layout_height="@dimen/iv_artwork_image_size"
-        android:contentDescription="@string/artworks_header"
+        android:contentDescription="@string/artwork_header"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivArtworkImage"
         app:layout_constraintTop_toTopOf="@id/ivArtworkImage"
-        tools:text="@string/artworks_header" />
+        tools:text="@string/artwork_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

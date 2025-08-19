@@ -1,8 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/ivFullScreen"
@@ -19,8 +18,8 @@
 
     <ImageView
         android:id="@+id/saveIcon"
-        android:layout_width="@dimen/icon_full_screen_size"
-        android:layout_height="@dimen/icon_full_screen_size"
+        android:layout_width="@dimen/padding_32dp"
+        android:layout_height="@dimen/padding_32dp"
         android:layout_margin="@dimen/toolbar_title_margin_start"
         android:layout_marginBottom="@dimen/toolbar_title_margin_start"
         android:contentDescription="@string/save_icon"
@@ -30,8 +29,8 @@
 
     <ImageView
         android:id="@+id/wallpaperIcon"
-        android:layout_width="@dimen/icon_full_screen_size"
-        android:layout_height="@dimen/icon_full_screen_size"
+        android:layout_width="@dimen/padding_32dp"
+        android:layout_height="@dimen/padding_32dp"
         android:layout_margin="@dimen/toolbar_title_margin_start"
         android:layout_marginEnd="@dimen/toolbar_title_margin_start"
         android:contentDescription="@string/wallpaper_icon"
@@ -41,8 +40,8 @@
 
     <ImageView
         android:id="@+id/shareIcon"
-        android:layout_width="@dimen/icon_full_screen_size"
-        android:layout_height="@dimen/icon_full_screen_size"
+        android:layout_width="@dimen/padding_32dp"
+        android:layout_height="@dimen/padding_32dp"
         android:layout_margin="@dimen/toolbar_title_margin_start"
         android:contentDescription="@string/share_icon"
         android:src="@drawable/share_icon"
