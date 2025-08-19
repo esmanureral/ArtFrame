@@ -35,9 +35,10 @@ class ArtworkListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = ArtworkAdapter(mutableListOf()) { artwork ->
+        adapter = ArtworkAdapter { artwork ->
             navigateToDetail(artwork.id)
         }
+
         with(binding) {
             recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
             recyclerView.adapter = adapter
@@ -68,7 +69,10 @@ class ArtworkListFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.artworks.observe(viewLifecycleOwner) { newItems ->
-            adapter.addData(newItems)
+            val currentList = adapter.currentList.toMutableList()
+            currentList.addAll(newItems)
+            adapter.submitList(currentList)
+
             if (newItems.size < 10) {
                 viewModel.fetchArtworks()
             }
