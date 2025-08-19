@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
 import com.esmanureral.artframe.presentation.artistlist.ArtistListAdapter
@@ -42,10 +43,13 @@ class FavoritesFragment : Fragment() {
         favoriteArtists = favoritesPrefs.loadArtistFavorites().reversed().toMutableList()
         setupAdapters()
         setupTabClicks()
+
         with(binding) {
             rvFavorites.adapter = adapter
             rvFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
         }
+
+        checkEmptyState()
     }
 
     private fun setupTabClicks() {
@@ -62,6 +66,7 @@ class FavoritesFragment : Fragment() {
                         binding.rvFavorites.adapter = artistAdapter
                     }
                 }
+                checkEmptyState()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -77,6 +82,9 @@ class FavoritesFragment : Fragment() {
                 findNavController().navigate(
                     FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(artwork.id)
                 )
+            },
+            onFavoritesChanged = {
+                checkEmptyState()
             }
         )
 
@@ -87,14 +95,43 @@ class FavoritesFragment : Fragment() {
                     FavoritesFragmentDirections.actionFavoritesFragmentToArtistArtworkFragment(
                         artist.id,
                         artist.title,
-                        artist.birthDate?:"",
-                        artist.deathDate?:""
+                        artist.birthDate ?: "",
+                        artist.deathDate ?: ""
                     )
                 findNavController().navigate(action)
             },
             isRemoveFavorite = true
         )
         artistAdapter.submitList(favoriteArtists)
+    }
+
+    private fun checkEmptyState() {
+        val currentTab = binding.tabLayout.selectedTabPosition
+        with(binding) {
+            when (currentTab) {
+                0 -> {
+                    if (favoriteArtwork.isEmpty()) {
+                        rvFavorites.visibility = View.GONE
+                        tvEmptyMessage.visibility = View.VISIBLE
+                        tvEmptyMessage.text = getString(R.string.no_favorites)
+                    } else {
+                        rvFavorites.visibility = View.VISIBLE
+                        tvEmptyMessage.visibility = View.GONE
+                    }
+                }
+
+                1 -> {
+                    if (favoriteArtists.isEmpty()) {
+                        rvFavorites.visibility = View.GONE
+                        tvEmptyMessage.visibility = View.VISIBLE
+                        tvEmptyMessage.text = getString(R.string.no_favorites)
+                    } else {
+                        rvFavorites.visibility = View.VISIBLE
+                        tvEmptyMessage.visibility = View.GONE
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
