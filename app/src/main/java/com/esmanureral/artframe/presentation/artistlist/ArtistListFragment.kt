@@ -41,7 +41,9 @@ class ArtistListFragment : Fragment() {
                 val action =
                     ArtistListFragmentDirections.actionArtistListFragmentToArtistArtworkFragment(
                         artist.id,
-                        artist.title
+                        artist.title,
+                        artist.birthDate ?: "?",
+                        artist.deathDate ?: "?"
                     )
                 findNavController().navigate(action)
             },

@@ -57,6 +57,14 @@
         <argument
             android:name="artistName"
             app:argType="string" />
+        <argument
+            android:name="birthDate"
+            app:argType="string"
+            app:nullable="@null" />
+        <argument
+            android:name="deathDate"
+            app:argType="string"
+            app:nullable="@null" />
         <action
             android:id="@+id/action_artistArtworkFragment_to_detailFragment"
             app:destination="@id/detailFragment" />

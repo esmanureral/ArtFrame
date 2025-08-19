@@ -7,6 +7,8 @@ data class ArtworkDetailUI(
     val id: Int,
     val title: String,
     val artistTitle: String,
+    val birthDate: String?,
+    val deathDate: String?,
     val dateDisplay: String,
     val description: String?,
     val shortDescription: String,
@@ -19,9 +21,15 @@ data class ArtworkDetailUI(
     val placeOfOrigin: String
 )
 
-fun ArtworkDetail.toUIModel() = ArtworkDetailUI(
-    id = this.id, title = title.orEmpty(),
+fun ArtworkDetail.toUIModel(
+    birthDate: String? = null,
+    deathDate: String? = null
+) = ArtworkDetailUI(
+    id = this.id,
+    title = title.orEmpty(),
     artistTitle = artistTitle.orEmpty(),
+    birthDate = birthDate,
+    deathDate = deathDate,
     dateDisplay = dateDisplay.orEmpty(),
     description = description.orEmpty(),
     shortDescription = shortDescription.orEmpty(),

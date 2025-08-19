@@ -31,6 +31,7 @@ class ArtistDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
         binding.tvArtistTitle.text = args.artistName
+        binding.tvYears.text = getString(R.string.artist_years, args.birthDate, args.deathDate)
         setupAdapter()
         observeViewModel()
         viewModel.fetchArtworksByArtist(args.artistId)
@@ -87,8 +88,8 @@ class ArtistDetailFragment : Fragment() {
         return ArtistListUI(
             id = args.artistId,
             title = args.artistName,
-            birthDate = null,
-            deathDate = null
+            birthDate = args.birthDate,
+            deathDate = args.deathDate
         )
     }
 

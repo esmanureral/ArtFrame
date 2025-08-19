@@ -86,7 +86,9 @@ class FavoritesFragment : Fragment() {
                 val action =
                     FavoritesFragmentDirections.actionFavoritesFragmentToArtistArtworkFragment(
                         artist.id,
-                        artist.title ?: ""
+                        artist.title,
+                        artist.birthDate?:"",
+                        artist.deathDate?:""
                     )
                 findNavController().navigate(action)
             },

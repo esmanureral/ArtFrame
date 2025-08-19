@@ -44,13 +44,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
+    <TextView
+        android:id="@+id/tvYears"
+        style="@style/ItemYearsTitleText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_years"
+
+        app:layout_constraintEnd_toEndOf="@+id/tvArtistTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvArtistTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvArtistTitle" />
+
     <ImageView
         android:id="@+id/ivFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/iv_favorite_margin"
         android:contentDescription="@string/favorites_title"
         android:padding="@dimen/padding_8dp"
-        android:layout_marginEnd="@dimen/iv_favorite_margin"
         android:src="@drawable/favorite_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -59,10 +70,10 @@
         android:id="@+id/rvArtworks"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/iv_favorite_margin"
+        android:layout_marginHorizontal="@dimen/header_padding"
         android:layout_marginTop="@dimen/padding_32dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginBottom="12dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

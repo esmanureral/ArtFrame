@@ -27,5 +27,6 @@
     <string name="place_of_origin">Place of Origin:</string>
     <string name="tv_credit_line_label">Collection:</string>
     <string name="artwork_image_url">https://www.artic.edu/iiif/2/%s/full/1600,/0/default.jpg</string>
+    <string name="tv_years">Years</string>
 
 </resources>

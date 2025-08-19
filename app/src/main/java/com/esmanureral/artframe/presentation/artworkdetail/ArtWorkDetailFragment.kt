@@ -103,7 +103,7 @@ class ArtWorkDetailFragment : Fragment() {
             tvMedium.text = artwork.thumbnail?.altText
             tvDimensions.text = artwork.dimension
             tvCreditLine.text = artwork.creditLine
-            tvPlaceOrigin.text=artwork.placeOfOrigin
+            tvPlaceOrigin.text = artwork.placeOfOrigin
             tvDescription.text = Html.fromHtml(
                 artwork.description,
                 Html.FROM_HTML_MODE_COMPACT
@@ -128,7 +128,9 @@ class ArtWorkDetailFragment : Fragment() {
             val action = ArtWorkDetailFragmentDirections
                 .actionDetailFragmentToArtistArtworkFragment(
                     artistId = id,
-                    artistName = artwork.artistTitle
+                    artistName = artwork.artistTitle,
+                    birthDate = artwork.birthDate?:"",
+                    deathDate = artwork.deathDate?:""
                 )
             findNavController().navigate(action)
         }
