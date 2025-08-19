@@ -70,7 +70,7 @@ class ArtistDetailFragment : Fragment() {
 
     private fun setOnClickListener() = with(binding) {
         ivArrowLeft.setOnClickListener {
-            findNavController().navigate(R.id.artistListFragment)
+           findNavController().popBackStack()
         }
 
         ivFavorite.setOnClickListener {
