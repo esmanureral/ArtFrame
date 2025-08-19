@@ -2,8 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -86,16 +85,15 @@
                         style="@style/TvTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/ivFavorite"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Kedi ile Çocuk" />
+                        tools:text="Kedi ile Çocuk " />
 
                     <ImageView
                         android:id="@+id/ivFavorite"
-                        android:layout_width="@dimen/iv_favorite_width"
-                        android:layout_height="@dimen/iv_favorite_height"
-                        android:layout_marginEnd="@dimen/padding_8dp"
+                        android:layout_width="@dimen/padding_32dp"
+                        android:layout_height="@dimen/padding_32dp"
                         android:contentDescription="@string/iv_favorite_descr"
                         android:padding="@dimen/toolbar_padding"
                         android:src="@drawable/favorite_border"
@@ -104,49 +102,89 @@
                         app:layout_constraintTop_toTopOf="@id/tvTitle"
                         app:tint="@color/onPrimary" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipArtist"
+
+                    <TextView
+                        android:id="@+id/tvArtistLabel"
                         style="@style/ItemYearsTitleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="@dimen/padding_8dp"
-                        app:chipBackgroundColor="@color/primary"
-                        app:chipCornerRadius="@dimen/icon_size"
-                        app:chipIconVisible="false"
+                        android:layout_marginTop="@dimen/padding_32dp"
+                        android:text="@string/artist_label"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+                    <TextView
+                        android:id="@+id/tvArtistDisplay"
+                        style="@style/ItemYearsTitleText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_8dp"
+                        android:ellipsize="none"
+                        android:singleLine="false"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toStartOf="@id/ivArtistIcon"
+                        app:layout_constraintStart_toEndOf="@id/tvArtistLabel"
+                        app:layout_constraintTop_toTopOf="@id/tvArtistLabel"
                         tools:text="Sebastiano del Piombo" />
 
-                    <View
-                        android:id="@+id/divider"
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="1dp"
-                        android:background="@color/surface"
+                    <ImageView
+                        android:id="@+id/ivArtistIcon"
+                        android:layout_width="@dimen/padding_32dp"
+                        android:layout_height="@dimen/padding_32dp"
+                        android:contentDescription="@string/artist_label"
+                        android:src="@drawable/baseline_arrow_right_24"
+                        app:layout_constraintBottom_toBottomOf="@id/tvArtistDisplay"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/chipArtist" />
+                        app:layout_constraintStart_toEndOf="@id/tvArtistDisplay"
+                        app:layout_constraintTop_toTopOf="@id/tvArtistDisplay" />
+
 
                     <TextView
                         android:id="@+id/tvDateLabel"
                         style="@style/ItemYearsTitleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_8dp"
+                        android:layout_marginTop="@dimen/iv_favorite_margin"
                         android:text="@string/tv_date_label"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/divider" />
+                        app:layout_constraintTop_toBottomOf="@id/tvArtistDisplay" />
 
                     <TextView
                         android:id="@+id/tvDate"
                         style="@style/ItemYearsTitleText"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_8dp"
                         android:textStyle="normal"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tvDateLabel"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tvDateLabel"
+                        app:layout_constraintTop_toTopOf="@id/tvDateLabel"
                         tools:text="1908" />
+
+                    <TextView
+                        android:id="@+id/tvPlaceOriginLabel"
+                        style="@style/ItemYearsTitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/iv_favorite_margin"
+                        android:text="@string/place_of_origin"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvDate" />
+
+                    <TextView
+                        android:id="@+id/tvPlaceOrigin"
+                        style="@style/ItemYearsTitleText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_8dp"
+                        android:textStyle="normal"
+                        app:layout_constraintBaseline_toBaselineOf="@id/tvPlaceOriginLabel"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvPlaceOriginLabel"
+                        tools:text="place of origin" />
 
                     <TextView
                         android:id="@+id/tvMediumLabel"
@@ -155,19 +193,22 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iv_favorite_margin"
                         android:text="@string/tv_medium_label"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvDate" />
+                        app:layout_constraintTop_toBottomOf="@id/tvPlaceOrigin" />
 
                     <TextView
                         android:id="@+id/tvMedium"
                         style="@style/ItemYearsTitleText"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_8dp"
                         android:textStyle="normal"
                         app:layout_constraintBaseline_toBaselineOf="@id/tvMediumLabel"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tvMediumLabel"
                         tools:text="Oil on canvas" />
+
 
                     <TextView
                         android:id="@+id/tvDimensionsLabel"
@@ -183,12 +224,15 @@
                     <TextView
                         android:id="@+id/tvDimensions"
                         style="@style/ItemYearsTitleText"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_8dp"
+                        android:ellipsize="none"
+                        android:singleLine="false"
                         android:textStyle="normal"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tvDimensionsLabel"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tvDimensionsLabel"
+                        app:layout_constraintTop_toTopOf="@id/tvDimensionsLabel"
                         tools:text="91.8 × 150.2 cm" />
 
                     <TextView
@@ -208,10 +252,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding_8dp"
+                        android:ellipsize="none"
+                        android:singleLine="false"
                         android:textStyle="normal"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tvCreditLineLabel"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/tvCreditLineLabel"
+                        app:layout_constraintTop_toTopOf="@id/tvCreditLineLabel"
                         tools:text="Mr. and Mrs. Lewis Larned Coburn Memorial Collection" />
 
                     <TextView
@@ -219,8 +265,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iv_favorite_margin"
+                        android:ellipsize="none"
                         android:fontFamily="@font/didot_regular"
                         android:letterSpacing="0.1"
+                        android:singleLine="false"
                         android:textColor="@color/surface"
                         android:textSize="@dimen/tv_title_size"
                         app:layout_constraintBottom_toBottomOf="parent"

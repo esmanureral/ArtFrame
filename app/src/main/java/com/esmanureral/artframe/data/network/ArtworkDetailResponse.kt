@@ -29,6 +29,10 @@ data class ArtworkDetail(
     val dimensions: String?,
     @SerializedName("credit_line")
     val creditLine: String?,
+    @SerializedName("artist_display")
+    val artistDisplay: String?,
+    @SerializedName("place_of_origin")
+    val placeOfOrigin: String?,
 )
 
 data class Thumbnail(

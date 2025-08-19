@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -38,10 +37,10 @@
         style="@style/ArtistTitleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/toolbar_title_margin_start"
+        android:layout_marginStart="@dimen/iv_favorite_margin"
         android:padding="@dimen/toolbar_padding"
         android:text="@string/artist_name_placeholder"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
@@ -49,19 +48,21 @@
         android:id="@+id/ivFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/iv_favorite_margin"
         android:contentDescription="@string/favorites_title"
         android:padding="@dimen/padding_8dp"
+        android:layout_marginEnd="@dimen/iv_favorite_margin"
         android:src="@drawable/favorite_border"
-        app:layout_constraintEnd_toEndOf="@+id/tvArtistTitle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvArtworks"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="@dimen/toolbar_padding"
+        android:layout_marginStart="@dimen/iv_favorite_margin"
+        android:layout_marginTop="@dimen/padding_32dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
