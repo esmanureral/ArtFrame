@@ -24,7 +24,20 @@ class ArtWorkDetailViewModel(application: Application) : AndroidViewModel(applic
         viewModelScope.launch {
             val response = api.getArtworkDetail(id)
             if (response.isSuccessful) {
-                _artworkDetail.value = response.body()?.data?.toUIModel()
+                val artwork = response.body()?.data
+                artwork?.let { artworkData ->
+                    val artistResponse = api.getArtistDetail(artworkData.artistId)
+                    if (artistResponse.isSuccessful) {
+                        val artist = artistResponse.body()?.data
+
+                        _artworkDetail.value = artworkData.toUIModel(
+                            birthDate = artist?.birthDate,
+                            deathDate = artist?.deathDate
+                        )
+                    } else {
+                        _artworkDetail.value = artworkData.toUIModel()
+                    }
+                }
             } else {
                 _artworkDetail.value = null
             }

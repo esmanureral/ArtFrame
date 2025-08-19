@@ -25,6 +25,12 @@ interface ApiService {
         @Query("fields") fields: String = "id,title,birth_date,death_date"
     ): Response<ArtistsListResponse>
 
+    @GET("artists/{id}")
+    suspend fun getArtistDetail(
+        @Path("id") id: Int,
+        @Query("fields") fields: String = "id,title,birth_date,death_date"
+    ): Response<ArtistDetailResponse>
+
     @GET("artworks/search")
     suspend fun getArtworksByArtist(
         @Query("query[term][artist_ids]") artistId: Int,
