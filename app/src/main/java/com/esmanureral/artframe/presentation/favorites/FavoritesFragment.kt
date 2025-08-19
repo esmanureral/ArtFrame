@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
-import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
 import com.esmanureral.artframe.presentation.artistlist.ArtistListAdapter
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
@@ -93,7 +92,7 @@ class FavoritesFragment : Fragment() {
             },
             isRemoveFavorite = true
         )
-        artistAdapter.addData(favoriteArtists)
+        artistAdapter.submitList(favoriteArtists)
     }
 
     override fun onDestroyView() {

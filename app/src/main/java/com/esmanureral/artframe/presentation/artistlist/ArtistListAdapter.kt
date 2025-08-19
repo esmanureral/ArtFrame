@@ -2,10 +2,11 @@ package com.esmanureral.artframe.presentation.artistlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
-import com.esmanureral.artframe.data.network.Artists
 import com.esmanureral.artframe.databinding.ItemArtistBinding
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 
@@ -13,8 +14,7 @@ class ArtistListAdapter(
     private val favoritesPrefs: ArtWorkSharedPreferences,
     private val onItemClick: (ArtistListUI) -> Unit,
     private val isRemoveFavorite: Boolean = false
-) : RecyclerView.Adapter<ArtistListAdapter.ArtistViewHolder>() {
-    private val artistItems = mutableListOf<ArtistListUI>()
+) : ListAdapter<ArtistListUI, ArtistListAdapter.ArtistViewHolder>(ArtistDiffCallback()) {
 
     inner class ArtistViewHolder(private val binding: ItemArtistBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -33,19 +33,18 @@ class ArtistListAdapter(
                 ivFavorite.setOnClickListener {
                     if (favoritesPrefs.isArtistFavorite(artists)) {
                         favoritesPrefs.removeArtistFavorite(artists)
-
                         if (isRemoveFavorite) {
-                            artistItems.removeAt(adapterPosition)
-                            notifyItemRemoved(adapterPosition)
+                            val newList = currentList.toMutableList()
+                            newList.removeAt(adapterPosition)
+                            submitList(newList)
                         } else {
-                            notifyItemChanged(adapterPosition)
+                            ivFavorite.setImageResource(R.drawable.favorite_border)
                         }
                     } else {
                         favoritesPrefs.addArtistFavorite(artists)
-                        notifyItemChanged(adapterPosition)
+                        ivFavorite.setImageResource(R.drawable.favorite_24)
                     }
                 }
-
                 root.setOnClickListener {
                     onItemClick(artists)
                 }
@@ -59,14 +58,14 @@ class ArtistListAdapter(
     }
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
-        holder.bind(artistItems[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = artistItems.size
+    class ArtistDiffCallback : DiffUtil.ItemCallback<ArtistListUI>() {
+        override fun areItemsTheSame(oldItem: ArtistListUI, newItem: ArtistListUI) =
+            oldItem.id == newItem.id
 
-    fun addData(newArtists: List<ArtistListUI>) {
-        val startPos = artistItems.size
-        artistItems.addAll(newArtists)
-        notifyItemRangeInserted(startPos, newArtists.size)
+        override fun areContentsTheSame(oldItem: ArtistListUI, newItem: ArtistListUI) =
+            oldItem == newItem
     }
 }

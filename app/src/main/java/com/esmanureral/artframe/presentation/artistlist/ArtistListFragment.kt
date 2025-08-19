@@ -41,7 +41,7 @@ class ArtistListFragment : Fragment() {
                 val action =
                     ArtistListFragmentDirections.actionArtistListFragmentToArtistArtworkFragment(
                         artist.id,
-                        artist.title ?: ""
+                        artist.title
                     )
                 findNavController().navigate(action)
             },
@@ -72,7 +72,9 @@ class ArtistListFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.artists.observe(viewLifecycleOwner) { newItems ->
-            newItems?.let { adapter.addData(it) }
+            val currentList = adapter.currentList.toMutableList()
+            currentList.addAll(newItems)
+            adapter.submitList(currentList)
         }
     }
 
