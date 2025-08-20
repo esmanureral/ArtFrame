@@ -42,7 +42,6 @@ class ArtWorkDetailFragment : Fragment() {
         viewModel.fetchArtworkDetail(artworkId)
         setupClickListeners()
         observeArtworkDetail()
-        setupDescriptionToggle()
     }
 
     private fun observeArtworkDetail() {
@@ -111,13 +110,22 @@ class ArtWorkDetailFragment : Fragment() {
             tvDimensions.text = artwork.dimension
             tvCreditLine.text = artwork.creditLine
             tvPlaceOrigin.text = artwork.placeOfOrigin
+
             if (artwork.description.isNullOrBlank()) {
                 tvDescription.text = getString(R.string.no_description)
+                tvDescription.visibility = View.VISIBLE
+                descriptionContainer.setOnClickListener(null)
             } else {
                 tvDescription.text = Html.fromHtml(
                     artwork.description,
                     Html.FROM_HTML_MODE_COMPACT
                 )
+                tvDescription.visibility = View.GONE
+
+                descriptionContainer.setOnClickListener {
+                    tvDescription.visibility =
+                        if (tvDescription.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                }
             }
         }
     }
@@ -157,26 +165,6 @@ class ArtWorkDetailFragment : Fragment() {
         if (!sharedPrefs.isAppBarAnimationSeen()) {
             animateCollapseExpand()
             sharedPrefs.setAppBarAnimationSeen()
-        }
-    }
-
-    private fun setupDescriptionToggle() {
-        with(binding) {
-            tvDescription.visibility = View.GONE
-
-            if (tvDescription.text.isNullOrBlank()) {
-                tvDescription.text = getString(R.string.no_description)
-                tvDescription.visibility = View.VISIBLE
-            } else {
-                tvDescription.visibility = View.GONE
-            }
-            descriptionContainer.setOnClickListener {
-                tvDescription.visibility = if (tvDescription.visibility == View.VISIBLE) {
-                    View.GONE
-                } else {
-                    View.VISIBLE
-                }
-            }
         }
     }
 
