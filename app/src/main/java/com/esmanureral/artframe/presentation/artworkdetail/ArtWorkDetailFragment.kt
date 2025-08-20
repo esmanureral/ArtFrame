@@ -65,7 +65,7 @@ class ArtWorkDetailFragment : Fragment() {
                 }
             }
 
-            ivArtistIcon.setOnClickListener {
+            artistContainer.setOnClickListener {
                 currentArtwork?.let { artwork -> navigateToArtistArtworks(artwork) }
             }
 
@@ -166,6 +166,9 @@ class ArtWorkDetailFragment : Fragment() {
 
             if (tvDescription.text.isNullOrBlank()) {
                 tvDescription.text = getString(R.string.no_description)
+                tvDescription.visibility = View.VISIBLE
+            } else {
+                tvDescription.visibility = View.GONE
             }
             descriptionContainer.setOnClickListener {
                 tvDescription.visibility = if (tvDescription.visibility == View.VISIBLE) {
