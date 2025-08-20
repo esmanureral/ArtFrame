@@ -56,7 +56,7 @@ class ArtWorkDetailFragment : Fragment() {
 
     private fun setupClickListeners() {
         with(binding) {
-            ivFavorite.setOnClickListener {
+            bottomActionBar.ivFavorite.setOnClickListener {
                 viewModel.artworkDetail.value?.let {
                     currentArtwork?.let { artwork ->
                         toggleFavorite(artwork)
@@ -131,7 +131,7 @@ class ArtWorkDetailFragment : Fragment() {
     private fun updateFavoriteIcon(artwork: ArtworkDetailUI) {
         val res = if (favoritesPrefs.isArtworkFavorite(artwork)) R.drawable.favorite_24
         else R.drawable.favorite_border
-        binding.ivFavorite.setImageResource(res)
+        binding.bottomActionBar.ivFavorite.setImageResource(res)
     }
 
     private fun navigateToArtistArtworks(artwork: ArtworkDetailUI) {
@@ -167,7 +167,7 @@ class ArtWorkDetailFragment : Fragment() {
             if (tvDescription.text.isNullOrBlank()) {
                 tvDescription.text = getString(R.string.no_description)
             }
-            ivDescriptionIcon.setOnClickListener {
+            descriptionContainer.setOnClickListener {
                 tvDescription.visibility = if (tvDescription.visibility == View.VISIBLE) {
                     View.GONE
                 } else {
