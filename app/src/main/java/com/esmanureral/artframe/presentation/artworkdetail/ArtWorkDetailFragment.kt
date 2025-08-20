@@ -12,9 +12,10 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.R
-import com.esmanureral.artframe.data.network.ArtworkDetail
+import com.esmanureral.artframe.animateCollapseExpand
 import com.esmanureral.artframe.databinding.FragmentDetailBinding
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
+import com.google.android.material.appbar.AppBarLayout
 
 class ArtWorkDetailFragment : Fragment() {
 
@@ -83,6 +84,7 @@ class ArtWorkDetailFragment : Fragment() {
         bindTextFields(artwork)
         loadArtworkImage(artwork)
         updateFavoriteIcon(artwork)
+        binding.appBar.animateCollapseExpand(favoritesPrefs)
     }
 
     private fun loadArtworkImage(artwork: ArtworkDetailUI) {
@@ -129,8 +131,8 @@ class ArtWorkDetailFragment : Fragment() {
                 .actionDetailFragmentToArtistArtworkFragment(
                     artistId = id,
                     artistName = artwork.artistTitle,
-                    birthDate = artwork.birthDate?:"",
-                    deathDate = artwork.deathDate?:""
+                    birthDate = artwork.birthDate ?: "",
+                    deathDate = artwork.deathDate ?: ""
                 )
             findNavController().navigate(action)
         }
@@ -140,6 +142,13 @@ class ArtWorkDetailFragment : Fragment() {
         val action = ArtWorkDetailFragmentDirections
             .actionDetailFragmentToFullScreenImageFragment(imageUrl)
         findNavController().navigate(action)
+    }
+
+    private fun AppBarLayout.animateCollapseExpand(sharedPrefs: ArtWorkSharedPreferences) {
+        if (!sharedPrefs.isAppBarAnimationSeen()) {
+            animateCollapseExpand()
+            sharedPrefs.setAppBarAnimationSeen()
+        }
     }
 
     override fun onDestroyView() {
