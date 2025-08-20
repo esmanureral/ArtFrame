@@ -61,10 +61,21 @@ class ArtistDetailFragment : Fragment() {
         }
         binding.rvArtworks.adapter = adapter
     }
-
     private fun observeViewModel() {
         viewModel.artworks.observe(viewLifecycleOwner) { list ->
-            list?.let { adapter.setData(it) }
+            list?.let {
+                with(binding) {
+                    if (it.isEmpty()) {
+                        tvNoArtworks.text = getString(R.string.artist_details_not_found)
+                        tvNoArtworks.visibility = View.VISIBLE
+                        rvArtworks.visibility = View.GONE
+                    } else {
+                        tvNoArtworks.visibility = View.GONE
+                        rvArtworks.visibility = View.VISIBLE
+                        adapter.setData(it)
+                    }
+                }
+            }
         }
     }
 
