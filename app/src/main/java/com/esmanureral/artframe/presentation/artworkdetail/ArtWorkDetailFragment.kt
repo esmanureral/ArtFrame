@@ -15,6 +15,7 @@ import com.esmanureral.artframe.R
 import com.esmanureral.artframe.animateCollapseExpand
 import com.esmanureral.artframe.databinding.FragmentDetailBinding
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
+import com.esmanureral.artframe.setArtistDisplay
 import com.google.android.material.appbar.AppBarLayout
 
 class ArtWorkDetailFragment : Fragment() {
@@ -77,6 +78,13 @@ class ArtWorkDetailFragment : Fragment() {
             ivArrowLeft.setOnClickListener {
                 findNavController().popBackStack()
             }
+            ivDescriptionIcon.setOnClickListener {
+                tvDescription.visibility = if (tvDescription.visibility == View.VISIBLE) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
+            }
         }
     }
 
@@ -100,7 +108,10 @@ class ArtWorkDetailFragment : Fragment() {
     private fun bindTextFields(artwork: ArtworkDetailUI) {
         with(binding) {
             tvTitle.text = artwork.title
-            tvArtistDisplay.text = artwork.artistDisplay
+            tvArtistDisplay.setArtistDisplay(
+                artistTitle = artwork.artistTitle,
+                artistDisplay = artwork.artistDisplay
+            )
             tvDate.text = artwork.dateDisplay
             tvMedium.text = artwork.thumbnail?.altText
             tvDimensions.text = artwork.dimension
