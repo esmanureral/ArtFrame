@@ -22,7 +22,7 @@ fun TextView.setArtistDisplay(artistTitle: String, artistDisplay: String) {
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     builder.setSpan(
-        AbsoluteSizeSpan(18, true),
+        AbsoluteSizeSpan(14, true),
         0,
         builder.length,
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
