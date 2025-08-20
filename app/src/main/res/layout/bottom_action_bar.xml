@@ -5,14 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
+    <View
+        android:id="@+id/dividerTop"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/iconShare"
+        android:id="@+id/ivShare"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:contentDescription="@string/share"
+        android:layout_marginTop="@dimen/header_padding"
         android:src="@drawable/share"
-        app:layout_constraintEnd_toStartOf="@id/iconFavorite"
+        app:layout_constraintEnd_toStartOf="@id/ivFavorite"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,18 +33,19 @@
         android:text="@string/share"
         android:textSize="@dimen/item_year_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/iconShare"
-        app:layout_constraintStart_toStartOf="@id/iconShare"
-        app:layout_constraintTop_toBottomOf="@id/iconShare" />
+        app:layout_constraintEnd_toEndOf="@id/ivShare"
+        app:layout_constraintStart_toStartOf="@id/ivShare"
+        app:layout_constraintTop_toBottomOf="@id/ivShare" />
 
     <ImageView
-        android:id="@+id/iconFavorite"
+        android:id="@+id/ivFavorite"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:contentDescription="@string/favorite"
         android:src="@drawable/favorite_border"
+        android:layout_marginTop="@dimen/header_padding"
         app:layout_constraintEnd_toStartOf="@id/iconDownload"
-        app:layout_constraintStart_toEndOf="@id/iconShare"
+        app:layout_constraintStart_toEndOf="@id/ivShare"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -45,18 +55,19 @@
         android:text="@string/favorite"
         android:textSize="@dimen/item_year_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/iconFavorite"
-        app:layout_constraintStart_toStartOf="@id/iconFavorite"
-        app:layout_constraintTop_toBottomOf="@id/iconFavorite" />
+        app:layout_constraintEnd_toEndOf="@id/ivFavorite"
+        app:layout_constraintStart_toStartOf="@id/ivFavorite"
+        app:layout_constraintTop_toBottomOf="@id/ivFavorite" />
 
     <ImageView
         android:id="@+id/iconDownload"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:contentDescription="@string/download"
+        android:layout_marginTop="@dimen/header_padding"
         android:src="@drawable/download"
         app:layout_constraintEnd_toStartOf="@id/iconWallpaper"
-        app:layout_constraintStart_toEndOf="@id/iconFavorite"
+        app:layout_constraintStart_toEndOf="@id/ivFavorite"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -76,6 +87,7 @@
         android:layout_height="@dimen/icon_size"
         android:contentDescription="@string/wallpaper"
         android:src="@drawable/wallpaper"
+        android:layout_marginTop="@dimen/header_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iconDownload"
         app:layout_constraintTop_toTopOf="parent" />
@@ -90,5 +102,6 @@
         app:layout_constraintEnd_toEndOf="@id/iconWallpaper"
         app:layout_constraintStart_toStartOf="@id/iconWallpaper"
         app:layout_constraintTop_toBottomOf="@id/iconWallpaper" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

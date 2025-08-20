@@ -17,44 +17,26 @@
 
         <ImageView
             android:id="@+id/ivArrowLeft"
-            android:layout_width="@dimen/iv_favorite_width"
-            android:layout_height="@dimen/iv_favorite_width"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/iv_arrow_left_descr"
             android:padding="@dimen/padding_8dp"
             android:src="@drawable/arrow_left" />
 
-        <ImageView
-            android:id="@+id/ivFavorite"
-            android:layout_width="@dimen/iv_favorite_width"
-            android:layout_height="@dimen/iv_favorite_width"
-            android:layout_gravity="end"
-            android:contentDescription="@string/iv_arrow_left_descr"
-            android:padding="@dimen/padding_8dp"
-            android:src="@drawable/favorite_border" />
-
-        <ImageView
-            android:id="@+id/ivShare"
-            android:layout_width="@dimen/iv_favorite_width"
-            android:layout_height="@dimen/iv_favorite_width"
-            android:layout_gravity="end"
-            android:contentDescription="@string/iv_arrow_left_descr"
-            android:padding="@dimen/padding_8dp"
-            android:src="@drawable/share" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/card_margin"
         android:background="@color/onPrimary"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="@dimen/card_corner_radius"
         app:cardUseCompatPadding="true"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/bottomActionBar">
+        app:layout_constraintBottom_toTopOf="@id/bottomActionBar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -89,7 +71,6 @@
                 android:layout_marginTop="@dimen/nested_scroll_view_margin_top"
                 android:background="@drawable/scroll_bg"
                 android:clipToPadding="false"
-                android:padding="@dimen/iv_favorite_margin"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -99,70 +80,79 @@
                     <TextView
                         android:id="@+id/tvTitle"
                         style="@style/TvDetailStyle"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginHorizontal="@dimen/iv_favorite_margin"
+                        android:layout_marginTop="@dimen/shimmer_height"
+                        android:ellipsize="none"
+                        android:scrollHorizontally="false"
+                        android:singleLine="false"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Kedi ile Çocuk " />
 
-                    <TextView
-                        android:id="@+id/tvArtistLabel"
-                        style="@style/TvDetailLabelStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_32dp"
-                        android:text="@string/artist_label"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-                    <TextView
-                        android:id="@+id/tvArtistTitle"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/artistContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvArtistLabel"
-                        tools:text="Henri Matisse" />
+                        app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-                    <TextView
-                        android:id="@+id/tvArtistDisplay"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textStyle="normal"
-                        app:layout_constraintEnd_toStartOf="@id/ivArtistIcon"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvArtistTitle"
-                        tools:text="French,1869-1954" />
+                        <TextView
+                            android:id="@+id/tvArtistLabel"
+                            style="@style/TvDetailLabelStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/iv_favorite_margin"
+                            android:layout_marginTop="@dimen/padding_32dp"
+                            android:text="@string/artist_label"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/ivArtistIcon"
-                        android:layout_width="@dimen/padding_32dp"
-                        android:layout_height="@dimen/padding_32dp"
-                        android:contentDescription="@string/artist_label"
-                        android:src="@drawable/arrow_right"
-                        app:layout_constraintBottom_toBottomOf="@id/tvArtistTitle"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tvArtistTitle" />
+                        <TextView
+                            android:id="@+id/tvArtistDisplay"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/iv_favorite_margin"
+                            android:textStyle="normal"
+                            app:layout_constraintEnd_toStartOf="@id/ivArtistIcon"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvArtistLabel"
+                            tools:text="French,1869-1954" />
 
-                    <View
-                        android:id="@+id/dividerArtist"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/divider_height"
-                        android:layout_marginTop="@dimen/iv_favorite_margin"
-                        android:background="@color/divider_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvArtistDisplay" />
+                        <ImageView
+                            android:id="@+id/ivArtistIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/iv_favorite_margin"
+                            android:layout_marginBottom="@dimen/iv_favorite_margin"
+                            android:contentDescription="@string/artist_label"
+                            android:src="@drawable/arrow_right"
+                            app:layout_constraintBottom_toBottomOf="@id/tvArtistDisplay"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tvArtistDisplay" />
+
+                        <View
+                            android:id="@+id/dividerArtist"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/divider_height"
+                            android:layout_marginTop="@dimen/iv_favorite_margin"
+                            android:background="@color/divider_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvArtistDisplay" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/tvDateLabel"
                         style="@style/TvDetailLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/iv_favorite_margin"
                         android:layout_marginTop="@dimen/padding_32dp"
                         android:text="@string/tv_date_label"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvArtistDisplay" />
+                        app:layout_constraintTop_toBottomOf="@id/artistContainer" />
 
                     <TextView
                         android:id="@+id/tvDate"
@@ -205,6 +195,7 @@
                         style="@style/TvDetailLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/iv_favorite_margin"
                         android:layout_marginTop="@dimen/iv_favorite_margin"
                         android:text="@string/tv_medium_label"
                         app:layout_constraintStart_toStartOf="parent"
@@ -215,10 +206,7 @@
                         style="@style/TvDetailTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:textColor="#000000"
                         android:textSize="@dimen/item_year_text_size"
-                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/tvMediumLabel"
                         app:layout_constraintTop_toBottomOf="@id/tvMediumLabel"
@@ -229,6 +217,7 @@
                         style="@style/TvDetailLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/iv_favorite_margin"
                         android:layout_marginTop="@dimen/iv_favorite_margin"
                         android:text="@string/tv_dimension_label"
                         app:layout_constraintStart_toStartOf="parent"
@@ -250,6 +239,7 @@
                         style="@style/TvDetailLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/iv_favorite_margin"
                         android:layout_marginTop="@dimen/iv_favorite_margin"
                         android:text="@string/tv_credit_line_label"
                         app:layout_constraintStart_toStartOf="parent"
@@ -276,39 +266,52 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvCreditLine" />
 
-                    <TextView
-                        android:id="@+id/tvDescriptionLabel"
-                        style="@style/TvDetailLabelStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_32dp"
-                        android:text="@string/description_label"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvCreditLine" />
-
-                    <TextView
-                        android:id="@+id/tvDescription"
-                        style="@style/TvDetailTextStyle"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/descriptionContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_8dp"
-                        android:ellipsize="none"
-                        android:scrollHorizontally="false"
-                        android:singleLine="false"
-                        android:textSize="@dimen/item_year_text_size"
-                        app:layout_constraintEnd_toStartOf="@id/ivDescriptionIcon"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel"
-                        tools:text="Description" />
-
-                    <ImageView
-                        android:id="@+id/ivDescriptionIcon"
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:contentDescription="@string/description_icon"
-                        android:src="@drawable/arrow_down"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tvDescriptionLabel" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/dividerDescription">
+
+                        <TextView
+                            android:id="@+id/tvDescriptionLabel"
+                            style="@style/TvDetailLabelStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/iv_favorite_margin"
+                            android:layout_marginTop="@dimen/padding_32dp"
+                            android:text="@string/description_label"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvDescription"
+                            style="@style/TvDetailTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/iv_favorite_margin"
+                            android:ellipsize="none"
+                            android:scrollHorizontally="false"
+                            android:singleLine="false"
+                            android:textSize="@dimen/item_year_text_size"
+                            app:layout_constraintEnd_toStartOf="@id/ivDescriptionIcon"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel"
+                            tools:text="Description" />
+
+                        <ImageView
+                            android:id="@+id/ivDescriptionIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/iv_favorite_margin"
+                            android:contentDescription="@string/description_icon"
+                            android:src="@drawable/arrow_down"
+                            app:layout_constraintBottom_toBottomOf="@id/tvDescriptionLabel"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tvDescriptionLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
@@ -321,7 +324,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,9 @@
 
     <solid android:color="@color/onPrimary" />
 
-    <corners android:radius="@dimen/fab_bg_radius" />
+    <corners
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp"
+        android:radius="@dimen/fab_bg_radius" />
 
 </shape>

@@ -91,6 +91,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvYears"
-        tools:listitem="@layout/item_artwork" />
+        tools:listitem="@layout/item_artist_artwork" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

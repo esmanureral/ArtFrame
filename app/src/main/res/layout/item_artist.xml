@@ -8,8 +8,8 @@
         style="@style/ItemArtistTitleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_8dp"
         android:layout_marginStart="@dimen/iv_favorite_margin"
+        android:layout_marginTop="@dimen/padding_8dp"
         android:text="@string/artist_name_placeholder"
         app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,17 +33,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/iv_favorite_margin"
-        android:layout_marginTop="@dimen/padding_8dp"
+        android:layout_marginTop="@dimen/card_margin"
         android:text="@string/date_header"
         app:layout_constraintEnd_toEndOf="@+id/tvArtistName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvArtistName" />
 
+
     <View
+        android:id="@+id/dividerArtist"
         android:layout_width="0dp"
-        android:layout_height="@dimen/indicator_height"
-        android:layout_marginTop="@dimen/padding_8dp"
-        android:background="@color/surface"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/card_margin"
+        android:background="@color/divider_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvYears" />
