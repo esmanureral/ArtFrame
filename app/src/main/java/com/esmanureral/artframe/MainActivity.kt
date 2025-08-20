@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.fullScreenImageFragment) {
+            if (destination.id == R.id.fullScreenImageFragment || destination.id==R.id.detailFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE

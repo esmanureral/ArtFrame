@@ -33,5 +33,9 @@
     <string name="description_icon">description icon</string>
     <string name="description_label">Description</string>
     <string name="no_description">No description available</string>
+    <string name="download">download</string>
+    <string name="share">share</string>
+    <string name="favorite">favorite</string>
+    <string name="wallpaper">wallpaper</string>
 
 </resources>
