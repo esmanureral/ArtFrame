@@ -31,7 +31,12 @@ class ArtistDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
         binding.tvArtistTitle.text = args.artistName
-        binding.tvYears.text = getString(R.string.artist_years, args.birthDate, args.deathDate)
+        binding.tvYears.text = getString(
+            R.string.artist_years,
+            args.birthDate.ifEmpty { "?" },
+            args.deathDate.ifEmpty { "?" }
+        )
+
         setupAdapter()
         observeViewModel()
         viewModel.fetchArtworksByArtist(args.artistId)
@@ -61,6 +66,7 @@ class ArtistDetailFragment : Fragment() {
         }
         binding.rvArtworks.adapter = adapter
     }
+
     private fun observeViewModel() {
         viewModel.artworks.observe(viewLifecycleOwner) { list ->
             list?.let {
@@ -81,7 +87,7 @@ class ArtistDetailFragment : Fragment() {
 
     private fun setOnClickListener() = with(binding) {
         ivArrowLeft.setOnClickListener {
-           findNavController().popBackStack()
+            findNavController().popBackStack()
         }
 
         ivFavorite.setOnClickListener {

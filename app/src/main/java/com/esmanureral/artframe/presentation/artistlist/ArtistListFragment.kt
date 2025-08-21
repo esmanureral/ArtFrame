@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.FragmentArtistListBinding
 
@@ -42,8 +43,8 @@ class ArtistListFragment : Fragment() {
                     ArtistListFragmentDirections.actionArtistListFragmentToArtistArtworkFragment(
                         artist.id,
                         artist.title,
-                        artist.birthDate ?: "?",
-                        artist.deathDate ?: "?"
+                        artist.birthDate ?: getString(R.string.year_unknown),
+                        artist.deathDate ?: getString(R.string.year_unknown)
                     )
                 findNavController().navigate(action)
             },

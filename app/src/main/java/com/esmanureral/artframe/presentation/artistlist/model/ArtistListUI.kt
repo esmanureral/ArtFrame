@@ -12,6 +12,6 @@ data class ArtistListUI(
 fun Artists.toUIModel() = ArtistListUI(
     id = id,
     title = title.orEmpty(),
-    birthDate = birthDate.orEmpty(),
-    deathDate = deathDate.orEmpty()
+    birthDate = birthDate,
+    deathDate = deathDate
 )
