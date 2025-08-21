@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.coil)
+    implementation(libs.photoview)
     implementation(libs.material)
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
