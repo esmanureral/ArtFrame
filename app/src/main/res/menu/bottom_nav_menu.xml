@@ -2,16 +2,15 @@
     <item
         android:id="@+id/artworkListFragment"
         android:icon="@drawable/list"
-        android:title="Liste" />
-
-    <item
-        android:id="@+id/favoritesFragment"
-        android:icon="@drawable/favorite_24"
-        android:title="Favoriler" />
+        android:title="@string/bottom_nav_menu_list" />
 
     <item
         android:id="@+id/artistListFragment"
         android:icon="@drawable/artist"
-        android:title="Artist" />
+        android:title="@string/bottom_nav_menu_artist" />
+    <item
+        android:id="@+id/favoritesFragment"
+        android:icon="@drawable/favorite_24"
+        android:title="@string/bottom_nav_menu_favorites" />
 
 </menu>
