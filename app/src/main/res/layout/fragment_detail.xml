@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/toolbar_title_margin_start"
-            android:text="@string/artists_detail" />
+            android:text="@string/artworks_detail" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
@@ -41,7 +41,7 @@
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="@dimen/card_corner_radius"
         app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@id/bottomActionBar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout

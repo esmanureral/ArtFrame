@@ -1,8 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/artworkListFragment"
-        android:icon="@drawable/list"
-        android:title="@string/bottom_nav_menu_list" />
+        android:icon="@drawable/artwork2"
+        android:title="@string/bottom_nav_menu_artworks" />
 
     <item
         android:id="@+id/artistListFragment"
