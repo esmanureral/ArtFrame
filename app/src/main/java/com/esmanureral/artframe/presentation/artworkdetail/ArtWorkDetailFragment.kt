@@ -1,5 +1,6 @@
 package com.esmanureral.artframe.presentation.artworkdetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
@@ -117,6 +118,17 @@ class ArtWorkDetailFragment : Fragment() {
                 ivDescriptionIcon.visibility = View.GONE
             } else {
                 setupDescriptionToggle(artwork.description)
+            }
+
+            bottomActionBar.ivShare.setOnClickListener {
+                currentArtwork?.imageId?.let { imageId ->
+                    val imageUrl = getString(R.string.artwork_image_url, imageId)
+                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, imageUrl)
+                    }
+                    startActivity(Intent.createChooser(shareIntent, ""))
+                }
             }
         }
     }
