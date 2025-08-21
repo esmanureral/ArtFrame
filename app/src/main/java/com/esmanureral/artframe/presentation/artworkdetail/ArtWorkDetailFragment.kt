@@ -22,6 +22,7 @@ import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.animateCollapseExpand
 import com.esmanureral.artframe.databinding.FragmentDetailBinding
+import com.esmanureral.artframe.orDefault
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.esmanureral.artframe.setArtistDisplay
 import com.google.android.material.appbar.AppBarLayout
@@ -110,13 +111,16 @@ class ArtWorkDetailFragment : Fragment() {
 
     private fun bindTextFields(artwork: ArtworkDetailUI) {
         with(binding) {
-            tvTitle.text = artwork.title
-            tvArtistDisplay.setArtistDisplay(artwork.artistTitle, artwork.artistDisplay)
-            tvDate.text = artwork.dateDisplay
-            tvMedium.text = artwork.thumbnail?.altText
-            tvDimensions.text = artwork.dimension
-            tvCreditLine.text = artwork.creditLine
-            tvPlaceOrigin.text = artwork.placeOfOrigin
+            tvTitle.text = artwork.title.orDefault(getString(R.string.no_description))
+            tvArtistDisplay.setArtistDisplay(
+                artwork.artistTitle.orDefault(getString(R.string.no_artist)),
+                artwork.artistDisplay.orDefault(getString(R.string.no_artist))
+            )
+            tvDate.text = artwork.dateDisplay.orDefault(getString(R.string.no_artist))
+            tvMedium.text = artwork.thumbnail?.altText.orDefault(getString(R.string.no_medium))
+            tvDimensions.text = artwork.dimension.orDefault(getString(R.string.no_dimension))
+            tvCreditLine.text = artwork.creditLine.orDefault(getString(R.string.no_credit))
+            tvPlaceOrigin.text = artwork.placeOfOrigin.orDefault(getString(R.string.no_place))
 
             if (artwork.description.isNullOrBlank()) {
                 tvDescription.text = getString(R.string.no_description)

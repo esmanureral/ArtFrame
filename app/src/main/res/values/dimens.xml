@@ -8,6 +8,7 @@
     <dimen name="header_padding">12dp</dimen>
     <dimen name="toolbar_title_text_size">24sp</dimen>
     <dimen name="header_text_size">18dp</dimen>
+    <dimen name="stroke_width">0dp</dimen>
     <dimen name="indicator_height">2dp</dimen>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
