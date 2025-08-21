@@ -16,7 +16,6 @@ class ArtWorkSharedPreferences(context: Context) {
     private val prefs: SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-
     private fun saveArtworkFavorites(favorites: MutableList<ArtworkDetailUI>) {
         val json = Gson().toJson(favorites)
         prefs.edit().putString(FAVORITES_ARTWORK_KEY, json).apply()
@@ -89,5 +88,4 @@ class ArtWorkSharedPreferences(context: Context) {
     fun setAppBarAnimationSeen() {
         prefs.edit().putBoolean(ANIMATION_KEY, true).apply()
     }
-
 }

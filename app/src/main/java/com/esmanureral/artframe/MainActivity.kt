@@ -10,6 +10,7 @@ import com.facebook.shimmer.BuildConfig
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.fullScreenImageFragment || destination.id==R.id.detailFragment) {
+            if (destination.id == R.id.fullScreenImageFragment || destination.id == R.id.detailFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
@@ -53,8 +54,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupPermission() {
         PermissionHelper.requestNotificationPermission(this) { granted ->
-            if (granted) println("Notification permission granted")
-            else println("Notification permission denied")
+            if (granted) {
+                println("Notification permission granted")
+            } else {
+                println("Notification permission denied")
+            }
         }
     }
 }

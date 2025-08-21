@@ -9,7 +9,7 @@ fun ImageView.loadWithShimmer(
     url: String,
     shimmerLayout: ShimmerFrameLayout,
     errorRes: Int = R.drawable.error,
-    placeRes:Int=R.drawable.black
+    placeRes: Int = R.drawable.black
 ) {
     this.load(url) {
         crossfade(true)

@@ -25,13 +25,13 @@ class ArtistListViewModel(application: Application) : AndroidViewModel(applicati
 
     private val allArtists = mutableListOf<ArtistListUI>()
     private var artistPage = 1
-
     private var isLoadingArtists = false
 
     fun fetchArtists() {
         if (isLoadingArtists) return
         isLoadingArtists = true
         _isLoading.value = true
+
         viewModelScope.launch {
             val response = api.getArtists(page = artistPage)
             if (response.isSuccessful) {

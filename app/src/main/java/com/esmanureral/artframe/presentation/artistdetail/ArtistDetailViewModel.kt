@@ -11,9 +11,11 @@ import com.esmanureral.artframe.data.network.Artwork
 import kotlinx.coroutines.launch
 
 class ArtistDetailViewModel(application: Application) : AndroidViewModel(application) {
+
     private val api: ApiService by lazy {
         ApiClient.getApi(getApplication())
     }
+
     private var isLoading = false
 
     private val _artworks = MutableLiveData<List<Artwork>>()
@@ -22,6 +24,7 @@ class ArtistDetailViewModel(application: Application) : AndroidViewModel(applica
     fun fetchArtworksByArtist(artistId: Int) {
         if (isLoading) return
         isLoading = true
+
         viewModelScope.launch {
             val response = api.getArtworksByArtist(artistId)
             if (response.isSuccessful) {

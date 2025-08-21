@@ -11,7 +11,6 @@ import android.widget.TextView
 
 fun TextView.setArtistDisplay(artistTitle: String, artistDisplay: String) {
     val rest = artistDisplay.removePrefix(artistTitle).trim()
-
     val builder = SpannableStringBuilder()
 
     builder.append(artistTitle)

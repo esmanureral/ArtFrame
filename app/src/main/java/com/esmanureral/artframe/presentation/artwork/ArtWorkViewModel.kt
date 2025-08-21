@@ -33,36 +33,8 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
         isLoading = true
         viewModelScope.launch {
             val response = api.getArtWorks(page = currentPage)
-            val includedClassifications =
-                listOf(
-                    "oil on canvas",
-                    "ink or chalk wash",
-                    "painting",
-                    "woodblock print",
-                    "watercolor",
-                    "engraving",
-                    "earthenware",
-                    "print",
-                    "relief",
-                    "woodcut",
-                    "ink with wash",
-                    "miniature painting",
-                    "book",
-                    "chalk",
-                    "monotype",
-                    "ink and wash",
-                    "linocut",
-                    "photograph",
-                    "textile",
-                    "oil on panel",
-                    "pen and ink",
-                    "silver-dye bleach",
-                    "charcoal",
-                    "modern and contemporary art",
-                    "pen and ink drawings",
-                    "gelatin silver",
-                    "screenprint"
-                )
+            val includedClassifications = getIncludedClassifications()
+            
             if (response.isSuccessful) {
                 val newData = response.body()?.data
                     ?.filter { !it.imageId.isNullOrBlank() }
@@ -75,5 +47,37 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
             }
             isLoading = false
         }
+    }
+
+    private fun getIncludedClassifications(): List<String> {
+        return listOf(
+            "oil on canvas",
+            "ink or chalk wash",
+            "painting",
+            "woodblock print",
+            "watercolor",
+            "engraving",
+            "earthenware",
+            "print",
+            "relief",
+            "woodcut",
+            "ink with wash",
+            "miniature painting",
+            "book",
+            "chalk",
+            "monotype",
+            "ink and wash",
+            "linocut",
+            "photograph",
+            "textile",
+            "oil on panel",
+            "pen and ink",
+            "silver-dye bleach",
+            "charcoal",
+            "modern and contemporary art",
+            "pen and ink drawings",
+            "gelatin silver",
+            "screenprint"
+        )
     }
 }

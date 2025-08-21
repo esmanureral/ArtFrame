@@ -13,7 +13,6 @@ import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.FragmentArtistListBinding
 
-
 class ArtistListFragment : Fragment() {
     private var _binding: FragmentArtistListBinding? = null
     private val binding get() = _binding!!
@@ -58,7 +57,6 @@ class ArtistListFragment : Fragment() {
                 override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(rv, dx, dy)
                     checkForPagination(rv)
-
                 }
             })
         }
