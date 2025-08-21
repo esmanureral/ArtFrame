@@ -2,6 +2,9 @@ package com.esmanureral.artframe.presentation.artworkdetail
 
 import android.os.Bundle
 import android.text.Html
+import android.text.TextUtils
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,10 +104,7 @@ class ArtWorkDetailFragment : Fragment() {
     private fun bindTextFields(artwork: ArtworkDetailUI) {
         with(binding) {
             tvTitle.text = artwork.title
-            tvArtistDisplay.setArtistDisplay(
-                artistTitle = artwork.artistTitle,
-                artistDisplay = artwork.artistDisplay
-            )
+            tvArtistDisplay.setArtistDisplay(artwork.artistTitle, artwork.artistDisplay)
             tvDate.text = artwork.dateDisplay
             tvMedium.text = artwork.thumbnail?.altText
             tvDimensions.text = artwork.dimension
@@ -114,20 +114,38 @@ class ArtWorkDetailFragment : Fragment() {
             if (artwork.description.isNullOrBlank()) {
                 tvDescription.text = getString(R.string.no_description)
                 tvDescription.visibility = View.VISIBLE
-                descriptionContainer.setOnClickListener(null)
+                ivDescriptionIcon.visibility = View.GONE
             } else {
-                tvDescription.text = Html.fromHtml(
-                    artwork.description,
-                    Html.FROM_HTML_MODE_COMPACT
-                )
-                tvDescription.visibility = View.GONE
-
-                descriptionContainer.setOnClickListener {
-                    tvDescription.visibility =
-                        if (tvDescription.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-                }
+                setupDescriptionToggle(artwork.description)
             }
         }
+    }
+
+    private fun setupDescriptionToggle(description: String) {
+        with(binding) {
+            tvDescription.text = Html.fromHtml(description, Html.FROM_HTML_MODE_COMPACT)
+            tvDescription.visibility = View.VISIBLE
+            ivDescriptionIcon.visibility = View.VISIBLE
+            var expanded = false
+            descriptionContainer.setOnClickListener {
+                expanded = !expanded
+                if (expanded) expandDescription() else collapseDescription()
+            }
+        }
+    }
+
+    private fun expandDescription() = with(binding) {
+        TransitionManager.beginDelayedTransition(descriptionContainer, AutoTransition())
+        tvDescription.maxLines = Int.MAX_VALUE
+        tvDescription.ellipsize = null
+        ivDescriptionIcon.setImageResource(R.drawable.arrow_up)
+    }
+
+    private fun collapseDescription() = with(binding) {
+        TransitionManager.beginDelayedTransition(descriptionContainer, AutoTransition())
+        tvDescription.maxLines = 1
+        tvDescription.ellipsize = TextUtils.TruncateAt.END
+        ivDescriptionIcon.setImageResource(R.drawable.arrow_down)
     }
 
     private fun toggleFavorite(artwork: ArtworkDetailUI) {
