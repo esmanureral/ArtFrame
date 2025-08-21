@@ -39,7 +39,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="@dimen/indicator_height"
-        android:layout_marginTop="@dimen/toolbar_padding"
+        android:layout_marginTop="@dimen/space_4dp"
         android:background="@color/surface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

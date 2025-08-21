@@ -19,13 +19,13 @@
         android:id="@+id/ivFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_8dp"
         android:layout_marginEnd="@dimen/iv_favorite_margin"
         android:contentDescription="@string/favorites_title"
         android:padding="@dimen/padding_8dp"
         android:src="@drawable/favorite_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/tvYears"
+        app:layout_constraintTop_toTopOf="@id/tvArtistName" />
 
     <TextView
         android:id="@+id/tvYears"
@@ -33,18 +33,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/iv_favorite_margin"
-        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginTop="@dimen/space_4dp"
         android:text="@string/date_header"
         app:layout_constraintEnd_toEndOf="@+id/tvArtistName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvArtistName" />
 
-
     <View
         android:id="@+id/dividerArtist"
         android:layout_width="0dp"
         android:layout_height="@dimen/divider_height"
-        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginTop="@dimen/padding_8dp"
+        android:layout_marginHorizontal="16dp"
         android:background="@color/divider_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

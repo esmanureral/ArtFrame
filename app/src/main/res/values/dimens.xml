@@ -3,19 +3,18 @@
 
     <dimen name="icon_size">24dp</dimen>
     <dimen name="fab_bg_radius">50dp</dimen>
-    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="space_4dp">4dp</dimen>
     <dimen name="toolbar_title_margin_start">8dp</dimen>
     <dimen name="header_padding">12dp</dimen>
     <dimen name="toolbar_title_text_size">24sp</dimen>
     <dimen name="header_text_size">18dp</dimen>
     <dimen name="indicator_height">2dp</dimen>
     <dimen name="divider_height">1dp</dimen>
-    <dimen name="toolbar_padding">4dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="elevation_9dp">9dp</dimen>
     <dimen name="margin_6dp">6dp</dimen>
     <dimen name="shimmer_height">20dp</dimen>
     <dimen name="artist_title_text_size">20sp</dimen>
-    <dimen name="card_margin">4dp</dimen>
     <dimen name="card_corner_radius">5dp</dimen>
     <dimen name="app_bar_height">650dp</dimen>
     <dimen name="iv_favorite_width">48dp</dimen>
@@ -26,6 +25,8 @@
     <dimen name="iv_favorite_bottom">26dp</dimen>
     <dimen name="item_artist_text_size">18sp</dimen>
     <dimen name="item_year_text_size">14sp</dimen>
+    <dimen name="translation_1">1dp</dimen>
+    <dimen name="translation_6">6dp</dimen>
     <dimen name="tv_title_text_size">32sp</dimen>
     <dimen name="iv_artwork_image_size">80dp</dimen>
     <dimen name="shimmer_layout">160dp</dimen>

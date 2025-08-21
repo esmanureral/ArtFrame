@@ -16,36 +16,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/saveIcon"
-        android:layout_width="@dimen/padding_32dp"
-        android:layout_height="@dimen/padding_32dp"
-        android:layout_margin="@dimen/toolbar_title_margin_start"
-        android:layout_marginBottom="@dimen/toolbar_title_margin_start"
-        android:contentDescription="@string/save_icon"
-        android:src="@drawable/save_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/wallpaperIcon"
-        android:layout_width="@dimen/padding_32dp"
-        android:layout_height="@dimen/padding_32dp"
-        android:layout_margin="@dimen/toolbar_title_margin_start"
-        android:layout_marginEnd="@dimen/toolbar_title_margin_start"
-        android:contentDescription="@string/wallpaper_icon"
-        android:src="@drawable/wallpaper_icon"
-        app:layout_constraintBottom_toTopOf="@+id/shareIcon"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/shareIcon"
-        android:layout_width="@dimen/padding_32dp"
-        android:layout_height="@dimen/padding_32dp"
-        android:layout_margin="@dimen/toolbar_title_margin_start"
-        android:contentDescription="@string/share_icon"
-        android:src="@drawable/share_icon"
-        app:layout_constraintBottom_toTopOf="@+id/saveIcon"
-        app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

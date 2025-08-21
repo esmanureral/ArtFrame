@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_6dp"
     app:cardCornerRadius="@dimen/header_padding"
-    app:cardElevation="@dimen/toolbar_padding">
+    app:cardElevation="@dimen/space_4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -64,7 +64,7 @@
             android:visibility="gone"
             android:fontFamily="@font/lora_regular"
             android:maxLines="1"
-            android:padding="@dimen/toolbar_padding"
+            android:padding="@dimen/space_4dp"
             android:text="@string/artwork_header"
             android:textColor="@color/primary"
             android:textSize="@dimen/tv_title_size"

@@ -4,15 +4,16 @@
     <string name="artist_unknown">Unknown</string>
     <string name="year_unknown">"?"</string>
     <string name="artist_years">%1$s - %2$s</string>
-    <string name="unknown">-</string>
+    <string name="unknown">"?"</string>
     <string name="artwork_description">%1$s</string>
     <string name="variable">%1$s</string>
     <string name="favorites_title">Favorites</string>
     <string name="artists_header">Artists</string>
+    <string name="artists_detail">Artists Detail</string>
     <string name="artist_label">Artist</string>
     <string name="artwork_header">Artworks</string>
     <string name="date_header">1900 - 1950</string>
-    <string name="artist_artworks_title">Artist\'s Works</string>
+    <string name="artist_artworks_title">Artist\'s  Artworks</string>
     <string name="artist_name_placeholder">Artist Name</string>
     <string name="iv_arrow_left_descr">image view arrow left</string>
     <string name="iv_favorite_descr">image view favorite</string>
@@ -37,5 +38,8 @@
     <string name="share">share</string>
     <string name="favorite">favorite</string>
     <string name="wallpaper">wallpaper</string>
+    <string name="bottom_nav_menu_list">List</string>
+    <string name="bottom_nav_menu_artist">Artist</string>
+    <string name="bottom_nav_menu_favorites">Favorites</string>
 
 </resources>

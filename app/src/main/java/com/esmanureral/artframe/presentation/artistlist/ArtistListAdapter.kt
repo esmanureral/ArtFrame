@@ -22,9 +22,10 @@ class ArtistListAdapter(
             val context = binding.root.context
             with(binding) {
                 tvArtistName.text = artists.title
-                val birth = artists.birthDate
-                val death = artists.deathDate
+                val birth = artists.birthDate ?: "?"
+                val death = artists.deathDate ?: "?"
                 tvYears.text = context.getString(R.string.artist_years, birth, death)
+
 
                 ivFavorite.setImageResource(
                     if (favoritesPrefs.isArtistFavorite(artists)) R.drawable.favorite_24
