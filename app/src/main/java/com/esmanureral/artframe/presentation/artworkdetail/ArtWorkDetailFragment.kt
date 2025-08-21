@@ -3,6 +3,7 @@ package com.esmanureral.artframe.presentation.artworkdetail
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
@@ -191,33 +192,49 @@ class ArtWorkDetailFragment : Fragment() {
     }
 
     private fun shareArtworkImage(imageUrl: String) {
+        loadBitmapFromUrl(imageUrl) { bitmap ->
+            bitmap?.let {
+                val uri = saveBitmapA(it)
+                shareImageUri(uri)
+            }
+        }
+    }
+
+    private fun loadBitmapFromUrl(imageUrl: String, callback: (Bitmap?) -> Unit) {
         val context = requireContext()
         val loader = ImageLoader(context)
         val request = ImageRequest.Builder(context)
             .data(imageUrl)
             .allowHardware(false)
             .target { drawable ->
-                (drawable as? BitmapDrawable)?.bitmap?.let { bitmap ->
-                    val cachePath = File(context.cacheDir, "shared_images").apply { mkdirs() }
-                    val file = File(cachePath, "shared_image.png")
-                    file.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
-
-                    val uri = androidx.core.content.FileProvider.getUriForFile(
-                        context,
-                        "${context.packageName}.fileprovider",
-                        file
-                    )
-
-                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                        type = "image/*"
-                        putExtra(Intent.EXTRA_STREAM, uri)
-                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    }
-                    startActivity(Intent.createChooser(shareIntent, "Paylaş"))
-                }
+                val bitmap = (drawable as? BitmapDrawable)?.bitmap
+                callback(bitmap)
             }
             .build()
         loader.enqueue(request)
+    }
+
+    private fun saveBitmapA(bitmap: Bitmap): Uri {
+        val context = requireContext()
+        val cachePath = File(context.cacheDir, "shared_images").apply { mkdirs() }
+        val file = File(cachePath, "shared_image.png")
+
+        file.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+
+        return androidx.core.content.FileProvider.getUriForFile(
+            context,
+            "${context.packageName}.fileprovider",
+            file
+        )
+    }
+
+    private fun shareImageUri(uri: Uri) {
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        startActivity(Intent.createChooser(shareIntent, "Paylaş"))
     }
 
     private fun AppBarLayout.animateCollapseExpand(sharedPrefs: ArtWorkSharedPreferences) {
