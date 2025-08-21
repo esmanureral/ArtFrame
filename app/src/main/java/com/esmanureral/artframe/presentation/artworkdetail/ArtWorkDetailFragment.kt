@@ -1,6 +1,8 @@
 package com.esmanureral.artframe.presentation.artworkdetail
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
@@ -13,7 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.ImageLoader
 import coil.load
+import coil.request.ImageRequest
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.animateCollapseExpand
@@ -21,6 +25,7 @@ import com.esmanureral.artframe.databinding.FragmentDetailBinding
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.esmanureral.artframe.setArtistDisplay
 import com.google.android.material.appbar.AppBarLayout
+import java.io.File
 
 class ArtWorkDetailFragment : Fragment() {
 
@@ -60,25 +65,26 @@ class ArtWorkDetailFragment : Fragment() {
     private fun setupClickListeners() {
         with(binding) {
             bottomActionBar.ivFavorite.setOnClickListener {
-                viewModel.artworkDetail.value?.let {
-                    currentArtwork?.let { artwork ->
-                        toggleFavorite(artwork)
-
-                    }
+                currentArtwork?.let { toggleFavorite(it) }
+            }
+            bottomActionBar.ivShare.setOnClickListener {
+                currentArtwork?.imageId?.let { imageId ->
+                    val imageUrl = getString(R.string.artwork_image_url, imageId)
+                    shareArtworkImage(imageUrl)
                 }
             }
 
             artistContainer.setOnClickListener {
-                currentArtwork?.let { artwork -> navigateToArtistArtworks(artwork) }
+                currentArtwork?.let { navigateToArtistArtworks(it) }
             }
 
             ivArtwork.setOnClickListener {
-                currentArtwork?.let { artwork ->
-                    val imageUrl =
-                        root.context.getString(R.string.artwork_image_url, artwork.imageId)
+                currentArtwork?.let {
+                    val imageUrl = getString(R.string.artwork_image_url, it.imageId)
                     navigateToFullScreenImage(imageUrl)
                 }
             }
+
             ivArrowLeft.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -119,17 +125,6 @@ class ArtWorkDetailFragment : Fragment() {
             } else {
                 setupDescriptionToggle(artwork.description)
             }
-
-            bottomActionBar.ivShare.setOnClickListener {
-                currentArtwork?.imageId?.let { imageId ->
-                    val imageUrl = getString(R.string.artwork_image_url, imageId)
-                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_TEXT, imageUrl)
-                    }
-                    startActivity(Intent.createChooser(shareIntent, ""))
-                }
-            }
         }
     }
 
@@ -161,8 +156,10 @@ class ArtWorkDetailFragment : Fragment() {
     }
 
     private fun toggleFavorite(artwork: ArtworkDetailUI) {
-        if (favoritesPrefs.isArtworkFavorite(artwork)) favoritesPrefs.removeArtworkFavorite(artwork)
-        else favoritesPrefs.addArtworkFavorite(artwork)
+        if (favoritesPrefs.isArtworkFavorite(artwork))
+            favoritesPrefs.removeArtworkFavorite(artwork)
+        else
+            favoritesPrefs.addArtworkFavorite(artwork)
         updateFavoriteIcon(artwork)
     }
 
@@ -173,22 +170,50 @@ class ArtWorkDetailFragment : Fragment() {
     }
 
     private fun navigateToArtistArtworks(artwork: ArtworkDetailUI) {
-        artwork.artistId.let { id ->
-            val action = ArtWorkDetailFragmentDirections
-                .actionDetailFragmentToArtistArtworkFragment(
-                    artistId = id,
-                    artistName = artwork.artistTitle,
-                    birthDate = artwork.birthDate ?: "",
-                    deathDate = artwork.deathDate ?: ""
-                )
-            findNavController().navigate(action)
-        }
+        val action = ArtWorkDetailFragmentDirections
+            .actionDetailFragmentToArtistArtworkFragment(
+                artistId = artwork.artistId,
+                artistName = artwork.artistTitle,
+                birthDate = artwork.birthDate ?: "",
+                deathDate = artwork.deathDate ?: ""
+            )
+        findNavController().navigate(action)
     }
 
     private fun navigateToFullScreenImage(imageUrl: String) {
         val action = ArtWorkDetailFragmentDirections
             .actionDetailFragmentToFullScreenImageFragment(imageUrl)
         findNavController().navigate(action)
+    }
+
+    private fun shareArtworkImage(imageUrl: String) {
+        val context = requireContext()
+        val loader = ImageLoader(context)
+        val request = ImageRequest.Builder(context)
+            .data(imageUrl)
+            .allowHardware(false)
+            .target { drawable ->
+                (drawable as? BitmapDrawable)?.bitmap?.let { bitmap ->
+                    val cachePath = File(context.cacheDir, "shared_images").apply { mkdirs() }
+                    val file = File(cachePath, "shared_image.png")
+                    file.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+
+                    val uri = androidx.core.content.FileProvider.getUriForFile(
+                        context,
+                        "${context.packageName}.fileprovider",
+                        file
+                    )
+
+                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "image/*"
+                        putExtra(Intent.EXTRA_STREAM, uri)
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
+                    startActivity(Intent.createChooser(shareIntent, "Paylaş"))
+                }
+            }
+            .build()
+        loader.enqueue(request)
     }
 
     private fun AppBarLayout.animateCollapseExpand(sharedPrefs: ArtWorkSharedPreferences) {
