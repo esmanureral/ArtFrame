@@ -4,9 +4,11 @@
     style="@style/CustomCardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/elevation_9dp"
-    app:cardCornerRadius="@dimen/padding_8dp"
-    app:cardElevation="@dimen/padding_8dp">
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="@dimen/padding_8dp"
+    app:cardPreventCornerOverlap="false"
+    app:strokeWidth="@dimen/stroke_width">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_action_bar"
@@ -18,6 +20,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/shareContainer"
+            style="@style/ContainerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/favoriteContainer"
@@ -29,6 +32,7 @@
                 android:id="@+id/ivShare"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
+                android:layout_marginHorizontal="@dimen/header_padding"
                 android:layout_marginTop="@dimen/header_padding"
                 android:contentDescription="@string/share"
                 android:src="@drawable/share"
@@ -50,6 +54,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/favoriteContainer"
+            style="@style/ContainerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/downloadContainer"
@@ -61,6 +66,7 @@
                 android:id="@+id/ivFavorite"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
+                android:layout_marginHorizontal="@dimen/header_padding"
                 android:layout_marginTop="@dimen/header_padding"
                 android:contentDescription="@string/favorite"
                 android:src="@drawable/favorite_border"
@@ -83,6 +89,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/downloadContainer"
+            style="@style/ContainerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/wallpaperContainer"
@@ -94,6 +101,7 @@
                 android:id="@+id/iconDownload"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
+                android:layout_marginHorizontal="@dimen/header_padding"
                 android:layout_marginTop="@dimen/header_padding"
                 android:contentDescription="@string/download"
                 android:src="@drawable/download"
@@ -115,6 +123,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/wallpaperContainer"
+            style="@style/ContainerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -126,6 +135,7 @@
                 android:id="@+id/iconWallpaper"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
+                android:layout_marginHorizontal="@dimen/header_padding"
                 android:layout_marginTop="@dimen/header_padding"
                 android:contentDescription="@string/wallpaper"
                 android:src="@drawable/wallpaper"
