@@ -10,6 +10,7 @@
     <string name="favorites_title">Favorites</string>
     <string name="artists_header">Artists</string>
     <string name="artists_detail">Artists Detail</string>
+    <string name="artworks_detail">Artwork Detail</string>
     <string name="artist_label">Artist</string>
     <string name="artwork_header">Artworks</string>
     <string name="date_header">1900 - 1950</string>
@@ -33,13 +34,20 @@
     <string name="artist_details_not_found">Artist details not found</string>
     <string name="description_icon">description icon</string>
     <string name="description_label">Description</string>
-    <string name="no_description">No description available</string>
+    <string name="no_description">Description information not found</string>
+    <string name="no_dimension">Dimensions information not found</string>
+    <string name="no_collection">Collection information not found</string>
+    <string name="no_artist">Artist information not found</string>
+    <string name="no_date">Date information not found</string>
+    <string name="no_medium">Medium information not found</string>
+    <string name="no_credit">Credit line information not found</string>
+    <string name="no_place">Place of origin information not found</string>
     <string name="download">download</string>
     <string name="share">share</string>
     <string name="favorite">favorite</string>
     <string name="wallpaper">wallpaper</string>
-    <string name="bottom_nav_menu_list">List</string>
-    <string name="bottom_nav_menu_artist">Artist</string>
+    <string name="bottom_nav_menu_artworks">Artworks</string>
+    <string name="bottom_nav_menu_artist">Artists</string>
     <string name="bottom_nav_menu_favorites">Favorites</string>
 
 </resources>
