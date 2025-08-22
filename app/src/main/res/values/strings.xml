@@ -31,6 +31,8 @@
     <string name="artwork_image_url">https://www.artic.edu/iiif/2/%s/full/1600,/0/default.jpg</string>
     <string name="tv_years">Years</string>
     <string name="no_favorites">No favorites added yet</string>
+    <string name="image_saved">Image downloaded</string>
+    <string name="shared_saved">Image shared</string>
     <string name="artist_details_not_found">Artist details not found</string>
     <string name="description_icon">description icon</string>
     <string name="description_label">Description</string>
@@ -49,5 +51,7 @@
     <string name="bottom_nav_menu_artworks">Artworks</string>
     <string name="bottom_nav_menu_artist">Artists</string>
     <string name="bottom_nav_menu_favorites">Favorites</string>
+    <string name="shared_image_prefix">shared_image</string>
+    <string name="art_frame_prefix">artFrame</string>
 
 </resources>

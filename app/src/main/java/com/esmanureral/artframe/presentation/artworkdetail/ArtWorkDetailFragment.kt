@@ -1,10 +1,13 @@
 package com.esmanureral.artframe.presentation.artworkdetail
 
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.text.Html
 import android.text.TextUtils
 import android.transition.AutoTransition
@@ -12,6 +15,7 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -26,6 +30,7 @@ import com.esmanureral.artframe.databinding.FragmentDetailBinding
 import com.esmanureral.artframe.orDefault
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.esmanureral.artframe.setArtistDisplay
+import com.esmanureral.artframe.showToast
 import com.google.android.material.appbar.AppBarLayout
 import java.io.File
 
@@ -69,10 +74,18 @@ class ArtWorkDetailFragment : Fragment() {
             bottomActionBar.ivFavorite.setOnClickListener {
                 currentArtwork?.let { toggleFavorite(it) }
             }
+
             bottomActionBar.ivShare.setOnClickListener {
                 currentArtwork?.imageId?.let { imageId ->
                     val imageUrl = getString(R.string.artwork_image_url, imageId)
                     shareArtworkImage(imageUrl)
+                }
+            }
+
+            bottomActionBar.iconDownload.setOnClickListener {
+                currentArtwork?.imageId?.let { imageId ->
+                    val imageUrl = getString(R.string.artwork_image_url, imageId)
+                    downloadArtworkImage(imageUrl)
                 }
             }
 
@@ -194,8 +207,17 @@ class ArtWorkDetailFragment : Fragment() {
     private fun shareArtworkImage(imageUrl: String) {
         loadBitmapFromUrl(imageUrl) { bitmap ->
             bitmap?.let {
-                val uri = saveBitmapA(it)
+                val uri = saveBitmapToCache(it) ?: return@let
                 shareImageUri(uri)
+            }
+        }
+    }
+
+    private fun downloadArtworkImage(imageUrl: String) {
+        loadBitmapFromUrl(imageUrl) { bitmap ->
+            bitmap?.let {
+                saveBitmapToGallery(it)
+                requireContext().showToast(getString(R.string.image_saved))
             }
         }
     }
@@ -207,25 +229,52 @@ class ArtWorkDetailFragment : Fragment() {
             .data(imageUrl)
             .allowHardware(false)
             .target { drawable ->
-                val bitmap = (drawable as? BitmapDrawable)?.bitmap
-                callback(bitmap)
+                callback((drawable as? BitmapDrawable)?.bitmap)
             }
             .build()
         loader.enqueue(request)
     }
 
-    private fun saveBitmapA(bitmap: Bitmap): Uri {
+    private fun saveBitmapToCache(bitmap: Bitmap): Uri? {
         val context = requireContext()
         val cachePath = File(context.cacheDir, "shared_images").apply { mkdirs() }
-        val file = File(cachePath, "shared_image.png")
+        val file = File(
+            cachePath,
+            "${getString(R.string.shared_image_prefix)}_${System.currentTimeMillis()}.png"
+        )
+        writeBitmapToFile(bitmap, file)
 
-        file.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
-
-        return androidx.core.content.FileProvider.getUriForFile(
+        return FileProvider.getUriForFile(
             context,
             "${context.packageName}.fileprovider",
             file
         )
+    }
+
+    private fun saveBitmapToGallery(bitmap: Bitmap): Uri? {
+        val filename = "${getString(R.string.artframe_prefix)}_${System.currentTimeMillis()}.png"
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+            put(MediaStore.MediaColumns.RELATIVE_PATH, "${Environment.DIRECTORY_PICTURES}/ArtFrame")
+        }
+
+        val resolver = requireContext().contentResolver
+        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+        uri?.let { writeBitmapToUri(bitmap, it) }
+        return uri
+    }
+
+    private fun writeBitmapToFile(bitmap: Bitmap, file: File) {
+        file.outputStream().use { out ->
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+        }
+    }
+
+    private fun writeBitmapToUri(bitmap: Bitmap, uri: Uri) {
+        requireContext().contentResolver.openOutputStream(uri)?.use { out ->
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+        }
     }
 
     private fun shareImageUri(uri: Uri) {
@@ -234,7 +283,7 @@ class ArtWorkDetailFragment : Fragment() {
             putExtra(Intent.EXTRA_STREAM, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        startActivity(Intent.createChooser(shareIntent, "Paylaş"))
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.shared_saved)))
     }
 
     private fun AppBarLayout.animateCollapseExpand(sharedPrefs: ArtWorkSharedPreferences) {
