@@ -88,6 +88,19 @@ class ArtWorkDetailFragment : Fragment() {
                     downloadArtworkImage(imageUrl)
                 }
             }
+            bottomActionBar.iconWallpaper.setOnClickListener {
+                currentArtwork?.imageId?.let { imageId ->
+                    val imageUrl = getString(R.string.artwork_image_url, imageId)
+                    loadBitmapFromUrl(imageUrl) { bitmap ->
+                        bitmap?.let {
+                            val uri = saveBitmapToCache(it)
+                            uri?.let { safeUri ->
+                                setAsWallpaperWithChooser(safeUri)
+                            }
+                        }
+                    }
+                }
+            }
 
             artistContainer.setOnClickListener {
                 currentArtwork?.let { navigateToArtistArtworks(it) }
@@ -291,6 +304,15 @@ class ArtWorkDetailFragment : Fragment() {
             animateCollapseExpand()
             sharedPrefs.setAppBarAnimationSeen()
         }
+    }
+
+    private fun setAsWallpaperWithChooser(uri: Uri) {
+        val intent = Intent(Intent.ACTION_ATTACH_DATA).apply {
+            setDataAndType(uri, "image/*")
+            putExtra("mimeType", "image/*")
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        startActivity(Intent.createChooser(intent, getString(R.string.wallpaper)))
     }
 
     override fun onDestroyView() {
