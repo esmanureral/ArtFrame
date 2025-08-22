@@ -14,7 +14,7 @@
             android:id="@+id/ivArtwork"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/primary"
+            android:background="#000000"
             android:contentDescription="@string/artwork_header"
             android:scaleType="centerCrop"
             android:visibility="visible"
@@ -24,25 +24,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmerLayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="3:4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shimmer_auto_start="true">
-
-            <ImageView
-                android:id="@+id/ivPlaceholder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/onPrimary"
-                android:contentDescription="@string/shimmer_frame_descr"
-                android:scaleType="centerCrop" />
-        </com.facebook.shimmer.ShimmerFrameLayout>
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="@dimen/progress_indicator_size"
+            android:layout_height="@dimen/progress_indicator_size"
+            android:indeterminate="true"
+            android:visibility="visible"
+            app:indicatorColor="@color/progressIndicatorColor"
+            app:layout_constraintBottom_toBottomOf="@+id/ivArtwork"
+            app:layout_constraintEnd_toEndOf="@id/ivArtwork"
+            app:layout_constraintStart_toStartOf="@id/ivArtwork"
+            app:layout_constraintTop_toTopOf="@id/ivArtwork" />
 
         <TextView
             android:id="@+id/tvTitle"

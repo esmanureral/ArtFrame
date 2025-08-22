@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.databinding.ItemArtworkBinding
-import com.esmanureral.artframe.loadWithShimmer
+import com.esmanureral.artframe.loadWithIndicator
 import com.esmanureral.artframe.presentation.artwork.model.ArtworkUI
 
 class ArtworkAdapter(
@@ -24,10 +24,10 @@ class ArtworkAdapter(
                 tvTitle.text = item.title
 
                 val imageUrl = root.context.getString(R.string.artwork_image_url, item.imageId)
-                ivArtwork.loadWithShimmer(
+                ivArtwork.loadWithIndicator(
                     url = imageUrl,
-                    shimmerLayout = shimmerLayout,
-                    errorRes = R.drawable.error
+                    progressIndicator = progressIndicator,
+                    errorRes = R.drawable.error,
                 )
             }
         }
