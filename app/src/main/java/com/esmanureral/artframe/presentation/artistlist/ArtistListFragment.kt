@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.FragmentArtistListBinding
+import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 
 class ArtistListFragment : Fragment() {
     private var _binding: FragmentArtistListBinding? = null
@@ -35,31 +36,33 @@ class ArtistListFragment : Fragment() {
         viewModel.fetchArtists()
     }
 
-    private fun setupRecyclerView() {
-        adapter = ArtistListAdapter(
-            favoritesPrefs, onItemClick = { artist ->
-                val action =
-                    ArtistListFragmentDirections.actionArtistListFragmentToArtistArtworkFragment(
-                        artist.id,
-                        artist.title,
-                        artist.birthDate ?: getString(R.string.year_unknown),
-                        artist.deathDate ?: getString(R.string.year_unknown)
-                    )
-                findNavController().navigate(action)
-            },
-            isRemoveFavorite = false
-        )
+    private fun setupRecyclerView() = with(binding) {
+        adapter = createAdapter()
+        rvArtists.adapter = adapter
+        rvArtists.layoutManager = LinearLayoutManager(requireContext())
+        rvArtists.addOnScrollListener(createScrollListener())
+    }
 
-        with(binding) {
-            rvArtists.adapter = adapter
-            rvArtists.layoutManager = LinearLayoutManager(requireContext())
-            rvArtists.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(rv, dx, dy)
-                    checkForPagination(rv)
-                }
-            })
+    private fun createAdapter() =
+        ArtistListAdapter(favoritesPrefs = favoritesPrefs, onItemClick = { artist ->
+            navigateToArtistDetail(artist)
+        }, isRemoveFavorite = false)
+
+    private fun createScrollListener() = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(rv, dx, dy)
+            checkForPagination(rv)
         }
+    }
+
+    private fun navigateToArtistDetail(artist: ArtistListUI) {
+        val action = ArtistListFragmentDirections.actionArtistListFragmentToArtistArtworkFragment(
+            artist.id,
+            artist.title,
+            artist.birthDate ?: getString(R.string.year_unknown),
+            artist.deathDate ?: getString(R.string.year_unknown)
+        )
+        findNavController().navigate(action)
     }
 
     private fun checkForPagination(rv: RecyclerView) {
@@ -79,17 +82,19 @@ class ArtistListFragment : Fragment() {
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            with(binding) {
-                if (isLoading) {
-                    shimmerLayout.startShimmer()
-                    shimmerLayout.visibility = View.VISIBLE
-                    rvArtists.visibility = View.GONE
-                } else {
-                    shimmerLayout.stopShimmer()
-                    shimmerLayout.visibility = View.GONE
-                    rvArtists.visibility = View.VISIBLE
-                }
-            }
+            setLoadingState(isLoading)
+        }
+    }
+
+    private fun setLoadingState(isLoading: Boolean) = with(binding) {
+        if (isLoading) {
+            shimmerLayout.startShimmer()
+            shimmerLayout.visibility = View.VISIBLE
+            rvArtists.visibility = View.GONE
+        } else {
+            shimmerLayout.stopShimmer()
+            shimmerLayout.visibility = View.GONE
+            rvArtists.visibility = View.VISIBLE
         }
     }
 

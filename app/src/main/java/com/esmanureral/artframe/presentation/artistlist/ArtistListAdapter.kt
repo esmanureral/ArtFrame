@@ -18,36 +18,43 @@ class ArtistListAdapter(
 
     inner class ArtistViewHolder(private val binding: ItemArtistBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(artists: ArtistListUI) {
-            val context = binding.root.context
-            with(binding) {
-                tvArtistName.text = artists.title
-                val birth = artists.birthDate ?: "?"
-                val death = artists.deathDate ?: "?"
-                tvYears.text = context.getString(R.string.artist_years, birth, death)
 
-                ivFavorite.setImageResource(
-                    if (favoritesPrefs.isArtistFavorite(artists)) R.drawable.favorite_24
-                    else R.drawable.favorite_border
-                )
-                ivFavorite.setOnClickListener {
-                    if (favoritesPrefs.isArtistFavorite(artists)) {
-                        favoritesPrefs.removeArtistFavorite(artists)
-                        if (isRemoveFavorite) {
-                            val newList = currentList.toMutableList()
-                            newList.removeAt(adapterPosition)
-                            submitList(newList)
-                        } else {
-                            ivFavorite.setImageResource(R.drawable.favorite_border)
-                        }
-                    } else {
-                        favoritesPrefs.addArtistFavorite(artists)
-                        ivFavorite.setImageResource(R.drawable.favorite_24)
-                    }
-                }
-                root.setOnClickListener {
-                    onItemClick(artists)
-                }
+        fun bind(artist: ArtistListUI) = with(binding) {
+            val context = root.context
+            tvArtistName.text = artist.title
+            val birth = artist.birthDate ?: "?"
+            val death = artist.deathDate ?: "?"
+            tvYears.text = context.getString(R.string.artist_years, birth, death)
+
+            updateFavoriteIcon(artist)
+
+            ivFavorite.setOnClickListener { toggleFavorite(artist) }
+            root.setOnClickListener { onItemClick(artist) }
+        }
+
+        private fun updateFavoriteIcon(artist: ArtistListUI) {
+            binding.ivFavorite.setImageResource(
+                if (favoritesPrefs.isArtistFavorite(artist)) R.drawable.favorite_24
+                else R.drawable.favorite_border
+            )
+        }
+
+        private fun toggleFavorite(artist: ArtistListUI) = with(binding) {
+            if (favoritesPrefs.isArtistFavorite(artist)) {
+                favoritesPrefs.removeArtistFavorite(artist)
+                if (isRemoveFavorite) removeArtistFromList(adapterPosition)
+                else ivFavorite.setImageResource(R.drawable.favorite_border)
+            } else {
+                favoritesPrefs.addArtistFavorite(artist)
+                ivFavorite.setImageResource(R.drawable.favorite_24)
+            }
+        }
+
+        private fun removeArtistFromList(position: Int) {
+            if (position != RecyclerView.NO_POSITION) {
+                val newList = currentList.toMutableList()
+                newList.removeAt(position)
+                submitList(newList)
             }
         }
     }
