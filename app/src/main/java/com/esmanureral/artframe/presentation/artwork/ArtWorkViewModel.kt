@@ -46,8 +46,7 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
 
                 allArtworks.addAll(newData)
                 _artworks.postValue(allArtworks)
-
-                if (newData.isNotEmpty()) currentPage++
+                currentPage++
             }
 
             _isLoading.postValue(false)

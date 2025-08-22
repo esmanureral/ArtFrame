@@ -31,7 +31,7 @@ fun ArtworkDetail.toUIModel(
     birthDate = birthDate,
     deathDate = deathDate,
     dateDisplay = dateDisplay.orEmpty(),
-    description = description.orEmpty(),
+    description = description,
     shortDescription = shortDescription.orEmpty(),
     imageId = imageId.orEmpty(),
     artistId = artistId,
