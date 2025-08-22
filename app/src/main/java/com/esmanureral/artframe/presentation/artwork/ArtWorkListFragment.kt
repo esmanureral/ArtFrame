@@ -34,21 +34,22 @@ class ArtworkListFragment : Fragment() {
         observeViewModel()
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView() = with(binding) {
         adapter = ArtworkAdapter { artwork ->
             navigateToDetail(artwork.id)
         }
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+        recyclerView.adapter = adapter
+        addPaginationListener(recyclerView)
+    }
 
-        with(binding) {
-            recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
-            recyclerView.adapter = adapter
-            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(rv, dx, dy)
-                    checkForPagination(rv)
-                }
-            })
-        }
+    private fun addPaginationListener(rv: RecyclerView) {
+        rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) checkForPagination(recyclerView)
+            }
+        })
     }
 
     private fun checkForPagination(rv: RecyclerView) {

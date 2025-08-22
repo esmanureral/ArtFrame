@@ -18,18 +18,24 @@ class ArtworkAdapter(
         private val binding: ItemArtworkBinding,
         private val onItemClick: (ArtworkUI) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ArtworkUI) {
-            with(binding) {
-                root.setOnClickListener { onItemClick(item) }
-                tvTitle.text = item.title
 
-                val imageUrl = root.context.getString(R.string.artwork_image_url, item.imageId)
-                ivArtwork.loadWithIndicator(
-                    url = imageUrl,
-                    progressIndicator = progressIndicator,
-                    errorRes = R.drawable.error,
-                )
-            }
+        fun bind(item: ArtworkUI) = with(binding) {
+            tvTitle.text = item.title
+            loadArtwork(item.imageId)
+            setClickListener(item)
+        }
+
+        private fun setClickListener(item: ArtworkUI) {
+            binding.root.setOnClickListener { onItemClick(item) }
+        }
+
+        private fun ItemArtworkBinding.loadArtwork(imageId: String) {
+            val url = root.context.getString(R.string.artwork_image_url, imageId)
+            ivArtwork.loadWithIndicator(
+                url = url,
+                progressIndicator = progressIndicator,
+                errorRes = R.drawable.error
+            )
         }
     }
 

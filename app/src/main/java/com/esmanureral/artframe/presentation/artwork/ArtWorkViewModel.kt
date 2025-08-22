@@ -22,30 +22,35 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
 
     private val allArtworks = mutableListOf<ArtworkUI>()
     private var currentPage = 1
-    private var isLoading = false
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     init {
         fetchArtworks()
     }
 
     fun fetchArtworks() {
-        if (isLoading) return
-        isLoading = true
+        if (_isLoading.value == true) return
+        _isLoading.value = true
+
         viewModelScope.launch {
             val response = api.getArtWorks(page = currentPage)
-            val includedClassifications = getIncludedClassifications()
-            
+            val includedClassificationsLower = getIncludedClassifications().map { it.lowercase() }
+
             if (response.isSuccessful) {
                 val newData = response.body()?.data
                     ?.filter { !it.imageId.isNullOrBlank() }
-                    ?.filter { it.classificationTitle in includedClassifications }
+                    ?.filter { it.classificationTitle?.lowercase() in includedClassificationsLower }
                     ?.map { it.toUIModel() }
                     ?: emptyList()
+
                 allArtworks.addAll(newData)
-                _artworks.postValue(newData)
-                currentPage++
+                _artworks.postValue(allArtworks)
+
+                if (newData.isNotEmpty()) currentPage++
             }
-            isLoading = false
+
+            _isLoading.postValue(false)
         }
     }
 
