@@ -252,7 +252,7 @@ class ArtWorkDetailFragment : Fragment() {
     }
 
     private fun saveBitmapToGallery(bitmap: Bitmap): Uri? {
-        val filename = "${getString(R.string.artframe_prefix)}_${System.currentTimeMillis()}.png"
+        val filename = "${getString(R.string.art_frame_prefix)}_${System.currentTimeMillis()}.png"
         val contentValues = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
             put(MediaStore.MediaColumns.MIME_TYPE, "image/png")

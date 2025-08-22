@@ -18,6 +18,7 @@ fun ImageView.loadWithIndicator(
         .listener(
             onStart = {
                 progressIndicator.visibility = View.VISIBLE
+                this.visibility = View.VISIBLE
             },
             onSuccess = { _, _ ->
                 progressIndicator.visibility = View.GONE
@@ -25,6 +26,7 @@ fun ImageView.loadWithIndicator(
             onError = { _, _ ->
                 progressIndicator.visibility = View.GONE
                 this.setImageResource(errorRes)
+                this.visibility = View.VISIBLE
             }
         )
         .build()

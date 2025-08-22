@@ -14,7 +14,6 @@
             android:id="@+id/ivArtwork"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#000000"
             android:contentDescription="@string/artwork_header"
             android:scaleType="centerCrop"
             android:visibility="visible"
