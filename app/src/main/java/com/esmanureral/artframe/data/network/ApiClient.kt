@@ -7,18 +7,26 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
+    private const val BASE_URL = "https://api.artic.edu/api/v1/"
+
     fun getApi(context: Context): ApiService {
-        val client = OkHttpClient.Builder()
+        return provideRetrofit(context).create(ApiService::class.java)
+    }
+
+    private fun provideOkHttpClient(context: Context): OkHttpClient {
+        return OkHttpClient.Builder()
             .addInterceptor(
                 ChuckerInterceptor.Builder(context)
                     .build()
             )
             .build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.artic.edu/api/v1/")
-            .client(client)
+    }
+
+    private fun provideRetrofit(context: Context): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(provideOkHttpClient(context))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        return retrofit.create(ApiService::class.java)
     }
 }

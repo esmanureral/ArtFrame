@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
+import com.esmanureral.artframe.data.network.Artwork
 import com.esmanureral.artframe.databinding.FragmentArtistArtworkBinding
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 
@@ -17,7 +18,6 @@ class ArtistDetailFragment : Fragment() {
 
     private var _binding: FragmentArtistArtworkBinding? = null
     private val binding get() = _binding!!
-
     private val args: ArtistDetailFragmentArgs by navArgs()
     private val viewModel: ArtistDetailViewModel by viewModels()
     private lateinit var adapter: ArtistDetailAdapter
@@ -30,22 +30,48 @@ class ArtistDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
-        binding.tvArtistTitle.text = args.artistName
-        binding.tvYears.text = getString(
-            R.string.artist_years,
-            args.birthDate.ifEmpty { "?" },
-            args.deathDate.ifEmpty { "?" }
-        )
-
+        with(binding) {
+            tvArtistTitle.text = args.artistName
+            tvYears.text = getString(
+                R.string.artist_years,
+                args.birthDate.ifEmpty { "?" },
+                args.deathDate.ifEmpty { "?" }
+            )
+        }
         setupAdapter()
+        setOnClickListener()
         observeViewModel()
         viewModel.fetchArtworksByArtist(args.artistId)
-        setOnClickListener()
         setupFavoriteIcon()
     }
 
+    private fun setupAdapter() {
+        adapter = ArtistDetailAdapter { artwork ->
+            val action = ArtistDetailFragmentDirections
+                .actionArtistArtworkFragmentToDetailFragment(artwork.id)
+            findNavController().navigate(action)
+        }
+        binding.rvArtworks.adapter = adapter
+    }
+
+    private fun setOnClickListener() = with(binding) {
+        ivArrowLeft.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        ivFavorite.setOnClickListener {
+            toggleFavoriteArtist()
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.artworks.observe(viewLifecycleOwner) { list ->
+            updateArtworksUI(list)
+        }
+    }
+
     private fun setupFavoriteIcon() {
-        val artist = createArtist()
+        val artist = createArtist
         updateFavoriteIcon(artist)
     }
 
@@ -58,56 +84,36 @@ class ArtistDetailFragment : Fragment() {
         binding.ivFavorite.setImageResource(iconRes)
     }
 
-    private fun setupAdapter() {
-        adapter = ArtistDetailAdapter { artwork ->
-            val action = ArtistDetailFragmentDirections
-                .actionArtistArtworkFragmentToDetailFragment(artwork.id)
-            findNavController().navigate(action)
-        }
-        binding.rvArtworks.adapter = adapter
-    }
-
-    private fun observeViewModel() {
-        viewModel.artworks.observe(viewLifecycleOwner) { list ->
-            list?.let {
-                with(binding) {
-                    if (it.isEmpty()) {
-                        tvNoArtworks.text = getString(R.string.artist_details_not_found)
-                        tvNoArtworks.visibility = View.VISIBLE
-                        rvArtworks.visibility = View.GONE
-                    } else {
-                        tvNoArtworks.visibility = View.GONE
-                        rvArtworks.visibility = View.VISIBLE
-                        adapter.setData(it)
-                    }
-                }
-            }
+    private fun updateArtworksUI(artworks: List<Artwork>) = with(binding) {
+        if (artworks.isEmpty()) {
+            tvNoArtworks.text = getString(R.string.artist_details_not_found)
+            tvNoArtworks.visibility = View.VISIBLE
+            rvArtworks.visibility = View.GONE
+        } else {
+            tvNoArtworks.visibility = View.GONE
+            rvArtworks.visibility = View.VISIBLE
+            adapter.setData(artworks)
         }
     }
 
-    private fun setOnClickListener() = with(binding) {
-        ivArrowLeft.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        ivFavorite.setOnClickListener {
-            val artist = createArtist()
-            if (favoritesPrefs.isArtistFavorite(artist)) {
-                favoritesPrefs.removeArtistFavorite(artist)
-            } else {
-                favoritesPrefs.addArtistFavorite(artist)
-            }
-            updateFavoriteIcon(artist)
-        }
-    }
-
-    private fun createArtist(): ArtistListUI {
-        return ArtistListUI(
+    private val createArtist: ArtistListUI by lazy {
+        ArtistListUI(
             id = args.artistId,
             title = args.artistName,
             birthDate = args.birthDate,
             deathDate = args.deathDate
         )
+    }
+
+    private fun toggleFavoriteArtist() {
+        createArtist.apply {
+            if (favoritesPrefs.isArtistFavorite(this)) {
+                favoritesPrefs.removeArtistFavorite(this)
+            } else {
+                favoritesPrefs.addArtistFavorite(this)
+            }
+            updateFavoriteIcon(this)
+        }
     }
 
     override fun onDestroyView() {

@@ -16,14 +16,15 @@ class ArtistDetailViewModel(application: Application) : AndroidViewModel(applica
         ApiClient.getApi(getApplication())
     }
 
-    private var isLoading = false
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     private val _artworks = MutableLiveData<List<Artwork>>()
     val artworks: LiveData<List<Artwork>> get() = _artworks
 
     fun fetchArtworksByArtist(artistId: Int) {
-        if (isLoading) return
-        isLoading = true
+        if (_isLoading.value == true) return
+        _isLoading.value = true
 
         viewModelScope.launch {
             val response = api.getArtworksByArtist(artistId)
@@ -34,7 +35,7 @@ class ArtistDetailViewModel(application: Application) : AndroidViewModel(applica
 
                 _artworks.postValue(artworksWithImages)
             }
-            isLoading = false
+            _isLoading.postValue(false)
         }
     }
 }

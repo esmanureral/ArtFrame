@@ -2,6 +2,7 @@ package com.esmanureral.artframe.presentation.artistdetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.esmanureral.artframe.R
@@ -19,13 +20,7 @@ class ArtistDetailAdapter(
         fun bind(item: Artwork) {
             with(binding) {
                 tvArtworkTitle.text = item.title
-                val imageUrl =
-                    root.context.getString(R.string.artwork_image_url, item.imageId)
-                ivArtworkImage.load(imageUrl) {
-                    placeholder(R.drawable.black)
-                    error(R.drawable.error)
-                    crossfade(true)
-                }
+                loadArtworkImage(ivArtworkImage, item.imageId)
                 root.setOnClickListener { onItemClick(item) }
             }
         }
@@ -49,5 +44,14 @@ class ArtistDetailAdapter(
         artworks.clear()
         artworks.addAll(newArtworks)
         notifyDataSetChanged()
+    }
+
+    private fun loadArtworkImage(imageView: ImageView, imageId: String?) {
+        val imageUrl = imageView.context.getString(R.string.artwork_image_url, imageId)
+        imageView.load(imageUrl) {
+            placeholder(R.drawable.black)
+            error(R.drawable.error)
+            crossfade(true)
+        }
     }
 }
