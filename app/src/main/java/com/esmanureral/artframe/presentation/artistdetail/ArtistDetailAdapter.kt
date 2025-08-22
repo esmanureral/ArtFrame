@@ -22,7 +22,7 @@ class ArtistDetailAdapter(
                 val imageUrl =
                     root.context.getString(R.string.artwork_image_url, item.imageId)
                 ivArtworkImage.load(imageUrl) {
-                    placeholder(R.drawable.logo)
+                    placeholder(R.drawable.black)
                     error(R.drawable.error)
                     crossfade(true)
                 }

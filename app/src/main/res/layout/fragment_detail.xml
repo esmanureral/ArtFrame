@@ -89,7 +89,7 @@
 
                     <TextView
                         android:id="@+id/tvTitle"
-                        style="@style/TvDetailStyle"
+                        style="@style/tvTitleDetailStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/iv_favorite_margin"

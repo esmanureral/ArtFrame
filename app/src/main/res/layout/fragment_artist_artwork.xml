@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/iv_arrow_left_descr"
             android:padding="@dimen/padding_8dp"
-            android:src="@drawable/baseline_arrow_left_24" />
+            android:src="@drawable/arrow_left" />
 
         <TextView
             style="@style/ToolbarTitleText"
@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/tvArtistTitle"
-        style="@style/ArtistTitleText.Bold"
+        style="@style/ItemArtistTitleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/iv_favorite_margin"
@@ -46,7 +46,7 @@
 
     <TextView
         android:id="@+id/tvYears"
-        style="@style/ItemYearsTitleText"
+        style="@style/TvDetailLabelStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/space_4dp"

@@ -29,7 +29,7 @@ class FullScreenImageFragment : Fragment() {
 
         binding.ivFullScreen.load(args.imageUrl) {
             crossfade(true)
-            placeholder(R.drawable.logo)
+            placeholder(R.drawable.black)
             error(R.drawable.error)
         }
 

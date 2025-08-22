@@ -23,13 +23,13 @@
         android:contentDescription="@string/favorites_title"
         android:padding="@dimen/padding_8dp"
         android:src="@drawable/favorite_border"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/tvYears"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvArtistName" />
 
     <TextView
         android:id="@+id/tvYears"
-        style="@style/ItemYearsTitleText"
+        style="@style/TvDetailLabelStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/iv_favorite_margin"
@@ -43,8 +43,8 @@
         android:id="@+id/dividerArtist"
         android:layout_width="0dp"
         android:layout_height="@dimen/divider_height"
-        android:layout_marginTop="@dimen/padding_8dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="@dimen/padding_8dp"
         android:background="@color/divider_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

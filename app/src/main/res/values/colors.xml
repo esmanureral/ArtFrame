@@ -9,6 +9,8 @@
     <color name="icon_color">#52565A</color>
     <color name="divider_color">#D0D6D6</color>
     <color name="primaryDark">#FBFBFB</color>
-    <color name="progressIndicatorColor">#000000</color>
+    <color name="progress_indicator_color">#000000</color>
+    <color name="label_color">#7B828E</color>
+    <color name="bottom_bar_icon_color">#e3e3e3</color>
 
 </resources>

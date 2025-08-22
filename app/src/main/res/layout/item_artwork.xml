@@ -29,7 +29,7 @@
             android:layout_height="@dimen/progress_indicator_size"
             android:indeterminate="true"
             android:visibility="visible"
-            app:indicatorColor="@color/progressIndicatorColor"
+            app:indicatorColor="@color/progress_indicator_color"
             app:layout_constraintBottom_toBottomOf="@+id/ivArtwork"
             app:layout_constraintEnd_toEndOf="@id/ivArtwork"
             app:layout_constraintStart_toStartOf="@id/ivArtwork"
