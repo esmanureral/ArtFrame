@@ -124,7 +124,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/iv_favorite_margin"
-                            android:textStyle="normal"
                             app:layout_constraintEnd_toStartOf="@id/ivArtistIcon"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvArtistLabel"
