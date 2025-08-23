@@ -46,15 +46,13 @@
                 android:id="@+id/ivFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="@dimen/padding_8dp"
-                android:clickable="true"
-                android:contentDescription="@string/favorites_title"
-                android:focusable="true"
-                android:padding="@dimen/iv_favorite_margin"
-                android:src="@drawable/favorite_border"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_gravity="top|end"
+                android:elevation="@dimen/padding_8dp"
+                android:padding="@dimen/padding_8dp"
+                android:src="@drawable/favorite_24"
+                android:translationX="@dimen/translation_x"
+                android:translationY="@dimen/translation_y" />
+
         </FrameLayout>
 
         <TextView

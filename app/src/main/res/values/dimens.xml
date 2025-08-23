@@ -31,6 +31,8 @@
     <dimen name="translation_1">1dp</dimen>
     <dimen name="translation_6">6dp</dimen>
     <dimen name="tv_title_text_size">32sp</dimen>
+    <dimen name="translation_x">7dp</dimen>
+    <dimen name="translation_y">-7dp</dimen>
     <dimen name="iv_artwork_image_size">80dp</dimen>
     <dimen name="shimmer_layout">160dp</dimen>
     <dimen name="tv_title_size">16sp</dimen>
