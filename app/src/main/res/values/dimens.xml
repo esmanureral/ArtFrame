@@ -37,5 +37,6 @@
     <dimen name="shimmer_layout">160dp</dimen>
     <dimen name="tv_title_size">16sp</dimen>
     <dimen name="nested_scroll_view_margin_top">-30dp</dimen>
+    <dimen name="circle_background_size">36dp</dimen>
 
 </resources>

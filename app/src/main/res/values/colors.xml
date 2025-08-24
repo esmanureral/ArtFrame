@@ -12,5 +12,6 @@
     <color name="progress_indicator_color">#000000</color>
     <color name="label_color">#7B828E</color>
     <color name="bottom_bar_icon_color">#e3e3e3</color>
+    <color name="transparent_color">#4DFFFFFF</color>
 
 </resources>

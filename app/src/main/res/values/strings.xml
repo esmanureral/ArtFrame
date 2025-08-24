@@ -54,5 +54,6 @@
     <string name="bottom_nav_menu_favorites">Favorites</string>
     <string name="shared_image_prefix">shared_image</string>
     <string name="art_frame_prefix">artFrame</string>
+    <string name="image_view_favorite">image view favorite</string>
 
 </resources>
