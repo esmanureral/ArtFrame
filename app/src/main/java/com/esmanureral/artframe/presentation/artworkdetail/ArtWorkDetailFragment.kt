@@ -21,12 +21,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.ImageLoader
-import coil.load
 import coil.request.ImageRequest
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.animateCollapseExpand
 import com.esmanureral.artframe.databinding.FragmentDetailBinding
+import com.esmanureral.artframe.loadWithIndicator
 import com.esmanureral.artframe.orDefault
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.esmanureral.artframe.setArtistDisplay
@@ -126,14 +126,13 @@ class ArtWorkDetailFragment : Fragment() {
         binding.appBar.animateCollapseExpand(favoritesPrefs)
     }
 
-    private fun loadArtworkImage(artwork: ArtworkDetailUI) {
-        val imageUrl =
-            "https://www.artic.edu/iiif/2/${artwork.imageId}/full/!1280,720/0/default.jpg"
-        binding.ivArtwork.load(imageUrl) {
-            crossfade(true)
-            placeholder(R.drawable.black)
-            error(R.drawable.error)
-        }
+    private fun loadArtworkImage(artwork: ArtworkDetailUI) = with(binding) {
+        val imageUrl = getString(R.string.artwork_image_url, artwork.imageId)
+        ivArtwork.loadWithIndicator(
+            url = imageUrl,
+            progressIndicator = progressIndicator,
+            errorRes = R.drawable.error
+        )
     }
 
     private fun bindTextFields(artwork: ArtworkDetailUI) {

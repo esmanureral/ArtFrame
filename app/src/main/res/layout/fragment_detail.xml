@@ -70,6 +70,18 @@
                         android:scaleType="fitCenter"
                         app:layout_collapseMode="parallax" />
 
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progressIndicator"
+                        android:layout_width="@dimen/progress_indicator_size"
+                        android:layout_height="@dimen/progress_indicator_size"
+                        android:layout_gravity="center"
+                        android:indeterminate="true"
+                        android:visibility="visible"
+                        app:indicatorColor="@color/progress_indicator_color"
+                        app:layout_constraintBottom_toBottomOf="@id/ivArtwork"
+                        app:layout_constraintEnd_toEndOf="@id/ivArtwork"
+                        app:layout_constraintStart_toStartOf="@id/ivArtwork"
+                        app:layout_constraintTop_toTopOf="@id/ivArtwork" />
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
