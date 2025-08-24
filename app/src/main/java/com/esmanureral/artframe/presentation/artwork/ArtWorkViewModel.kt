@@ -40,7 +40,14 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
             if (response.isSuccessful) {
                 val newData = response.body()?.data
                     ?.filter { !it.imageId.isNullOrBlank() }
-                    ?.filter { it.classificationTitle?.lowercase() in includedClassificationsLower }
+                    ?.filter { artwork ->
+                        val classificationTitle =
+                            artwork.classificationTitle?.trim()?.lowercase().orEmpty()
+                        val isIncluded = includedClassificationsLower.any { allowed ->
+                            classificationTitle.contains(allowed)
+                        }
+                        isIncluded
+                    }
                     ?.map { it.toUIModel() }
                     ?: emptyList()
 
