@@ -74,36 +74,32 @@ class ArtWorkDetailFragment : Fragment() {
             bottomActionBar.favoriteContainer.setOnClickListener {
                 currentArtwork?.let { toggleFavorite(it) }
             }
-
             bottomActionBar.shareContainer.setOnClickListener {
                 currentArtwork?.imageId?.let { imageId ->
                     val imageUrl = getString(R.string.artwork_image_url, imageId)
-                    shareArtworkImage(imageUrl)
+                    setImageAction(it, imageUrl) { bitmap ->
+                        val uri = saveBitmapToCache(bitmap)
+                        uri?.let { safeUri -> shareImageUri(safeUri) }
+                    }
                 }
             }
 
             bottomActionBar.downloadContainer.setOnClickListener {
                 currentArtwork?.imageId?.let { imageId ->
                     val imageUrl = getString(R.string.artwork_image_url, imageId)
-                    downloadArtworkImage(imageUrl)
+                    setImageAction(it, imageUrl) { bitmap ->
+                        saveBitmapToGallery(bitmap)
+                        requireContext().showToast(getString(R.string.image_saved))
+                    }
                 }
             }
+
             bottomActionBar.wallpaperContainer.setOnClickListener {
                 currentArtwork?.imageId?.let { imageId ->
                     val imageUrl = getString(R.string.artwork_image_url, imageId)
-                    val bottomBar = binding.bottomActionBar
-                    bottomBar.wallpaperContainer.isEnabled = false
-                    bottomBar.downloadProgressBar.visibility = View.VISIBLE
-
-                    loadBitmapFromUrl(imageUrl) { bitmap ->
-                        bitmap?.let {
-                            val uri = saveBitmapToCache(it)
-                            uri?.let { safeUri ->
-                                setAsWallpaperWithChooser(safeUri)
-                            }
-                        }
-                        bottomBar.downloadProgressBar.visibility = View.GONE
-                        bottomBar.wallpaperContainer.isEnabled = true
+                    setImageAction(it, imageUrl) { bitmap ->
+                        val uri = saveBitmapToCache(bitmap)
+                        uri?.let { safeUri -> setAsWallpaperWithChooser(safeUri) }
                     }
                 }
             }
@@ -330,6 +326,22 @@ class ArtWorkDetailFragment : Fragment() {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
         startActivity(Intent.createChooser(intent, getString(R.string.wallpaper)))
+    }
+
+    private fun setImageAction(
+        containerView: View,
+        imageUrl: String,
+        onBitmapReady: (Bitmap) -> Unit
+    ) {
+        val bottomBar = binding.bottomActionBar
+        containerView.isEnabled = false
+        bottomBar.downloadProgressBar.visibility = View.VISIBLE
+
+        loadBitmapFromUrl(imageUrl) { bitmap ->
+            bitmap?.let(onBitmapReady)
+            bottomBar.downloadProgressBar.visibility = View.GONE
+            containerView.isEnabled = true
+        }
     }
 
     override fun onDestroyView() {
