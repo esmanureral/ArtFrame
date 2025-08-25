@@ -36,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/onPrimary"
-        android:paddingBottom="@dimen/padding_40dp"
         android:translationZ="@dimen/translation_1"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="@dimen/card_corner_radius"
@@ -291,9 +290,12 @@
                         android:id="@+id/descriptionContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/padding_bottom"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/dividerDescription">
+                        app:layout_constraintTop_toBottomOf="@id/dividerDescription"
+                        app:layout_constraintVertical_bias="0">
 
                         <TextView
                             android:id="@+id/tvDescriptionLabel"

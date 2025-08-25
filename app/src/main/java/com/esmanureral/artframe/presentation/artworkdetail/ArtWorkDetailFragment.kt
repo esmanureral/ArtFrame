@@ -71,26 +71,30 @@ class ArtWorkDetailFragment : Fragment() {
 
     private fun setupClickListeners() {
         with(binding) {
-            bottomActionBar.ivFavorite.setOnClickListener {
+            bottomActionBar.favoriteContainer.setOnClickListener {
                 currentArtwork?.let { toggleFavorite(it) }
             }
 
-            bottomActionBar.ivShare.setOnClickListener {
+            bottomActionBar.shareContainer.setOnClickListener {
                 currentArtwork?.imageId?.let { imageId ->
                     val imageUrl = getString(R.string.artwork_image_url, imageId)
                     shareArtworkImage(imageUrl)
                 }
             }
 
-            bottomActionBar.iconDownload.setOnClickListener {
+            bottomActionBar.downloadContainer.setOnClickListener {
                 currentArtwork?.imageId?.let { imageId ->
                     val imageUrl = getString(R.string.artwork_image_url, imageId)
                     downloadArtworkImage(imageUrl)
                 }
             }
-            bottomActionBar.iconWallpaper.setOnClickListener {
+            bottomActionBar.wallpaperContainer.setOnClickListener {
                 currentArtwork?.imageId?.let { imageId ->
                     val imageUrl = getString(R.string.artwork_image_url, imageId)
+                    val bottomBar = binding.bottomActionBar
+                    bottomBar.wallpaperContainer.isEnabled = false
+                    bottomBar.downloadProgressBar.visibility = View.VISIBLE
+
                     loadBitmapFromUrl(imageUrl) { bitmap ->
                         bitmap?.let {
                             val uri = saveBitmapToCache(it)
@@ -98,6 +102,8 @@ class ArtWorkDetailFragment : Fragment() {
                                 setAsWallpaperWithChooser(safeUri)
                             }
                         }
+                        bottomBar.downloadProgressBar.visibility = View.GONE
+                        bottomBar.wallpaperContainer.isEnabled = true
                     }
                 }
             }
@@ -217,17 +223,23 @@ class ArtWorkDetailFragment : Fragment() {
     }
 
     private fun shareArtworkImage(imageUrl: String) {
+        val bottomBar = binding.bottomActionBar
+        bottomBar.shareContainer.isEnabled = false
+        bottomBar.downloadProgressBar.visibility = View.VISIBLE
+
         loadBitmapFromUrl(imageUrl) { bitmap ->
             bitmap?.let {
                 val uri = saveBitmapToCache(it) ?: return@let
                 shareImageUri(uri)
             }
+            bottomBar.downloadProgressBar.visibility = View.GONE
+            bottomBar.shareContainer.isEnabled = true
         }
     }
 
     private fun downloadArtworkImage(imageUrl: String) {
         val bottomBar = binding.bottomActionBar
-        bottomBar.iconDownload.isEnabled = false
+        bottomBar.downloadContainer.isEnabled = false
         bottomBar.downloadProgressBar.visibility = View.VISIBLE
 
         loadBitmapFromUrl(imageUrl) { bitmap ->
@@ -236,7 +248,7 @@ class ArtWorkDetailFragment : Fragment() {
                 requireContext().showToast(getString(R.string.image_saved))
             }
             bottomBar.downloadProgressBar.visibility = View.GONE
-            bottomBar.iconDownload.isEnabled = true
+            bottomBar.downloadContainer.isEnabled = true
         }
     }
 
