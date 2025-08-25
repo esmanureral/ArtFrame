@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/primary"/>
+    <corners
+        android:topLeftRadius="@dimen/iv_favorite_margin"
+        android:topRightRadius="@dimen/iv_favorite_margin"
+        android:bottomLeftRadius="@dimen/custom_card_view_style"
+        android:bottomRightRadius="@dimen/custom_card_view_style"/>
+</shape>
