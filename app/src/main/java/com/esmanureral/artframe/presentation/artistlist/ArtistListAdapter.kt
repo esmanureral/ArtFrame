@@ -11,6 +11,7 @@ import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.ItemArtistBinding
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
+import com.esmanureral.artframe.presentation.deleteItem.DeleteItemType
 
 class ArtistListAdapter(
     private val favoritesPrefs: ArtWorkSharedPreferences,
@@ -31,9 +32,10 @@ class ArtistListAdapter(
 
             updateFavoriteIcon(artist)
 
+            // Kalbe basıldığında bottom sheet açma (favoriler sayfasında)
             if (isRemoveFavorite) {
                 ivFavorite.setOnClickListener { 
-                    showDeleteBottomSheet(artist)
+                    showDeleteBottomSheet(artist, DeleteItemType.ARTIST)
                 }
             } else {
                 ivFavorite.setOnClickListener { toggleFavorite(artist) }
@@ -41,9 +43,10 @@ class ArtistListAdapter(
             
             root.setOnClickListener { onItemClick(artist) }
 
+            // Uzun basma ile bottom sheet açma (sadece favoriler sayfasında)
             if (isRemoveFavorite) {
                 root.setOnLongClickListener {
-                    showDeleteBottomSheet(artist)
+                    showDeleteBottomSheet(artist, DeleteItemType.ARTIST)
                     true
                 }
             }
@@ -75,11 +78,19 @@ class ArtistListAdapter(
             }
         }
 
-        private fun showDeleteBottomSheet(artist: ArtistListUI) {
+        private fun showDeleteBottomSheet(artist: ArtistListUI, itemType: DeleteItemType) {
             val bottomSheet = DeleteBottomSheet()
             bottomSheet.setListener(object : DeleteBottomSheet.DeleteListener {
                 override fun onDeleteItem() {
-                    favoritesPrefs.removeArtistById(artist.id)
+                    when (itemType) {
+                        DeleteItemType.ARTWORK -> {
+                            favoritesPrefs.removeArtworkById(artworkId = artist.id)
+                        }
+                        DeleteItemType.ARTIST -> {
+                            favoritesPrefs.removeArtistById(artistId = artist.id)
+                        }
+                    }
+                    
                     val position = currentList.indexOf(artist)
                     if (position != -1) {
                         val newList = currentList.toMutableList()
@@ -89,7 +100,15 @@ class ArtistListAdapter(
                 }
 
                 override fun onDeleteAll() {
-                    favoritesPrefs.removeAllArtists()
+                    when (itemType) {
+                        DeleteItemType.ARTWORK -> {
+                            favoritesPrefs.removeAllArtworks()
+                        }
+                        DeleteItemType.ARTIST -> {
+                            favoritesPrefs.removeAllArtists()
+                        }
+                    }
+                    
                     submitList(emptyList())
                 }
             })
