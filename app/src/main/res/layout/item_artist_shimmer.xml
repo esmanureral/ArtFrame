@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_8dp">
 
     <View
         android:id="@+id/tvArtistNameShimmer"
         android:layout_width="0dp"
-        android:layout_height="@dimen/shimmer_height"
-        android:layout_marginStart="@dimen/iv_favorite_margin"
-        android:layout_marginTop="@dimen/padding_8dp"
+        android:layout_height="@dimen/tv_artist_name_shimmer"
+        android:layout_marginEnd="@dimen/padding_64dp"
         android:background="@drawable/shimmer_rect"
         app:layout_constraintEnd_toStartOf="@+id/ivFavoriteShimmer"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,8 +18,6 @@
         android:id="@+id/ivFavoriteShimmer"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:layout_marginTop="@dimen/padding_8dp"
-        android:layout_marginEnd="@dimen/iv_favorite_margin"
         android:background="@drawable/shimmer_circle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvArtistNameShimmer" />
@@ -28,9 +25,9 @@
     <View
         android:id="@+id/tvYearsShimmer"
         android:layout_width="0dp"
-        android:layout_height="@dimen/shimmer_height"
-        android:layout_marginStart="@dimen/iv_favorite_margin"
+        android:layout_height="@dimen/tv_years_shimmer"
         android:layout_marginTop="@dimen/padding_8dp"
+        android:layout_marginEnd="@dimen/padding_64dp"
         android:background="@drawable/shimmer_rect"
         app:layout_constraintEnd_toEndOf="@+id/tvArtistNameShimmer"
         app:layout_constraintStart_toStartOf="parent"
