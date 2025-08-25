@@ -226,11 +226,17 @@ class ArtWorkDetailFragment : Fragment() {
     }
 
     private fun downloadArtworkImage(imageUrl: String) {
+        val bottomBar = binding.bottomActionBar
+        bottomBar.iconDownload.isEnabled = false
+        bottomBar.downloadProgressBar.visibility = View.VISIBLE
+
         loadBitmapFromUrl(imageUrl) { bitmap ->
             bitmap?.let {
                 saveBitmapToGallery(it)
                 requireContext().showToast(getString(R.string.image_saved))
             }
+            bottomBar.downloadProgressBar.visibility = View.GONE
+            bottomBar.iconDownload.isEnabled = true
         }
     }
 
