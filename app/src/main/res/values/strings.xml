@@ -55,5 +55,7 @@
     <string name="shared_image_prefix">shared_image</string>
     <string name="art_frame_prefix">artFrame</string>
     <string name="image_view_favorite">image view favorite</string>
+    <string name="delete_item">Delete the selected item</string>
+    <string name="delete_all">Delete all</string>
 
 </resources>
