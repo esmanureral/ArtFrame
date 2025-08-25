@@ -10,6 +10,7 @@ import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.ItemFavArtworksBinding
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
+import com.esmanureral.artframe.presentation.deleteItem.DeleteItemType
 
 class FavoritesAdapter(
     private val favoritesPrefs: ArtWorkSharedPreferences,
@@ -41,17 +42,25 @@ class FavoritesAdapter(
                 }
 
                 root.setOnLongClickListener {
-                    showDeleteBottomSheet(artwork)
+                    showDeleteBottomSheet(artwork, DeleteItemType.ARTWORK)
                     true
                 }
             }
         }
 
-        private fun showDeleteBottomSheet(artwork: ArtworkDetailUI) {
+        private fun showDeleteBottomSheet(artwork: ArtworkDetailUI, itemType: DeleteItemType) {
             val bottomSheet = DeleteBottomSheet()
             bottomSheet.setListener(object : DeleteBottomSheet.DeleteListener {
                 override fun onDeleteItem() {
-                    favoritesPrefs.removeArtworkById(artwork.id)
+                    when (itemType) {
+                        DeleteItemType.ARTWORK -> {
+                            favoritesPrefs.removeArtworkById(artworkId = artwork.id)
+                        }
+
+                        DeleteItemType.ARTIST -> {
+                            favoritesPrefs.removeArtistById(artistId = artwork.id)
+                        }
+                    }
                     val position = favorites.indexOf(artwork)
                     if (position != -1) {
                         favorites.removeAt(position)
@@ -61,7 +70,15 @@ class FavoritesAdapter(
                 }
 
                 override fun onDeleteAll() {
-                    favoritesPrefs.removeAllArtworks()
+                    when (itemType) {
+                        DeleteItemType.ARTWORK -> {
+                            favoritesPrefs.removeAllArtworks()
+                        }
+
+                        DeleteItemType.ARTIST -> {
+                            favoritesPrefs.removeAllArtists()
+                        }
+                    }
                     favorites.clear()
                     notifyDataSetChanged()
                     onFavoritesChanged()
