@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import coil.load
 import com.esmanureral.artframe.databinding.FragmentFullScreenImageBinding
 
 class FullScreenImageFragment : Fragment() {
@@ -27,11 +26,11 @@ class FullScreenImageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ivFullScreen.load(args.imageUrl) {
-            crossfade(true)
-            placeholder(R.drawable.black)
-            error(R.drawable.error)
-        }
+        binding.ivFullScreen.loadWithIndicator(
+            url = args.imageUrl,
+            progressIndicator = binding.progressIndicator,
+            errorRes = R.drawable.error
+        )
 
         binding.ivFullScreen.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
@@ -43,3 +42,4 @@ class FullScreenImageFragment : Fragment() {
         _binding = null
     }
 }
+
