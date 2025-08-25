@@ -15,6 +15,8 @@ data class ArtworkDetail(
     val artistTitle: String?,
     @SerializedName("date_display")
     val dateDisplay: String?,
+    @SerializedName("date_start")
+    val dateStart: String?,
     @SerializedName("description")
     val description: String?,
     @SerializedName("short_description")

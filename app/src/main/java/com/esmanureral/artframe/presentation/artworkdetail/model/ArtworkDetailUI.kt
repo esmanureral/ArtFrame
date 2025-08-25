@@ -9,7 +9,7 @@ data class ArtworkDetailUI(
     val artistTitle: String,
     val birthDate: String?,
     val deathDate: String?,
-    val dateDisplay: String,
+    val dateStart: String?,
     val description: String?,
     val shortDescription: String,
     val imageId: String,
@@ -30,7 +30,6 @@ fun ArtworkDetail.toUIModel(
     artistTitle = artistTitle.orEmpty(),
     birthDate = birthDate,
     deathDate = deathDate,
-    dateDisplay = dateDisplay.orEmpty(),
     description = description,
     shortDescription = shortDescription.orEmpty(),
     imageId = imageId.orEmpty(),
@@ -39,5 +38,6 @@ fun ArtworkDetail.toUIModel(
     dimension = dimensions.orEmpty(),
     creditLine = creditLine.orEmpty(),
     artistDisplay = artistDisplay.orEmpty(),
-    placeOfOrigin = placeOfOrigin.orEmpty()
+    placeOfOrigin = placeOfOrigin.orEmpty(),
+    dateStart = dateStart.orEmpty()
 )

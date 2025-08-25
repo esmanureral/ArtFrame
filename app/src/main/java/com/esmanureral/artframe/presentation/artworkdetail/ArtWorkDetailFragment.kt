@@ -144,7 +144,7 @@ class ArtWorkDetailFragment : Fragment() {
                 artwork.artistTitle.orDefault(getString(R.string.no_artist)),
                 artwork.artistDisplay.orDefault(getString(R.string.no_artist))
             )
-            tvDate.text = artwork.dateDisplay.orDefault(getString(R.string.no_artist))
+            tvDate.text = artwork.dateStart.orDefault(getString(R.string.no_artist))
             tvMedium.text = artwork.thumbnail?.altText.orDefault(getString(R.string.no_medium))
             tvDimensions.text = artwork.dimension.orDefault(getString(R.string.no_dimension))
             tvCreditLine.text = artwork.creditLine.orDefault(getString(R.string.no_credit))
