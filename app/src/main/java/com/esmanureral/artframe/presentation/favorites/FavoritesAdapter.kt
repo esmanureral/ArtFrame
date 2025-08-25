@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.esmanureral.artframe.DeleteBottomSheet
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.ItemFavArtworksBinding
@@ -34,14 +35,7 @@ class FavoritesAdapter(
                 )
 
                 ivFavorite.setOnClickListener {
-                    if (favoritesPrefs.isArtworkFavorite(artwork)) {
-                        favoritesPrefs.removeArtworkFavorite(artwork)
-                    } else {
-                        favoritesPrefs.addArtworkFavorite(artwork)
-                    }
-                    favorites.removeAt(adapterPosition)
-                    notifyItemRemoved(adapterPosition)
-                    onFavoritesChanged()
+                    DeleteBottomSheet()
                 }
 
                 root.setOnClickListener {

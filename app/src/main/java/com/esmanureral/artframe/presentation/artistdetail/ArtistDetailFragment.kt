@@ -13,6 +13,7 @@ import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.Artwork
 import com.esmanureral.artframe.databinding.FragmentArtistArtworkBinding
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
+import com.esmanureral.artframe.presentation.deleteItem.DeleteItemType
 
 class ArtistDetailFragment : Fragment() {
 
@@ -43,6 +44,31 @@ class ArtistDetailFragment : Fragment() {
         observeViewModel()
         viewModel.fetchArtworksByArtist(args.artistId)
         setupFavoriteIcon()
+    }
+
+    private fun deleteSingleItem() {
+        when (args.itemType) {
+            DeleteItemType.ARTIST -> {
+                favoritesPrefs.removeArtistById(artistId = args.artistId)
+
+            }
+
+            DeleteItemType.ARTWORK -> {
+                favoritesPrefs.removeArtworkById(artworkId = args.artistId)
+            }
+        }
+    }
+    private fun deleteAllItems() {
+        when (args.itemType) {
+            DeleteItemType.ARTIST -> {
+                favoritesPrefs.removeAllArtists()
+
+            }
+
+            DeleteItemType.ARTWORK -> {
+                favoritesPrefs.removeAllArtworks()
+            }
+        }
     }
 
     private fun setupAdapter() {
@@ -108,7 +134,7 @@ class ArtistDetailFragment : Fragment() {
     private fun toggleFavoriteArtist() {
         createArtist.apply {
             if (favoritesPrefs.isArtistFavorite(this)) {
-                favoritesPrefs.removeArtistFavorite(this)
+                favoritesPrefs.removeArtistById(artistId = args.artistId)
             } else {
                 favoritesPrefs.addArtistFavorite(this)
             }

@@ -29,6 +29,7 @@ import com.esmanureral.artframe.databinding.FragmentDetailBinding
 import com.esmanureral.artframe.loadWithIndicator
 import com.esmanureral.artframe.orDefault
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
+import com.esmanureral.artframe.presentation.deleteItem.DeleteItemType
 import com.esmanureral.artframe.setArtistDisplay
 import com.esmanureral.artframe.showToast
 import com.google.android.material.appbar.AppBarLayout
@@ -189,7 +190,7 @@ class ArtWorkDetailFragment : Fragment() {
 
     private fun toggleFavorite(artwork: ArtworkDetailUI) {
         if (favoritesPrefs.isArtworkFavorite(artwork))
-            favoritesPrefs.removeArtworkFavorite(artwork)
+            favoritesPrefs.removeArtworkById(artworkId = artwork.id)
         else
             favoritesPrefs.addArtworkFavorite(artwork)
         updateFavoriteIcon(artwork)
@@ -207,7 +208,8 @@ class ArtWorkDetailFragment : Fragment() {
                 artistId = artwork.artistId,
                 artistName = artwork.artistTitle,
                 birthDate = artwork.birthDate ?: "",
-                deathDate = artwork.deathDate ?: ""
+                deathDate = artwork.deathDate ?: "",
+                itemType = DeleteItemType.ARTIST
             )
         findNavController().navigate(action)
     }

@@ -41,7 +41,7 @@ class ArtistListAdapter(
 
         private fun toggleFavorite(artist: ArtistListUI) = with(binding) {
             if (favoritesPrefs.isArtistFavorite(artist)) {
-                favoritesPrefs.removeArtistFavorite(artist)
+                favoritesPrefs.removeArtistById(artistId = artist.id)
                 if (isRemoveFavorite) removeArtistFromList(adapterPosition)
                 else ivFavorite.setImageResource(R.drawable.favorite_border)
             } else {

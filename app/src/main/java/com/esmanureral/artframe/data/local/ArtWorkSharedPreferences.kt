@@ -2,6 +2,8 @@ package com.esmanureral.artframe.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.system.Os.remove
+import androidx.core.content.edit
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.google.gson.Gson
@@ -39,12 +41,6 @@ class ArtWorkSharedPreferences(context: Context) {
         }
     }
 
-    fun removeArtworkFavorite(artwork: ArtworkDetailUI) {
-        val favorites = loadArtworkFavorites()
-        val newList = favorites.filter { it.id != artwork.id }.toMutableList()
-        saveArtworkFavorites(newList)
-    }
-
     fun isArtworkFavorite(artwork: ArtworkDetailUI): Boolean {
         val favorites = loadArtworkFavorites()
         return favorites.any { it.id == artwork.id }
@@ -71,10 +67,24 @@ class ArtWorkSharedPreferences(context: Context) {
         }
     }
 
-    fun removeArtistFavorite(artist: ArtistListUI) {
+    fun removeArtistById(artistId: Int) {
         val favorites = loadArtistFavorites()
-        val newList = favorites.filter { it.id != artist.id }.toMutableList()
+        val newList = favorites.filter { it.id != artistId }.toMutableList()
         saveArtistFavorites(newList)
+    }
+
+    fun removeArtworkById(artworkId: Int) {
+        val favorites = loadArtworkFavorites()
+        val newList = favorites.filter { it.id != artworkId }.toMutableList()
+        saveArtworkFavorites(newList)
+    }
+
+    fun removeAllArtists() {
+        prefs.edit { remove(FAVORITE_ARTISTS_KEY) }
+    }
+
+    fun removeAllArtworks() {
+        prefs.edit { remove(FAVORITES_ARTWORK_KEY) }
     }
 
     fun isArtistFavorite(artist: ArtistListUI): Boolean {

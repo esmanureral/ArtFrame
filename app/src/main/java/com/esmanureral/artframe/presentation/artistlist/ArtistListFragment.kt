@@ -13,6 +13,7 @@ import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.FragmentArtistListBinding
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
+import com.esmanureral.artframe.presentation.deleteItem.DeleteItemType
 
 class ArtistListFragment : Fragment() {
     private var _binding: FragmentArtistListBinding? = null
@@ -60,7 +61,8 @@ class ArtistListFragment : Fragment() {
             artist.id,
             artist.title,
             artist.birthDate ?: getString(R.string.year_unknown),
-            artist.deathDate ?: getString(R.string.year_unknown)
+            artist.deathDate ?: getString(R.string.year_unknown),
+            itemType = DeleteItemType.ARTIST
         )
         findNavController().navigate(action)
     }

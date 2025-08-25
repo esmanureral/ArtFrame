@@ -14,6 +14,7 @@ import com.esmanureral.artframe.databinding.FavoritesFragmentBinding
 import com.esmanureral.artframe.presentation.artistlist.ArtistListAdapter
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
+import com.esmanureral.artframe.presentation.deleteItem.DeleteItemType
 import com.google.android.material.tabs.TabLayout
 
 class FavoritesFragment : Fragment() {
@@ -93,10 +94,11 @@ class FavoritesFragment : Fragment() {
             onItemClick = { artist ->
                 val action =
                     FavoritesFragmentDirections.actionFavoritesFragmentToArtistArtworkFragment(
-                        artist.id,
-                        artist.title,
-                        artist.birthDate ?: "",
-                        artist.deathDate ?: ""
+                        artistId = artist.id,
+                        artistName = artist.title,
+                        birthDate = artist.birthDate ?: "",
+                        deathDate = artist.deathDate ?: "",
+                        itemType = DeleteItemType.ARTIST
                     )
                 findNavController().navigate(action)
             },

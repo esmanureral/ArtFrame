@@ -65,6 +65,10 @@
             android:name="deathDate"
             app:argType="string"
             app:nullable="@null" />
+        <argument
+            android:name="itemType"
+            app:argType="com.esmanureral.artframe.presentation.deleteItem.DeleteItemType" />
+
         <action
             android:id="@+id/action_artistArtworkFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
