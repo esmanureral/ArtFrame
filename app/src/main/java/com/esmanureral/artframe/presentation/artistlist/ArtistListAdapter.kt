@@ -2,9 +2,11 @@ package com.esmanureral.artframe.presentation.artistlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.esmanureral.artframe.DeleteBottomSheet
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.ItemArtistBinding
@@ -13,7 +15,8 @@ import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 class ArtistListAdapter(
     private val favoritesPrefs: ArtWorkSharedPreferences,
     private val onItemClick: (ArtistListUI) -> Unit,
-    private val isRemoveFavorite: Boolean = false
+    private val isRemoveFavorite: Boolean = false,
+    private val parentFragment: Fragment? = null
 ) : ListAdapter<ArtistListUI, ArtistListAdapter.ArtistViewHolder>(ArtistDiffCallback()) {
 
     inner class ArtistViewHolder(private val binding: ItemArtistBinding) :
@@ -28,8 +31,22 @@ class ArtistListAdapter(
 
             updateFavoriteIcon(artist)
 
-            ivFavorite.setOnClickListener { toggleFavorite(artist) }
+            if (isRemoveFavorite) {
+                ivFavorite.setOnClickListener { 
+                    showDeleteBottomSheet(artist)
+                }
+            } else {
+                ivFavorite.setOnClickListener { toggleFavorite(artist) }
+            }
+            
             root.setOnClickListener { onItemClick(artist) }
+
+            if (isRemoveFavorite) {
+                root.setOnLongClickListener {
+                    showDeleteBottomSheet(artist)
+                    true
+                }
+            }
         }
 
         private fun updateFavoriteIcon(artist: ArtistListUI) {
@@ -55,6 +72,29 @@ class ArtistListAdapter(
                 val newList = currentList.toMutableList()
                 newList.removeAt(position)
                 submitList(newList)
+            }
+        }
+
+        private fun showDeleteBottomSheet(artist: ArtistListUI) {
+            val bottomSheet = DeleteBottomSheet()
+            bottomSheet.setListener(object : DeleteBottomSheet.DeleteListener {
+                override fun onDeleteItem() {
+                    favoritesPrefs.removeArtistById(artist.id)
+                    val position = currentList.indexOf(artist)
+                    if (position != -1) {
+                        val newList = currentList.toMutableList()
+                        newList.removeAt(position)
+                        submitList(newList)
+                    }
+                }
+
+                override fun onDeleteAll() {
+                    favoritesPrefs.removeAllArtists()
+                    submitList(emptyList())
+                }
+            })
+            parentFragment?.let { fragment ->
+                bottomSheet.show(fragment.parentFragmentManager, "DeleteBottomSheet")
             }
         }
     }

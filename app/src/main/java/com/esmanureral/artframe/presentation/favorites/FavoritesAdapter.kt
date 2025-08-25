@@ -2,6 +2,7 @@ package com.esmanureral.artframe.presentation.favorites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.esmanureral.artframe.DeleteBottomSheet
@@ -14,7 +15,8 @@ class FavoritesAdapter(
     private val favoritesPrefs: ArtWorkSharedPreferences,
     private val favorites: MutableList<ArtworkDetailUI>,
     private val onItemClick: (ArtworkDetailUI) -> Unit,
-    private val onFavoritesChanged: () -> Unit = {}
+    private val onFavoritesChanged: () -> Unit = {},
+    private val parentFragment: Fragment? = null
 ) : RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
 
     inner class FavoriteViewHolder(val binding: ItemFavArtworksBinding) :
@@ -34,13 +36,39 @@ class FavoritesAdapter(
                     else R.drawable.favorite_border
                 )
 
-                ivFavorite.setOnClickListener {
-                    DeleteBottomSheet()
-                }
-
                 root.setOnClickListener {
                     onItemClick(artwork)
                 }
+
+                root.setOnLongClickListener {
+                    showDeleteBottomSheet(artwork)
+                    true
+                }
+            }
+        }
+
+        private fun showDeleteBottomSheet(artwork: ArtworkDetailUI) {
+            val bottomSheet = DeleteBottomSheet()
+            bottomSheet.setListener(object : DeleteBottomSheet.DeleteListener {
+                override fun onDeleteItem() {
+                    favoritesPrefs.removeArtworkById(artwork.id)
+                    val position = favorites.indexOf(artwork)
+                    if (position != -1) {
+                        favorites.removeAt(position)
+                        notifyItemRemoved(position)
+                        onFavoritesChanged()
+                    }
+                }
+
+                override fun onDeleteAll() {
+                    favoritesPrefs.removeAllArtworks()
+                    favorites.clear()
+                    notifyDataSetChanged()
+                    onFavoritesChanged()
+                }
+            })
+            parentFragment?.let { fragment ->
+                bottomSheet.show(fragment.parentFragmentManager, "DeleteBottomSheet")
             }
         }
     }

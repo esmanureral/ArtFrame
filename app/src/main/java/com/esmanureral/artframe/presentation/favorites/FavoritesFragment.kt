@@ -86,7 +86,8 @@ class FavoritesFragment : Fragment() {
             },
             onFavoritesChanged = {
                 checkEmptyState()
-            }
+            },
+            parentFragment = this
         )
 
         artistAdapter = ArtistListAdapter(
@@ -102,7 +103,8 @@ class FavoritesFragment : Fragment() {
                     )
                 findNavController().navigate(action)
             },
-            isRemoveFavorite = true
+            isRemoveFavorite = true,
+            parentFragment = this
         )
         artistAdapter.submitList(favoriteArtists)
     }
