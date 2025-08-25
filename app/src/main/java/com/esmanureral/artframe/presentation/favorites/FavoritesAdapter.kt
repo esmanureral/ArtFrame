@@ -32,10 +32,6 @@ class FavoritesAdapter(
                     placeholder(R.drawable.black)
                     error(R.drawable.error)
                 }
-                ivFavorite.setImageResource(
-                    if (favoritesPrefs.isArtworkFavorite(artwork)) R.drawable.favorite_24
-                    else R.drawable.favorite_border
-                )
 
                 root.setOnClickListener {
                     onItemClick(artwork)
