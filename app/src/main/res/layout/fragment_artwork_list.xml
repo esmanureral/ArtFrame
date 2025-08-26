@@ -21,6 +21,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_32dp"
             android:text="@string/artwork_header" />
+
+        <ImageView
+            android:id="@+id/ivVirtualIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/padding_32dp"
+            android:contentDescription="@string/iv_arrow_left_descr"
+            android:padding="@dimen/padding_8dp"
+            android:src="@drawable/virtual_icon" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView

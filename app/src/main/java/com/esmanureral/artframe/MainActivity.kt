@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.fullScreenImageFragment || destination.id == R.id.detailFragment || destination.id == R.id.resultGameFragment) {
+            if (destination.id == R.id.fullScreenImageFragment || destination.id == R.id.detailFragment || destination.id == R.id.resultGameFragment || destination.id == R.id.virtualArtGalleryFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE

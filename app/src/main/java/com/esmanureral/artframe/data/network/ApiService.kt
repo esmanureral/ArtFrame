@@ -9,7 +9,7 @@ interface ApiService {
     @GET("artworks")
     suspend fun getArtWorks(
         @Query("page") page: Int,
-        @Query("limit") limit: Int = 20,
+        @Query("limit") limit: Int = 100,
         @Query("fields") fields: String = "id,title,image_id,classification_title"
     ): Response<ArtworkListResponse>
 

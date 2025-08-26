@@ -29,6 +29,7 @@
     <string name="place_of_origin">Place of Origin</string>
     <string name="tv_credit_line_label">Collection</string>
     <string name="artwork_image_url">https://www.artic.edu/iiif/2/%s/full/1600,/0/default.jpg</string>
+    <string name="virtual_image_url">https://clementcariou.github.io/virtual-art-gallery/build</string>
     <string name="tv_years">Years</string>
     <string name="no_favorites">No favorites added yet</string>
     <string name="image_saved">Image downloaded</string>
@@ -68,5 +69,7 @@
     <string name="error_message">An error occurred while loading the question.</string>
     <string name="correct_answer">Correct Answer</string>
     <string name="collections_text">Collections</string>
+    <string name="thanks_text">Thanks to Clément Cariou</string>
+    <string name="close_button">close button</string>
 
 </resources>

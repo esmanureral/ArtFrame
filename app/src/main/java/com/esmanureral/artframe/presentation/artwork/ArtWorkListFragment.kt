@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.R
@@ -31,6 +32,12 @@ class ArtworkListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
         observeViewModel()
+
+        binding.ivVirtualIcon.setOnClickListener {
+            val action =
+                ArtworkListFragmentDirections.actionArtworkListFragmentToVirtualArtGalleryFragment()
+            findNavController().navigate(action)
+        }
     }
 
     private fun setupRecyclerView() {
