@@ -99,7 +99,7 @@
 
     <fragment
         android:id="@+id/quizFragment"
-        android:name="com.esmanureral.artframe.presentation.quiz.QuizFragment"
+        android:name="com.esmanureral.artframe.presentation.game.QuizFragment"
         android:label="QuizFragment" />
 
 </navigation>

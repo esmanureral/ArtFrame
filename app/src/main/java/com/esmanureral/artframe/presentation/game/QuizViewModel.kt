@@ -1,4 +1,4 @@
-package com.esmanureral.artframe.presentation.quiz
+package com.esmanureral.artframe.presentation.game
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

@@ -1,4 +1,4 @@
-package com.esmanureral.artframe.presentation.quiz
+package com.esmanureral.artframe.presentation.game
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,10 +31,8 @@ class QuizFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupObservers()
         setupNextButton()
-
         viewModel.startQuiz()
     }
 
@@ -52,27 +50,27 @@ class QuizFragment : Fragment() {
         }
     }
 
-    private fun setupNextButton() {
-        binding.btnNextQuestion.setOnClickListener {
+    private fun setupNextButton() = with(binding) {
+        btnNextQuestion.setOnClickListener {
             questionIndex++
-            binding.tvQuestionNumber.text = getString(R.string.tv_question, questionIndex)
+            tvQuestionNumber.text = getString(R.string.tv_question, questionIndex)
             viewModel.loadNewQuestion()
         }
     }
 
-    private fun showQuestion(question: QuizQuestion) {
+    private fun showQuestion(question: QuizQuestion) = with(binding) {
         loadArtworkImage(question.imageUrl)
 
-        val optionButtons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3)
+        val optionButtons = listOf(btnOption1, btnOption2, btnOption3)
         optionButtons.forEachIndexed { index, button ->
             setupOptionButton(button, question.options[index], question)
         }
     }
 
-    private fun loadArtworkImage(imageUrl: String) {
-        binding.ivArtwork.loadWithIndicator(
+    private fun loadArtworkImage(imageUrl: String) = with(binding) {
+        ivArtwork.loadWithIndicator(
             url = imageUrl,
-            progressIndicator = binding.progressIndicator,
+            progressIndicator = progressIndicator,
             errorRes = R.drawable.error
         )
     }
@@ -83,8 +81,8 @@ class QuizFragment : Fragment() {
         button.setOnClickListener { checkAnswer(button, question) }
     }
 
-    private fun checkAnswer(selectedButton: Button, question: QuizQuestion) {
-        val optionButtons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3)
+    private fun checkAnswer(selectedButton: Button, question: QuizQuestion) = with(binding) {
+        val optionButtons = listOf(btnOption1, btnOption2, btnOption3)
         val correctButton = optionButtons.first { it.text == question.correctAnswer }
 
         if (selectedButton == correctButton) {
@@ -98,9 +96,9 @@ class QuizFragment : Fragment() {
         disableOptions(optionButtons)
     }
 
-    private fun updateScoreUI(correctCount: Int) {
-        binding.tvScore.text = getString(R.string.quiz_score, correctCount)
-        binding.tvCorrect.text = getString(R.string.tv_correct, correctCount)
+    private fun updateScoreUI(correctCount: Int) = with(binding) {
+        tvScore.text = getString(R.string.quiz_score, correctCount)
+        tvCorrect.text = getString(R.string.tv_correct, correctCount)
     }
 
     private fun disableOptions(optionButtons: List<Button>) {

@@ -42,7 +42,7 @@
         android:layout_marginBottom="@dimen/iv_favorite_margin"
         android:contentDescription="@string/artwork_header"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@id/btn_option1"
+        app:layout_constraintBottom_toTopOf="@id/btnOption1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_correct" />
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toTopOf="@id/ivArtwork" />
 
     <Button
-        android:id="@+id/btn_option1"
+        android:id="@+id/btnOption1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_8dp"
@@ -71,24 +71,24 @@
         app:layout_constraintTop_toBottomOf="@id/ivArtwork" />
 
     <Button
-        android:id="@+id/btn_option2"
+        android:id="@+id/btnOption2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_8dp"
         android:text="@string/artists_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_option1" />
+        app:layout_constraintTop_toBottomOf="@id/btnOption1" />
 
     <Button
-        android:id="@+id/btn_option3"
+        android:id="@+id/btnOption3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_8dp"
         android:text="@string/artists_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_option2" />
+        app:layout_constraintTop_toBottomOf="@id/btnOption2" />
 
 
     <Button
@@ -102,5 +102,5 @@
         android:textColor="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_option3" />
+        app:layout_constraintTop_toBottomOf="@+id/btnOption3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

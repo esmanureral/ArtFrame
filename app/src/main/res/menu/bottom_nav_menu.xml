@@ -8,7 +8,7 @@
         android:id="@+id/artistListFragment"
         android:icon="@drawable/artist"
         android:title="@string/bottom_nav_menu_artist" />
-    
+
     <item
         android:id="@+id/favoritesFragment"
         android:icon="@drawable/favorite_24"
@@ -16,7 +16,7 @@
 
     <item
         android:id="@+id/quizFragment"
-        android:icon="@drawable/artworks1"
+        android:icon="@drawable/quiz"
         android:title="@string/quiz_title" />
 
 </menu>
