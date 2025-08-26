@@ -71,19 +71,18 @@ class QuizFragment : Fragment() {
     }
 
     private fun showQuestion(question: QuizQuestion) = with(binding) {
-        loadArtworkImage(question.imageUrl)
-
         val optionButtons = listOf(btnOption1, btnOption2, btnOption3)
-        optionButtons.forEachIndexed { index, button ->
-            setupOptionButton(button, question.options[index], question)
-        }
-    }
-
-    private fun loadArtworkImage(imageUrl: String) = with(binding) {
+        optionButtons.forEach { it.text = "" }
         ivArtwork.loadWithIndicator(
-            url = imageUrl,
+            url = question.imageUrl,
             progressIndicator = progressIndicator,
             errorRes = R.drawable.error,
+            onSuccess = {
+                optionButtons.forEachIndexed { index, button ->
+                    button.text = question.options[index]
+                    setupOptionButton(button, question.options[index], question)
+                }
+            },
             onError = {
                 viewModel.loadNewQuestion()
             }

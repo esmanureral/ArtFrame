@@ -57,7 +57,7 @@
     </style>
 
     <style name="OptionButtonStyle">
-        <item name="backgroundTint">@color/onPrimary</item>
+        <item name="backgroundTint">@color/option_color</item>
         <item name="android:textColor">@color/primary</item>
     </style>
 
