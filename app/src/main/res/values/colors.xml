@@ -17,5 +17,7 @@
     <color name="correct_answer">#9BBC67</color>
     <color name="wrong_answer">#A05858</color>
     <color name="option_color">#4C5D5F</color>
+    <color name="artwork_border">#8B5A2B</color>
+    <color name="artwork_border_game">#A0522D</color>
 
 </resources>

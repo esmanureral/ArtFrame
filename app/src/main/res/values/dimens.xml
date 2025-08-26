@@ -42,5 +42,7 @@
     <dimen name="circle_background_size">36dp</dimen>
     <dimen name="tv_artist_name_shimmer">17dp</dimen>
     <dimen name="tv_years_shimmer">15dp</dimen>
+    <dimen name="result_game_width">140dp</dimen>
+    <dimen name="result_game_height">180dp</dimen>
 
 </resources>
