@@ -14,6 +14,7 @@ private const val FAVORITES_ARTWORK_KEY = "favorites_artwork_list"
 private const val FAVORITE_ARTISTS_KEY = "favorites_artist_list"
 private const val ANIMATION_KEY = "appbar_animation_seen"
 private const val CORRECT_ANSWERS_KEY = "correct_answers_list"
+private const val QUESTION_INDEX_KEY = "question_index"
 
 class ArtWorkSharedPreferences(context: Context) {
     private val prefs: SharedPreferences =
@@ -99,10 +100,12 @@ class ArtWorkSharedPreferences(context: Context) {
     fun setAppBarAnimationSeen() {
         prefs.edit().putBoolean(ANIMATION_KEY, true).apply()
     }
+
     fun saveCorrectAnswers(correctAnswers: List<CorrectAnswer>) {
         val json = Gson().toJson(correctAnswers)
         prefs.edit().putString(CORRECT_ANSWERS_KEY, json).apply()
     }
+
     fun loadCorrectAnswers(): MutableList<CorrectAnswer> {
         val json = prefs.getString(CORRECT_ANSWERS_KEY, null)
         return if (json != null) {
@@ -110,5 +113,14 @@ class ArtWorkSharedPreferences(context: Context) {
             Gson().fromJson(json, type)
         } else mutableListOf()
     }
+
+    fun saveQuestionIndex(index: Int) {
+        prefs.edit().putInt(QUESTION_INDEX_KEY, index).apply()
+    }
+
+    fun loadQuestionIndex(): Int {
+        return prefs.getInt(QUESTION_INDEX_KEY, 1)
+    }
+
 
 }
