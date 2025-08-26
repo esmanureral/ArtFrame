@@ -2,8 +2,8 @@ package com.esmanureral.artframe.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.system.Os.remove
 import androidx.core.content.edit
+import com.esmanureral.artframe.data.network.CorrectAnswer
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
 import com.google.gson.Gson
@@ -13,6 +13,7 @@ private const val PREFS_NAME = "art_work"
 private const val FAVORITES_ARTWORK_KEY = "favorites_artwork_list"
 private const val FAVORITE_ARTISTS_KEY = "favorites_artist_list"
 private const val ANIMATION_KEY = "appbar_animation_seen"
+private const val CORRECT_ANSWERS_KEY = "correct_answers_list"
 
 class ArtWorkSharedPreferences(context: Context) {
     private val prefs: SharedPreferences =
@@ -98,4 +99,16 @@ class ArtWorkSharedPreferences(context: Context) {
     fun setAppBarAnimationSeen() {
         prefs.edit().putBoolean(ANIMATION_KEY, true).apply()
     }
+    fun saveCorrectAnswers(correctAnswers: List<CorrectAnswer>) {
+        val json = Gson().toJson(correctAnswers)
+        prefs.edit().putString(CORRECT_ANSWERS_KEY, json).apply()
+    }
+    fun loadCorrectAnswers(): MutableList<CorrectAnswer> {
+        val json = prefs.getString(CORRECT_ANSWERS_KEY, null)
+        return if (json != null) {
+            val type = object : TypeToken<MutableList<CorrectAnswer>>() {}.type
+            Gson().fromJson(json, type)
+        } else mutableListOf()
+    }
+
 }

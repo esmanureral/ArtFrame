@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.quizFragment -> {
+                    navController.navigate(R.id.quizFragment)
+                    true
+                }
+
                 else -> false
             }
         }

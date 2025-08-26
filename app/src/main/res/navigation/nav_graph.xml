@@ -82,6 +82,7 @@
             android:name="imageUrl"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.esmanureral.artframe.presentation.favorites.FavoritesFragment"
@@ -95,5 +96,10 @@
             android:id="@+id/action_favoritesFragment_to_artistArtworkFragment"
             app:destination="@id/artistArtworkFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.esmanureral.artframe.presentation.quiz.QuizFragment"
+        android:label="QuizFragment" />
 
 </navigation>

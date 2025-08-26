@@ -13,5 +13,8 @@
     <color name="label_color">#7B828E</color>
     <color name="bottom_bar_icon_color">#e3e3e3</color>
     <color name="transparent_color">#4DFFFFFF</color>
+    <color name="button_next_color">#243465</color>
+    <color name="correct_answer">#108714</color>
+    <color name="wrong_answer">#8A0000</color>
 
 </resources>
