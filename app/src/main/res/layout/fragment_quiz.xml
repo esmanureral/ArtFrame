@@ -44,12 +44,13 @@
                 app:layout_constraintStart_toEndOf="@id/tv_question_number"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_correct_answers"
                 style="@style/TvDetailLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/correct_answer"
+                android:contentDescription="@string/correct_answer"
+                android:src="@drawable/check_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
