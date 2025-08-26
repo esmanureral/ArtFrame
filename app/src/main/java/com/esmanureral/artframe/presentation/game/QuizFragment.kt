@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.QuizQuestion
@@ -39,6 +40,11 @@ class QuizFragment : Fragment() {
         setupObservers()
         setupNextButton()
         viewModel.startQuiz()
+
+        binding.btnCorrectAnswers.setOnClickListener {
+            val action = QuizFragmentDirections.actionQuizFragmentToResultGameFragment()
+            findNavController().navigate(action)
+        }
     }
 
     private fun setupObservers() {
@@ -104,7 +110,6 @@ class QuizFragment : Fragment() {
 
     private fun updateScoreUI(correctCount: Int) = with(binding) {
         tvScore.text = getString(R.string.quiz_score, correctCount)
-        tvCorrect.text = getString(R.string.tv_correct, correctCount)
     }
 
     private fun disableOptions(optionButtons: List<Button>) {

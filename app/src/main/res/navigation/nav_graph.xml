@@ -100,6 +100,14 @@
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.esmanureral.artframe.presentation.game.QuizFragment"
-        android:label="QuizFragment" />
+        android:label="QuizFragment" >
+        <action
+            android:id="@+id/action_quizFragment_to_resultGameFragment"
+            app:destination="@id/resultGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultGameFragment"
+        android:name="com.esmanureral.artframe.presentation.resultgame.ResultGameFragment"
+        android:label="ResultGameFragment" />
 
 </navigation>

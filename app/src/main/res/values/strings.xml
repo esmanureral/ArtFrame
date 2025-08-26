@@ -66,5 +66,6 @@
     <string name="btn_next_question">Next Question</string>
     <string name="quiz_title">Game</string>
     <string name="error_message">An error occurred while loading the question.</string>
+    <string name="correct_answer">Correct Answer</string>
 
 </resources>
