@@ -37,6 +37,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val correctAnswersList = mutableListOf<CorrectAnswer>()
 
     init {
+        loadCorrectAnswersFromPrefs()
         loadArtists()
     }
 
@@ -143,12 +144,16 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         ArtWorkSharedPreferences(getApplication()).saveCorrectAnswers(correctAnswersList)
     }
 
+    private fun loadCorrectAnswersFromPrefs() {
+        val savedAnswers = ArtWorkSharedPreferences(getApplication()).loadCorrectAnswers()
+        correctAnswersList.addAll(savedAnswers)
+        _correctAnswers.value = correctAnswersList.toList()
+    }
+
     fun resetQuiz() {
         correctAnswersList.clear()
         _correctAnswers.value = emptyList()
         _quizQuestion.value = null
         _error.value = false
     }
-
-    fun getScore(): Int = correctAnswersList.size
 }
