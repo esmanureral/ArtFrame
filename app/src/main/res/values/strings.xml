@@ -57,5 +57,14 @@
     <string name="image_view_favorite">image view favorite</string>
     <string name="delete_item">Delete the selected item</string>
     <string name="delete_all">Delete all</string>
+    <string name="quiz_score">Score: %1$d</string>
+    <string name="tv_question">Question: %1$d</string>
+    <string name="text_view_question">Question: </string>
+    <string name="tv_score">Score:</string>
+    <string name="tv_correct">Correct: %1$d</string>
+    <string name="tv_wrong">Wrong:</string>
+    <string name="btn_next_question">Next Question</string>
+    <string name="quiz_title">Game</string>
+    <string name="error_message">An error occurred while loading the question.</string>
 
 </resources>
