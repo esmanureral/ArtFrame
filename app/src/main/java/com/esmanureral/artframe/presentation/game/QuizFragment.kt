@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.esmanureral.artframe.R
+import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.QuizQuestion
 import com.esmanureral.artframe.databinding.FragmentQuizBinding
 import com.esmanureral.artframe.loadWithIndicator
@@ -19,6 +20,7 @@ class QuizFragment : Fragment() {
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
     private val viewModel: QuizViewModel by viewModels()
+    private lateinit var prefs: ArtWorkSharedPreferences
     private var questionIndex = 1
 
     override fun onCreateView(
@@ -31,6 +33,9 @@ class QuizFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prefs = ArtWorkSharedPreferences(requireContext())
+        questionIndex = prefs.loadQuestionIndex()
+        binding.tvQuestionNumber.text = getString(R.string.tv_question, questionIndex)
         setupObservers()
         setupNextButton()
         viewModel.startQuiz()
@@ -54,6 +59,7 @@ class QuizFragment : Fragment() {
         btnNextQuestion.setOnClickListener {
             questionIndex++
             tvQuestionNumber.text = getString(R.string.tv_question, questionIndex)
+            prefs.saveQuestionIndex(questionIndex)
             viewModel.loadNewQuestion()
         }
     }
