@@ -10,6 +10,7 @@ fun ImageView.loadWithIndicator(
     url: String,
     progressIndicator: CircularProgressIndicator,
     errorRes: Int,
+    onError: (() -> Unit)? = null
 ) {
     val request = ImageRequest.Builder(this.context)
         .data(url)
@@ -27,6 +28,7 @@ fun ImageView.loadWithIndicator(
                 progressIndicator.visibility = View.GONE
                 this.setImageResource(errorRes)
                 this.visibility = View.VISIBLE
+                onError?.invoke()
             }
         )
         .build()

@@ -56,4 +56,9 @@
         <item name="cornerSizeBottomLeft">@dimen/custom_card_view_style</item>
     </style>
 
+    <style name="OptionButtonStyle">
+        <item name="backgroundTint">@color/onPrimary</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
 </resources>

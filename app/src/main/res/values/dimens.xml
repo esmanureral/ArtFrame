@@ -16,6 +16,7 @@
     <dimen name="margin_6dp">6dp</dimen>
     <dimen name="shimmer_height">20dp</dimen>
     <dimen name="artist_title_text_size">20sp</dimen>
+    <dimen name="option_height">52dp</dimen>
     <dimen name="card_corner_radius">5dp</dimen>
     <dimen name="padding_bottom">56dp</dimen>
     <dimen name="app_bar_height">650dp</dimen>

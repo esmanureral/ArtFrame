@@ -14,7 +14,8 @@
     <color name="bottom_bar_icon_color">#e3e3e3</color>
     <color name="transparent_color">#4DFFFFFF</color>
     <color name="button_next_color">#243465</color>
-    <color name="correct_answer">#108714</color>
-    <color name="wrong_answer">#8A0000</color>
+    <color name="correct_answer">#9BBC67</color>
+    <color name="wrong_answer">#A05858</color>
+    <color name="option_color">#4C5D5F</color>
 
 </resources>

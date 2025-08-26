@@ -1,18 +1,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/iv_favorite_margin">
+    android:padding="@dimen/padding_8dp">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_top"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_8dp"
         app:cardCornerRadius="@dimen/iv_favorite_margin"
-        app:cardElevation="@dimen/padding_8dp"
+        app:cardElevation="@dimen/space_4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="@dimen/stroke_width">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -52,13 +55,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <!-- ivArtwork, seçenekler ve progress indicator aşağıya kayacak -->
     <ImageView
         android:id="@+id/ivArtwork"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/padding_8dp"
         android:layout_marginTop="@dimen/iv_favorite_margin"
         android:layout_marginBottom="@dimen/iv_favorite_margin"
         android:contentDescription="@string/artwork_header"
@@ -68,7 +71,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/card_top" />
 
-    <!-- CircularProgressIndicator -->
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressIndicator"
         android:layout_width="@dimen/progress_indicator_size"
@@ -82,46 +84,54 @@
         app:layout_constraintStart_toStartOf="@id/ivArtwork"
         app:layout_constraintTop_toTopOf="@id/ivArtwork" />
 
-    <!-- Seçenek butonları -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOption1"
+        style="@style/OptionButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/option_height"
         android:layout_marginTop="@dimen/padding_8dp"
-        android:text="@string/artists_header"
+        app:cornerRadius="@dimen/iv_favorite_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivArtwork" />
+        app:layout_constraintTop_toBottomOf="@id/ivArtwork"
+        tools:text="@string/artists_header" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOption2"
+        style="@style/OptionButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/option_height"
         android:layout_marginTop="@dimen/padding_8dp"
-        android:text="@string/artists_header"
+        app:cornerRadius="@dimen/iv_favorite_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnOption1" />
+        app:layout_constraintTop_toBottomOf="@id/btnOption1"
+        tools:text="@string/artists_header" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOption3"
+        style="@style/OptionButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/option_height"
         android:layout_marginTop="@dimen/padding_8dp"
-        android:text="@string/artists_header"
+        android:paddingVertical="@dimen/iv_favorite_margin"
+        app:cornerRadius="@dimen/iv_favorite_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnOption2" />
+        app:layout_constraintTop_toBottomOf="@id/btnOption2"
+        tools:text="@string/artists_header" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_next_question"
+        style="@style/OptionButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/option_height"
         android:layout_marginTop="@dimen/padding_32dp"
         android:layout_marginBottom="@dimen/iv_favorite_margin"
         android:backgroundTint="@color/button_next_color"
         android:text="@string/btn_next_question"
         android:textColor="@color/primary"
+        app:cornerRadius="@dimen/iv_favorite_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnOption3" />

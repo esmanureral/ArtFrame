@@ -83,7 +83,10 @@ class QuizFragment : Fragment() {
         ivArtwork.loadWithIndicator(
             url = imageUrl,
             progressIndicator = progressIndicator,
-            errorRes = R.drawable.error
+            errorRes = R.drawable.error,
+            onError = {
+                viewModel.loadNewQuestion()
+            }
         )
     }
 
@@ -119,7 +122,7 @@ class QuizFragment : Fragment() {
     private fun resetOptionStyle(button: Button) {
         button.apply {
             isEnabled = true
-            setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.button_next_color))
+            setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.option_color))
             setTextColor(ContextCompat.getColor(requireContext(), R.color.primary))
         }
     }
