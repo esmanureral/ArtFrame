@@ -111,31 +111,16 @@ class FavoritesFragment : Fragment() {
 
     private fun checkEmptyState() {
         val currentTab = binding.tabLayout.selectedTabPosition
-        with(binding) {
-            when (currentTab) {
-                0 -> {
-                    if (favoriteArtwork.isEmpty()) {
-                        rvFavorites.visibility = View.GONE
-                        tvEmptyMessage.visibility = View.VISIBLE
-                        tvEmptyMessage.text = getString(R.string.no_favorites)
-                    } else {
-                        rvFavorites.visibility = View.VISIBLE
-                        tvEmptyMessage.visibility = View.GONE
-                    }
-                }
-
-                1 -> {
-                    if (favoriteArtists.isEmpty()) {
-                        rvFavorites.visibility = View.GONE
-                        tvEmptyMessage.visibility = View.VISIBLE
-                        tvEmptyMessage.text = getString(R.string.no_favorites)
-                    } else {
-                        rvFavorites.visibility = View.VISIBLE
-                        tvEmptyMessage.visibility = View.GONE
-                    }
-                }
-            }
+        when (currentTab) {
+            0 -> updateEmptyState(favoriteArtwork.isEmpty())
+            1 -> updateEmptyState(favoriteArtists.isEmpty())
         }
+    }
+
+    private fun updateEmptyState(isEmpty: Boolean) {
+        binding.rvFavorites.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        binding.tvEmptyMessage.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        if (isEmpty) binding.tvEmptyMessage.text = getString(R.string.no_favorites)
     }
 
     override fun onDestroyView() {

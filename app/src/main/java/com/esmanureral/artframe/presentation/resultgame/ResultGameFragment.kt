@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.FragmentResultGameBinding
-import com.esmanureral.artframe.presentation.wonartworks.ResultGameAdapter
 
 class ResultGameFragment : Fragment() {
 

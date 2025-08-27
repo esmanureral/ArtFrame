@@ -1,4 +1,4 @@
-package com.esmanureral.artframe.presentation.wonartworks
+package com.esmanureral.artframe.presentation.resultgame
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
