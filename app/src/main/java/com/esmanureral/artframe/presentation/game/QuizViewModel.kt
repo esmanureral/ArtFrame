@@ -37,6 +37,9 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
     private val correctAnswersList = mutableListOf<CorrectAnswer>()
 
+    private val _answeredQuestions = mutableMapOf<String, String?>()
+    val answeredQuestions: Map<String, String?> get() = _answeredQuestions
+
     init {
         loadCorrectAnswersFromPrefs()
         loadArtists()
@@ -175,6 +178,10 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         _correctAnswers.value = emptyList()
         _quizQuestion.value = null
         _error.value = false
+    }
+
+    fun recordAnswer(artworkId: String, answer: String) {
+        _answeredQuestions[artworkId] = answer
     }
 
     private fun getIncludedClassifications(): List<String> {
