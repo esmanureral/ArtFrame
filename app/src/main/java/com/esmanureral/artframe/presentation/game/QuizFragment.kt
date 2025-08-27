@@ -169,7 +169,6 @@ class QuizFragment : Fragment() {
             resetOptionStyle(button)
             button.text = question.options[index]
             setupOptionButton(button, optionText = question.options[index], question)
-            button.setOnClickListener { checkAnswer(selectedButton = button, question = question) }
         }
 
     }

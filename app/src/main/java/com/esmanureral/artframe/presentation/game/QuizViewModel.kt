@@ -87,7 +87,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             val randomPage = (1..1000).random()
-            val response = api.getArtWorks(page = randomPage, limit = 20)
+            val response = api.getArtWorks(page = randomPage, limit = 100)
 
             if (response.isSuccessful) {
                 val artworks = response.body()?.data.orEmpty()
@@ -203,7 +203,6 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             "monotype",
             "ink and wash",
             "linocut",
-            "photograph",
             "textile",
             "oil on panel",
             "pen and ink",
