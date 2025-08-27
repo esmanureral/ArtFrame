@@ -45,5 +45,6 @@
     <dimen name="tv_years_shimmer">15dp</dimen>
     <dimen name="result_game_width">140dp</dimen>
     <dimen name="result_game_height">180dp</dimen>
+    <dimen name="logo_image_view">150dp</dimen>
 
 </resources>

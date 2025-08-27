@@ -19,5 +19,6 @@
     <color name="option_color">#717E81</color>
     <color name="artwork_border">#8B5A2B</color>
     <color name="artwork_border_game">#A0522D</color>
+    <color name="shadow_color">#000000</color>
 
 </resources>
