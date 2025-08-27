@@ -84,6 +84,7 @@ class QuizFragment : Fragment() {
 
     private fun setupNextButton() = with(binding) {
         btnNextQuestion.setOnClickListener {
+            buttonList.forEach { resetOptionStyle(it) }
             questionIndex++
             tvQuestionNumber.text = getString(R.string.tv_question, questionIndex)
             prefs.saveQuestionIndex(questionIndex)
