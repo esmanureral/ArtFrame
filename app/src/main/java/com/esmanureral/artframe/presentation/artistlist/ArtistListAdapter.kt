@@ -32,18 +32,16 @@ class ArtistListAdapter(
 
             updateFavoriteIcon(artist)
 
-            // Kalbe basıldığında bottom sheet açma (favoriler sayfasında)
             if (isRemoveFavorite) {
-                ivFavorite.setOnClickListener { 
+                ivFavorite.setOnClickListener {
                     showDeleteBottomSheet(artist, DeleteItemType.ARTIST)
                 }
             } else {
                 ivFavorite.setOnClickListener { toggleFavorite(artist) }
             }
-            
+
             root.setOnClickListener { onItemClick(artist) }
 
-            // Uzun basma ile bottom sheet açma (sadece favoriler sayfasında)
             if (isRemoveFavorite) {
                 root.setOnLongClickListener {
                     showDeleteBottomSheet(artist, DeleteItemType.ARTIST)
@@ -86,11 +84,12 @@ class ArtistListAdapter(
                         DeleteItemType.ARTWORK -> {
                             favoritesPrefs.removeArtworkById(artworkId = artist.id)
                         }
+
                         DeleteItemType.ARTIST -> {
                             favoritesPrefs.removeArtistById(artistId = artist.id)
                         }
                     }
-                    
+
                     val position = currentList.indexOf(artist)
                     if (position != -1) {
                         val newList = currentList.toMutableList()
@@ -104,11 +103,12 @@ class ArtistListAdapter(
                         DeleteItemType.ARTWORK -> {
                             favoritesPrefs.removeAllArtworks()
                         }
+
                         DeleteItemType.ARTIST -> {
                             favoritesPrefs.removeAllArtists()
                         }
                     }
-                    
+
                     submitList(emptyList())
                 }
             })
