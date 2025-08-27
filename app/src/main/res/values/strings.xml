@@ -71,5 +71,6 @@
     <string name="collections_text">Collections</string>
     <string name="thanks_text">Thanks to Clément Cariou</string>
     <string name="close_button">close button</string>
+    <string name="dark_night_theme">dark/night theme</string>
 
 </resources>

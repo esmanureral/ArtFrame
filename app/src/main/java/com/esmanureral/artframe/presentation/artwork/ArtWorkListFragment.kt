@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -17,6 +18,7 @@ class ArtworkListFragment : Fragment() {
 
     private var _binding: FragmentArtworkListBinding? = null
     private val binding get() = _binding!!
+    private var isDarkMode = false
 
     private val viewModel: ArtWorkViewModel by viewModels()
     private lateinit var adapter: ArtworkAdapter
@@ -32,12 +34,20 @@ class ArtworkListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
         observeViewModel()
+        setupClickListeners()
+        initThemeIcon()
+    }
 
-        binding.ivVirtualIcon.setOnClickListener {
-            val action =
-                ArtworkListFragmentDirections.actionArtworkListFragmentToVirtualArtGalleryFragment()
-            findNavController().navigate(action)
-        }
+    private fun initThemeIcon() {
+        val currentMode = resources.configuration.uiMode and
+                android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        isDarkMode = currentMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        updateIcons()
+    }
+
+    private fun setupClickListeners() = with(binding) {
+        ivVirtualIcon.setOnClickListener { navigateToVirtualGallery() }
+        switchTheme.setOnClickListener { toggleTheme() }
     }
 
     private fun setupRecyclerView() {
@@ -57,6 +67,20 @@ class ArtworkListFragment : Fragment() {
         }
     }
 
+    private fun navigateToVirtualGallery() {
+        val action = ArtworkListFragmentDirections
+            .actionArtworkListFragmentToVirtualArtGalleryFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun toggleTheme() {
+        isDarkMode = !isDarkMode
+        val newMode = if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
+        else AppCompatDelegate.MODE_NIGHT_NO
+        AppCompatDelegate.setDefaultNightMode(newMode)
+        updateIcons()
+    }
+
     private fun checkForPagination(rv: RecyclerView) {
         val layoutManager = rv.layoutManager as GridLayoutManager
         val totalItemCount = layoutManager.itemCount
@@ -71,6 +95,12 @@ class ArtworkListFragment : Fragment() {
         navController.navigate(
             ArtworkListFragmentDirections.actionArtworkListFragmentToDetailFragment(artworkId)
         )
+    }
+
+    private fun updateIcons() {
+        val iconRes = if (isDarkMode) R.drawable.light_theme
+        else R.drawable.dark_theme
+        binding.switchTheme.setImageResource(iconRes)
     }
 
     private fun observeViewModel() {

@@ -1,6 +1,7 @@
 package com.esmanureral.artframe.presentation.game
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -45,17 +46,22 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         if (!_allArtists.value.isNullOrEmpty()) return
 
         viewModelScope.launch {
-            val response = api.getArtists(page = 1, limit = 100)
-            if (response.isSuccessful) {
-                val artists = response.body()?.data
-                    ?.mapNotNull { it.title }
-                    ?.filter { it.isNotBlank() && it != "Unknown" && it != "Anonymous" }
-                    ?.distinct()
-                    ?.take(100) ?: emptyList()
+            try {
+                val response = api.getArtists(page = 1, limit = 100)
+                if (response.isSuccessful) {
+                    val artists = response.body()?.data
+                        ?.mapNotNull { it.title }
+                        ?.filter { it.isNotBlank() && it != "Unknown" && it != "Anonymous" }
+                        ?.distinct()
+                        ?.take(100) ?: emptyList()
 
-                _allArtists.value = artists
-                loadNewQuestion()
-            } else {
+                    _allArtists.value = artists
+                    loadNewQuestion()
+                } else {
+                    _error.value = true
+                }
+            } catch (e: Exception) {
+                Log.e("LoadArtistsError", "Error loading artists", e)
                 _error.value = true
             }
         }
