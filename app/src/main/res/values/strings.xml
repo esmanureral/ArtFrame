@@ -72,5 +72,7 @@
     <string name="thanks_text">Thanks to Clément Cariou</string>
     <string name="close_button">close button</string>
     <string name="dark_night_theme">dark/night theme</string>
+    <string name="tv_question_text">Guess the artist of this artwork?</string>
+    <string name="progress_text">Game is Loading...</string>
 
 </resources>

@@ -21,6 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.ImageLoader
+import coil.request.ErrorResult
 import coil.request.ImageRequest
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.R
@@ -35,7 +36,7 @@ import com.esmanureral.artframe.showToast
 import com.google.android.material.appbar.AppBarLayout
 import java.io.File
 
-class ArtWorkDetailFragment : Fragment() {
+class ArtWorkDetailFragment : Fragment(), ImageRequest.Listener {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
@@ -220,36 +221,6 @@ class ArtWorkDetailFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun shareArtworkImage(imageUrl: String) {
-        val bottomBar = binding.bottomActionBar
-        bottomBar.shareContainer.isEnabled = false
-        bottomBar.downloadProgressBar.visibility = View.VISIBLE
-
-        loadBitmapFromUrl(imageUrl) { bitmap ->
-            bitmap?.let {
-                val uri = saveBitmapToCache(it) ?: return@let
-                shareImageUri(uri)
-            }
-            bottomBar.downloadProgressBar.visibility = View.GONE
-            bottomBar.shareContainer.isEnabled = true
-        }
-    }
-
-    private fun downloadArtworkImage(imageUrl: String) {
-        val bottomBar = binding.bottomActionBar
-        bottomBar.downloadContainer.isEnabled = false
-        bottomBar.downloadProgressBar.visibility = View.VISIBLE
-
-        loadBitmapFromUrl(imageUrl) { bitmap ->
-            bitmap?.let {
-                saveBitmapToGallery(it)
-                requireContext().showToast(getString(R.string.image_saved))
-            }
-            bottomBar.downloadProgressBar.visibility = View.GONE
-            bottomBar.downloadContainer.isEnabled = true
-        }
-    }
-
     private fun loadBitmapFromUrl(imageUrl: String, callback: (Bitmap?) -> Unit) {
         val context = requireContext()
         val loader = ImageLoader(context)
@@ -259,8 +230,15 @@ class ArtWorkDetailFragment : Fragment() {
             .target { drawable ->
                 callback((drawable as? BitmapDrawable)?.bitmap)
             }
+            .listener(onError = { _, _ ->
+                callback(null)
+            })
             .build()
         loader.enqueue(request)
+    }
+
+    override fun onError(request: ImageRequest, result: ErrorResult) {
+        super.onError(request, result)
     }
 
     private fun saveBitmapToCache(bitmap: Bitmap): Uri? {

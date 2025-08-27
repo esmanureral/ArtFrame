@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,7 @@ class QuizFragment : Fragment() {
     private val viewModel: QuizViewModel by viewModels()
     private lateinit var prefs: ArtWorkSharedPreferences
     private var questionIndex = 1
+    private val buttonList = mutableListOf<Button>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +41,20 @@ class QuizFragment : Fragment() {
         questionIndex = prefs.loadQuestionIndex()
         binding.tvQuestionNumber.text = getString(R.string.tv_question, questionIndex)
 
+        setupButtons()
         setupObservers()
         setupNextButton()
         initStartQuiz()
+        setOnClickListeners()
+    }
 
-        binding.btnCorrectAnswers.setOnClickListener {
+    private fun setupButtons() {
+        val optionButtons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3)
+        buttonList.addAll(elements = optionButtons)
+    }
+
+    private fun setOnClickListeners() = with(binding) {
+        btnCorrectAnswers.setOnClickListener {
             findNavController().navigate(
                 QuizFragmentDirections.actionQuizFragmentToResultGameFragment()
             )
@@ -59,6 +70,7 @@ class QuizFragment : Fragment() {
     private fun setupObservers() {
         viewModel.quizQuestion.observe(viewLifecycleOwner) { question ->
             question?.let { showQuestion(it) }
+            setGameVisibility()
         }
 
         viewModel.correctAnswers.observe(viewLifecycleOwner) { correctList ->
@@ -81,17 +93,14 @@ class QuizFragment : Fragment() {
 
     private fun showQuestion(question: QuizQuestion) = with(binding) {
         val optionButtons = listOf(btnOption1, btnOption2, btnOption3)
-        optionButtons.forEach { it.text = "" }
+        buttonList.forEach { it.text = "" }
 
         ivArtwork.loadWithIndicator(
             url = question.imageUrl,
             progressIndicator = progressIndicator,
             errorRes = R.drawable.error,
             onSuccess = {
-                optionButtons.forEachIndexed { index, button ->
-                    button.text = question.options[index]
-                    setupOptionButton(button, question.options[index], question)
-                }
+                loadButtons(question = question)
 
                 val previousAnswer = viewModel.answeredQuestions[question.artworkId]
                 previousAnswer?.let { answer ->
@@ -147,6 +156,21 @@ class QuizFragment : Fragment() {
             setBackgroundColor(ContextCompat.getColor(requireContext(), bgColorRes))
             setTextColor(ContextCompat.getColor(requireContext(), textColorRes))
         }
+    }
+
+    private fun setGameVisibility() = with(binding) {
+        groupProgress.isVisible = false
+        containerGame.isVisible = true
+    }
+
+    private fun loadButtons(question: QuizQuestion) {
+        buttonList.forEachIndexed { index, button ->
+            resetOptionStyle(button)
+            button.text = question.options[index]
+            setupOptionButton(button, optionText = question.options[index], question)
+            button.setOnClickListener { checkAnswer(selectedButton = button, question = question) }
+        }
+
     }
 
     override fun onDestroyView() {
