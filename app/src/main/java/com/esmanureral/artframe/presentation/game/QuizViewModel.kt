@@ -82,10 +82,10 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
             if (response.isSuccessful) {
                 val artworks = response.body()?.data.orEmpty()
-                val validArtworks = artworks.filter { !it.imageId.isNullOrBlank() }
+                val filteredArtworks = filterArtworks(artworks, getIncludedClassifications())
 
-                if (validArtworks.isNotEmpty()) {
-                    val randomArtwork = validArtworks.random()
+                if (filteredArtworks.isNotEmpty()) {
+                    val randomArtwork = filteredArtworks.random()
                     createQuizQuestion(randomArtwork)
                 } else {
                     _error.value = true
@@ -93,7 +93,21 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             } else {
                 _error.value = true
             }
+
+            _isLoading.value = false
         }
+    }
+
+    private fun filterArtworks(
+        artworks: List<Artwork>,
+        includedClassifications: List<String>
+    ): List<Artwork> {
+        val allowed = includedClassifications.map { it.lowercase() }
+        return artworks.filter { !it.imageId.isNullOrBlank() }
+            .filter { artwork ->
+                val title = artwork.classificationTitle?.trim()?.lowercase().orEmpty()
+                allowed.any { title.contains(it) }
+            }
     }
 
     private suspend fun createQuizQuestion(artwork: Artwork) {
@@ -155,5 +169,37 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         _correctAnswers.value = emptyList()
         _quizQuestion.value = null
         _error.value = false
+    }
+
+    private fun getIncludedClassifications(): List<String> {
+        return listOf(
+            "oil on canvas",
+            "ink or chalk wash",
+            "painting",
+            "woodblock print",
+            "watercolor",
+            "engraving",
+            "earthenware",
+            "print",
+            "relief",
+            "woodcut",
+            "ink with wash",
+            "miniature painting",
+            "book",
+            "chalk",
+            "monotype",
+            "ink and wash",
+            "linocut",
+            "photograph",
+            "textile",
+            "oil on panel",
+            "pen and ink",
+            "silver-dye bleach",
+            "charcoal",
+            "modern and contemporary art",
+            "pen and ink drawings",
+            "gelatin silver",
+            "screenprint"
+        )
     }
 }
