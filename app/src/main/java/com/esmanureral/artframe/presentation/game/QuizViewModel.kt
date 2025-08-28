@@ -105,7 +105,9 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             val response = api.getArtworksByArtist(artistId, limit = 20)
             if (response.isSuccessful) {
                 response.body()?.data?.forEach { artwork ->
-                    popularArtworksList.add(buildCollectionArtwork(artwork, artistId))
+                    if (!artwork.imageId.isNullOrBlank()) {
+                        popularArtworksList.add(buildCollectionArtwork(artwork, artistId))
+                    }
                 }
             }
         }

@@ -7,7 +7,7 @@ import coil.request.ImageRequest
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
 fun ImageView.loadWithIndicator(
-    url: String,
+    url: String?,
     progressIndicator: CircularProgressIndicator,
     errorRes: Int,
     onSuccess: (() -> Unit)? = null,

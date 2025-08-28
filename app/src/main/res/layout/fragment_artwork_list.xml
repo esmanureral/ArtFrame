@@ -23,15 +23,6 @@
             android:text="@string/artwork_header" />
 
         <ImageView
-            android:id="@+id/switchTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="@string/dark_night_theme"
-            android:padding="@dimen/padding_8dp"
-            tools:src="@drawable/dark_theme" />
-
-        <ImageView
             android:id="@+id/ivVirtualIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,6 +31,15 @@
             android:contentDescription="@string/iv_arrow_left_descr"
             android:padding="@dimen/padding_8dp"
             android:src="@drawable/virtual_icon" />
+
+        <ImageView
+            android:id="@+id/switchTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:contentDescription="@string/dark_night_theme"
+            android:padding="@dimen/padding_8dp"
+            tools:src="@drawable/dark_theme" />
 
     </androidx.appcompat.widget.Toolbar>
 

@@ -5,10 +5,10 @@ import android.graphics.ColorMatrixColorFilter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.network.CollectionArtwork
 import com.esmanureral.artframe.databinding.ItemCollectionBinding
+import com.esmanureral.artframe.loadWithIndicator
 import java.util.Locale
 
 class CollectionAdapter(
@@ -23,12 +23,12 @@ class CollectionAdapter(
             applyOwnershipEffect(artwork.isOwned)
         }
 
-        private fun loadArtworkImage(url: String?) {
-            binding.imgArtworkWon.load(url) {
-                crossfade(true)
-                placeholder(android.R.color.darker_gray)
-                error(android.R.color.holo_red_dark)
-            }
+        private fun loadArtworkImage(url: String?) = with(binding) {
+            imgArtworkWon.loadWithIndicator(
+                url = url,
+                progressIndicator = progressIndicator,
+                errorRes = R.drawable.error
+            )
         }
 
         private fun showFormattedPrice(price: Double) = with(binding) {

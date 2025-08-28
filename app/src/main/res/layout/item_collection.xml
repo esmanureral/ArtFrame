@@ -29,6 +29,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressIndicator"
+                android:layout_width="@dimen/progress_indicator_size"
+                android:layout_height="@dimen/progress_indicator_size"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:visibility="visible"
+                app:indicatorColor="@color/progress_indicator_color"
+                app:layout_constraintBottom_toBottomOf="@id/imgArtworkWon"
+                app:layout_constraintEnd_toEndOf="@id/imgArtworkWon"
+                app:layout_constraintStart_toStartOf="@id/imgArtworkWon"
+                app:layout_constraintTop_toTopOf="@id/imgArtworkWon" />
+
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
