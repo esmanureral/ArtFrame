@@ -111,7 +111,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultGameFragment"
-        android:name="com.esmanureral.artframe.presentation.resultgame.ResultGameFragment"
+        android:name="com.esmanureral.artframe.presentation.collection.CollectionFragment"
         android:label="ResultGameFragment" />
 
     <fragment

@@ -11,6 +11,7 @@ import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.ApiClient
 import com.esmanureral.artframe.data.network.ApiService
 import com.esmanureral.artframe.data.network.Artwork
+import com.esmanureral.artframe.data.network.CollectionArtwork
 import com.esmanureral.artframe.data.network.CorrectAnswer
 import com.esmanureral.artframe.data.network.QuizQuestion
 import com.esmanureral.artframe.presentation.artworkdetail.model.toUIModel
@@ -40,6 +41,15 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val _answeredQuestions = mutableMapOf<String, String?>()
     val answeredQuestions: Map<String, String?> get() = _answeredQuestions
 
+    private val _popularArtworks = MutableLiveData<List<CollectionArtwork>>(emptyList())
+    val popularArtworks: LiveData<List<CollectionArtwork>> get() = _popularArtworks
+
+    private val popularArtworksList = mutableListOf<CollectionArtwork>()
+
+    private val popularArtistIds = listOf(
+        36198, 35397, 40669, 40610, 4298, 44014, 37343, 34123, 14096, 35809, 33808, 33710
+    )
+
     init {
         loadCorrectAnswersFromPrefs()
         loadArtists()
@@ -68,6 +78,57 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
                 _error.value = true
             }
         }
+    }
+
+    fun loadPopularArtworks() {
+        viewModelScope.launch {
+            val prefs = ArtWorkSharedPreferences(getApplication())
+            if (hasCachedPopularArtworks(prefs)) return@launch
+            fetchPopularArtworksFromApi()
+            updateLiveDataAndPrefs(prefs)
+        }
+    }
+
+    private fun hasCachedPopularArtworks(prefs: ArtWorkSharedPreferences): Boolean {
+        return if (prefs.hasPopularArtistsFetched()) {
+            popularArtworksList.clear()
+            popularArtworksList.addAll(prefs.loadPopularArtworks())
+            _popularArtworks.value = popularArtworksList
+            true
+        } else false
+    }
+
+    private suspend fun fetchPopularArtworksFromApi() {
+        popularArtworksList.clear()
+
+        for (artistId in popularArtistIds) {
+            val response = api.getArtworksByArtist(artistId, limit = 20)
+            if (response.isSuccessful) {
+                response.body()?.data?.forEach { artwork ->
+                    popularArtworksList.add(buildCollectionArtwork(artwork, artistId))
+                }
+            }
+        }
+    }
+
+    private fun buildCollectionArtwork(artwork: Artwork, artistId: Int): CollectionArtwork {
+        val price = (10_000..10_000_000).random().toDouble()
+        val imageUrl = getApplication<Application>().getString(
+            R.string.artwork_image_url,
+            artwork.imageId
+        )
+        return CollectionArtwork(
+            artworkId = artwork.id,
+            artistId = artistId,
+            price = price,
+            isOwned = false,
+            imageUrl = imageUrl
+        )
+    }
+
+    private fun updateLiveDataAndPrefs(prefs: ArtWorkSharedPreferences) {
+        _popularArtworks.value = popularArtworksList.toList()
+        prefs.savePopularArtworks(popularArtworksList)
     }
 
     fun startQuiz() {
@@ -165,6 +226,21 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         _correctAnswers.value = correctAnswersList.toList()
 
         ArtWorkSharedPreferences(getApplication()).saveCorrectAnswers(correctAnswersList)
+
+        updateOwnedArtwork(question.artworkId)
+    }
+
+    private fun updateOwnedArtwork(artworkId: String) {
+        val prefs = ArtWorkSharedPreferences(getApplication())
+        val artworks = prefs.loadPopularArtworks().toMutableList()
+
+        val index = artworks.indexOfFirst { it.artworkId.toString() == artworkId }
+        if (index != -1) {
+            val updated = artworks[index].copy(isOwned = true)
+            artworks[index] = updated
+            prefs.savePopularArtworks(artworks)
+            _popularArtworks.value = artworks
+        }
     }
 
     private fun loadCorrectAnswersFromPrefs() {

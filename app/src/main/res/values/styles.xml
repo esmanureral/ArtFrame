@@ -43,6 +43,11 @@
         <item name="android:focusableInTouchMode">true</item>
     </style>
 
+    <style name="CollectionTextStyle">
+        <item name="android:textSize">@dimen/item_year_text_size</item>
+        <item name="android:textColor">@color/option_color</item>
+    </style>
+
     <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
     </style>

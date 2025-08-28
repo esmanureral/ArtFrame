@@ -74,5 +74,10 @@
     <string name="dark_night_theme">dark/night theme</string>
     <string name="tv_question_text">Guess the artist of this artwork?</string>
     <string name="progress_text">Game is Loading...</string>
+    <string name="label_all_collections">All Collections:</string>
+    <string name="label_your_collection">Collections you own:</string>
+    <string name="label_collections_value">Collections value:</string>
+    <string name="artwork_price">$%s</string>
+    <string name="artwork_count">%d</string>
 
 </resources>
