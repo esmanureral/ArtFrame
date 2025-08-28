@@ -3,6 +3,7 @@ package com.esmanureral.artframe.data.local
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.esmanureral.artframe.data.network.CollectionArtwork
 import com.esmanureral.artframe.data.network.CorrectAnswer
 import com.esmanureral.artframe.presentation.artistlist.model.ArtistListUI
 import com.esmanureral.artframe.presentation.artworkdetail.model.ArtworkDetailUI
@@ -15,6 +16,8 @@ private const val FAVORITE_ARTISTS_KEY = "favorites_artist_list"
 private const val ANIMATION_KEY = "appbar_animation_seen"
 private const val CORRECT_ANSWERS_KEY = "correct_answers_list"
 private const val QUESTION_INDEX_KEY = "question_index"
+private const val POPULAR_ARTWORK__KEY = "popular_artworks"
+private const val POPULAR_ARTIST__KEY = "hasPopularArtistsFetched"
 
 class ArtWorkSharedPreferences(context: Context) {
     private val prefs: SharedPreferences =
@@ -122,5 +125,19 @@ class ArtWorkSharedPreferences(context: Context) {
         return prefs.getInt(QUESTION_INDEX_KEY, 1)
     }
 
+    fun savePopularArtworks(list: List<CollectionArtwork>) {
+        val json = Gson().toJson(list)
+        prefs.edit().putString(POPULAR_ARTWORK__KEY, json).apply()
+        prefs.edit().putBoolean(POPULAR_ARTIST__KEY, true).apply()
+    }
 
+    fun loadPopularArtworks(): List<CollectionArtwork> {
+        val json = prefs.getString(POPULAR_ARTWORK__KEY, null) ?: return emptyList()
+        val type = object : TypeToken<List<CollectionArtwork>>() {}.type
+        return Gson().fromJson(json, type)
+    }
+
+    fun hasPopularArtistsFetched(): Boolean {
+        return prefs.getBoolean(POPULAR_ARTIST__KEY, false)
+    }
 }
