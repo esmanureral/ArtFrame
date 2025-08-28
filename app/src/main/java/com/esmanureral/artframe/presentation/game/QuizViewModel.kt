@@ -96,6 +96,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             val response = api.getArtworksByArtist(artistId, limit = 20)
             if (response.isSuccessful) {
                 response.body()?.data?.forEach { artwork ->
+
                     if (!artwork.imageId.isNullOrBlank()) {
                         popularArtworksList.add(buildCollectionArtwork(artwork, artistId))
                     }
@@ -103,7 +104,6 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             }
             delay(100)
         }
-        isCollectionsReady.value = true
     }
 
     private fun buildCollectionArtwork(artwork: Artwork, artistId: Int): CollectionArtwork {
@@ -117,7 +117,8 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             artistId = artistId,
             price = price,
             isOwned = false,
-            imageUrl = imageUrl
+            imageUrl = imageUrl,
+            artistTitle = artwork.artistTitle
         )
     }
 
@@ -171,34 +172,58 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private suspend fun createQuizQuestion(artwork: Artwork) {
-        val detailResponse = api.getArtworkDetail(artwork.id)
-        if (detailResponse.isSuccessful) {
-            detailResponse.body()?.data?.toUIModel()?.let { artworkDetail ->
-                val artist = artworkDetail.artistTitle
+        val pref = ArtWorkSharedPreferences(getApplication())
+        val questionNumber = pref.loadQuestionIndex()
+
+        if (questionNumber % 5 == 0) {
+            val popularArtworks = pref.loadPopularArtworks().filter { !it.isOwned }
+            if (popularArtworks.isNotEmpty()) {
+                val selected = popularArtworks.random()
+                val artist = selected.artistTitle
                 if (artist.isBlank() || artist == "Unknown" || artist == "Anonymous") {
                     loadNewQuestion()
                     return
                 }
-
-                val imageUrl = getApplication<Application>().getString(
-                    R.string.artwork_image_url, artworkDetail.imageId
-                )
-
-                val options = generateOptions(artist)
-
                 _quizQuestion.value = QuizQuestion(
-                    artworkId = artwork.id.toString(),
-                    imageUrl = imageUrl,
+                    artworkId = selected.artworkId.toString(),
+                    imageUrl = selected.imageUrl,
                     correctAnswer = artist,
-                    options = options
+                    options = generateOptions(artist)
                 )
-
-                _isLoading.value = false
-            } ?: run { _error.value = true }
+                return
+            }
         } else {
-            _error.value = true
+            val detailResponse = api.getArtworkDetail(artwork.id)
+            if (detailResponse.isSuccessful) {
+                detailResponse.body()?.data?.toUIModel()?.let { artworkDetail ->
+                    val artist = artworkDetail.artistTitle
+                    if (artist.isBlank() || artist == "Unknown" || artist == "Anonymous") {
+                        loadNewQuestion()
+                        return
+                    }
+
+                    val imageUrl = getApplication<Application>().getString(
+                        R.string.artwork_image_url, artworkDetail.imageId
+                    )
+
+                    val options = generateOptions(artist)
+
+                    _quizQuestion.value = QuizQuestion(
+                        artworkId = artwork.id.toString(),
+                        imageUrl = imageUrl,
+                        correctAnswer = artist,
+                        options = options
+                    )
+
+                    _isLoading.value = false
+                } ?: run { _error.value = true }
+            } else {
+                _error.value = true
+            }
         }
     }
+
+
 
     private fun generateOptions(correctAnswer: String): List<String> {
         val currentArtists = _allArtists.value ?: emptyList()

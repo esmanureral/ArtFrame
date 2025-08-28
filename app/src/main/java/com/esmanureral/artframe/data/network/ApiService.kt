@@ -35,6 +35,6 @@ interface ApiService {
     suspend fun getArtworksByArtist(
         @Query("query[term][artist_ids]") artistId: Int,
         @Query("limit") limit: Int = 20,
-        @Query("fields") fields: String = "id,title,image_id"
+        @Query("fields") fields: String = "id,title,image_id,artist_title"
     ): Response<ArtworkListResponse>
 }
