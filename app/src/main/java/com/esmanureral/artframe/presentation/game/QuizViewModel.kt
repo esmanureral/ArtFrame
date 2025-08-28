@@ -15,6 +15,7 @@ import com.esmanureral.artframe.data.network.CollectionArtwork
 import com.esmanureral.artframe.data.network.CorrectAnswer
 import com.esmanureral.artframe.data.network.QuizQuestion
 import com.esmanureral.artframe.presentation.artworkdetail.model.toUIModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class QuizViewModel(application: Application) : AndroidViewModel(application) {
@@ -45,6 +46,8 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     val popularArtworks: LiveData<List<CollectionArtwork>> get() = _popularArtworks
 
     private val popularArtworksList = mutableListOf<CollectionArtwork>()
+
+    val isCollectionsReady = MutableLiveData(false)
 
     private val popularArtistIds = listOf(
         36198, 35397, 40669, 40610, 4298, 44014, 37343, 34123, 14096, 35809, 33808, 33710
@@ -82,20 +85,8 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadPopularArtworks() {
         viewModelScope.launch {
-            val prefs = ArtWorkSharedPreferences(getApplication())
-            if (hasCachedPopularArtworks(prefs)) return@launch
             fetchPopularArtworksFromApi()
-            updateLiveDataAndPrefs(prefs)
         }
-    }
-
-    private fun hasCachedPopularArtworks(prefs: ArtWorkSharedPreferences): Boolean {
-        return if (prefs.hasPopularArtistsFetched()) {
-            popularArtworksList.clear()
-            popularArtworksList.addAll(prefs.loadPopularArtworks())
-            _popularArtworks.value = popularArtworksList
-            true
-        } else false
     }
 
     private suspend fun fetchPopularArtworksFromApi() {
@@ -110,7 +101,9 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
                     }
                 }
             }
+            delay(100)
         }
+        isCollectionsReady.value = true
     }
 
     private fun buildCollectionArtwork(artwork: Artwork, artistId: Int): CollectionArtwork {
@@ -126,11 +119,6 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             isOwned = false,
             imageUrl = imageUrl
         )
-    }
-
-    private fun updateLiveDataAndPrefs(prefs: ArtWorkSharedPreferences) {
-        _popularArtworks.value = popularArtworksList.toList()
-        prefs.savePopularArtworks(popularArtworksList)
     }
 
     fun startQuiz() {

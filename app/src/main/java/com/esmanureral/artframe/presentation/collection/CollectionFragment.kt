@@ -4,19 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.esmanureral.artframe.R
+import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
+import com.esmanureral.artframe.data.network.CollectionArtwork
 import com.esmanureral.artframe.databinding.FragmentCollectionBinding
-import com.esmanureral.artframe.presentation.game.QuizViewModel
 
 class CollectionFragment : Fragment() {
 
     private var _binding: FragmentCollectionBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: QuizViewModel by viewModels()
     private lateinit var adapter: CollectionAdapter
+    private lateinit var pref: ArtWorkSharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,23 +32,41 @@ class CollectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-        observePopularArtworks()
         setOnClickListener()
-        viewModel.loadPopularArtworks()
+        getCollections()
+    }
+
+    private fun getCollections() {
+        binding.progressBarCollections.isVisible = true
+        pref = ArtWorkSharedPreferences(requireContext())
+        val collections = pref.loadPopularArtworks()
+        loadData(collections)
+        binding.progressBarCollections.isVisible = false
+    }
+
+    private fun loadData(artworks: List<CollectionArtwork>) = with(binding) {
+        adapter.updateList(artworks)
+        tvAllCollections.text = getString(R.string.artwork_count, artworks.size)
+        tvYourCollections.text =
+            getString(R.string.artwork_count, artworks.count { it.isOwned })
     }
 
     private fun setupRecyclerView() {
-        adapter = CollectionAdapter(emptyList())
+        adapter = CollectionAdapter(
+            emptyList(),
+            onClick = { id ->
+                val action =
+                    CollectionFragmentDirections.actionResultGameFragmentToDetailFragment(id)
+                findNavController().navigate(action)
+            },
+            onItemsNotFound = { notFoundItemList ->
+                val current = pref.loadPopularArtworks().toMutableList()
+                current.removeAll { it.artworkId in notFoundItemList }
+                pref.savePopularArtworks(current)
+                getCollections()
+            }
+        )
         binding.recyclerView.adapter = adapter
-    }
-
-    private fun observePopularArtworks() = with(binding) {
-        viewModel.popularArtworks.observe(viewLifecycleOwner) { artworks ->
-            adapter.updateList(artworks)
-            tvAllCollections.text = getString(R.string.artwork_count, artworks.size)
-            tvYourCollections.text =
-                getString(R.string.artwork_count, artworks.count() { it.isOwned })
-        }
     }
 
     private fun setOnClickListener() = with(binding) {

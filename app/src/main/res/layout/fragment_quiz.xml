@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="progressGame,progressText" />
+        app:constraint_referenced_ids="progressGame,progressText"
+        tools:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progressGame"
@@ -101,9 +102,10 @@
             android:layout_marginHorizontal="@dimen/padding_8dp"
             android:layout_marginTop="@dimen/iv_favorite_margin"
             android:layout_marginBottom="@dimen/iv_favorite_margin"
+            android:background="#efefef"
             android:contentDescription="@string/artwork_header"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@id/btnOption1"
+            app:layout_constraintBottom_toTopOf="@id/guidelineMiddle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_top" />
@@ -121,18 +123,26 @@
             app:layout_constraintStart_toStartOf="@id/ivArtwork"
             app:layout_constraintTop_toTopOf="@id/ivArtwork" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineMiddle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
         <TextView
             android:id="@+id/tvQuestion"
             style="@style/TvDetailTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/iv_favorite_margin"
             android:gravity="center"
             android:text="@string/tv_question_text"
             android:textColor="@color/onPrimary"
             app:layout_constraintBottom_toTopOf="@+id/btnOption1"
             app:layout_constraintEnd_toEndOf="@id/btnOption1"
             app:layout_constraintStart_toStartOf="@id/btnOption1"
-            app:layout_constraintTop_toBottomOf="@+id/ivArtwork" />
+            app:layout_constraintTop_toBottomOf="@+id/guidelineMiddle" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnOption1"

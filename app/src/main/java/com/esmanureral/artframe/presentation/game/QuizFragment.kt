@@ -46,6 +46,13 @@ class QuizFragment : Fragment() {
         setupNextButton()
         initStartQuiz()
         setOnClickListeners()
+        checkIfCollectionsFetched()
+    }
+
+    private fun checkIfCollectionsFetched() {
+        if (prefs.hasPopularArtistsFetched().not()) {
+            viewModel.loadPopularArtworks()
+        }
     }
 
     private fun setupButtons() {
@@ -79,6 +86,12 @@ class QuizFragment : Fragment() {
 
         viewModel.error.observe(viewLifecycleOwner) { isError ->
             if (isError) requireContext().showToast(getString(R.string.error_message))
+        }
+        viewModel.isCollectionsReady.observe(viewLifecycleOwner) { isReady ->
+            if (isReady) {
+                val collections = viewModel.popularArtworks.value?.toList() ?: return@observe
+                prefs.savePopularArtworks(collections)
+            }
         }
     }
 
