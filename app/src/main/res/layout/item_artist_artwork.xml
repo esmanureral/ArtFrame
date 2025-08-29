@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivArtworkImage"
+        android:layout_width="@dimen/iv_artwork_image_size"
+        android:layout_height="@dimen/iv_artwork_image_size"
+        android:layout_marginHorizontal="@dimen/header_padding"
+        android:layout_marginVertical="@dimen/padding_8dp"
+        android:contentDescription="@string/artwork_header"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="@dimen/progress_indicator_size"
+        android:layout_height="@dimen/progress_indicator_size"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="visible"
+        app:indicatorColor="@color/progress_indicator_color"
+        app:layout_constraintBottom_toBottomOf="@id/ivArtworkImage"
+        app:layout_constraintEnd_toEndOf="@id/ivArtworkImage"
+        app:layout_constraintStart_toStartOf="@id/ivArtworkImage"
+        app:layout_constraintTop_toTopOf="@id/ivArtworkImage" />
+
+    <TextView
+        android:id="@+id/tvArtworkTitle"
+        style="@style/TvDetailLabelStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_8dp"
+        android:padding="@dimen/padding_8dp"
+        app:layout_constraintBottom_toBottomOf="@id/ivArtworkImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivArtworkImage"
+        app:layout_constraintTop_toTopOf="@id/ivArtworkImage"
+        tools:text="@string/artwork_header" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
