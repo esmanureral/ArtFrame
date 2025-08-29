@@ -1,0 +1,194 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_8dp">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="progressGame,progressText"
+        tools:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/progressText"
+        style="@style/TvDetailLabelStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/progress_text"
+        android:textColor="@color/onPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressGame" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerGame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_8dp"
+            android:backgroundTint="@color/primary"
+            app:cardCornerRadius="@dimen/iv_favorite_margin"
+            app:cardElevation="@dimen/space_4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="@dimen/stroke_width">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_8dp">
+
+                <TextView
+                    android:id="@+id/tv_question_number"
+                    style="@style/TvDetailLabelStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_8dp"
+                    android:text="@string/text_view_question"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score"
+                    style="@style/TvDetailLabelStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_score"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btn_correct_answers"
+                    style="@style/TvDetailLabelStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/correct_answer"
+                    android:src="@drawable/check_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/ivArtwork"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/padding_8dp"
+            android:layout_marginTop="@dimen/iv_favorite_margin"
+            android:layout_marginBottom="@dimen/iv_favorite_margin"
+            android:background="#efefef"
+            android:contentDescription="@string/artwork_header"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@id/guidelineMiddle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_top" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="@dimen/progress_indicator_size"
+            android:layout_height="@dimen/progress_indicator_size"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="visible"
+            app:indicatorColor="@color/progress_indicator_color"
+            app:layout_constraintBottom_toBottomOf="@id/ivArtwork"
+            app:layout_constraintEnd_toEndOf="@id/ivArtwork"
+            app:layout_constraintStart_toStartOf="@id/ivArtwork"
+            app:layout_constraintTop_toTopOf="@id/ivArtwork" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineMiddle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            style="@style/TvDetailTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/iv_favorite_margin"
+            android:gravity="center"
+            android:text="@string/tv_question_text"
+            android:textColor="@color/onPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/btnOption1"
+            app:layout_constraintEnd_toEndOf="@id/btnOption1"
+            app:layout_constraintStart_toStartOf="@id/btnOption1"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineMiddle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOption1"
+            style="@style/OptionButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/option_height"
+            android:layout_marginHorizontal="@dimen/iv_favorite_margin"
+            app:cornerRadius="@dimen/iv_favorite_bottom"
+            app:layout_constraintBottom_toTopOf="@+id/btnOption2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/artists_header" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOption2"
+            style="@style/OptionButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/option_height"
+            android:layout_marginHorizontal="@dimen/iv_favorite_margin"
+            app:cornerRadius="@dimen/iv_favorite_bottom"
+            app:layout_constraintBottom_toTopOf="@+id/btnOption3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/artists_header" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOption3"
+            style="@style/OptionButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/option_height"
+            android:layout_marginHorizontal="@dimen/iv_favorite_margin"
+            app:cornerRadius="@dimen/iv_favorite_bottom"
+            app:layout_constraintBottom_toTopOf="@+id/btn_next_question"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/artists_header" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next_question"
+            style="@style/OptionButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/option_height"
+            android:text="@string/btn_next_question"
+            app:cornerRadius="@dimen/iv_favorite_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,34 +2,33 @@ package com.esmanureral.artframe
 
 import android.view.View
 import android.widget.ImageView
-import coil.ImageLoader
-import coil.request.ImageRequest
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import androidx.core.view.isVisible
+import androidx.lifecycle.LifecycleOwner
+import coil.load
 
 fun ImageView.loadWithIndicator(
-    url: String,
-    progressIndicator: CircularProgressIndicator,
+    url: String?,
+    progressIndicator: View,
     errorRes: Int,
+    lifecycleOwner: LifecycleOwner? = null,
+    onSuccess: (() -> Unit)? = null,
+    onError: (() -> Unit)? = null
 ) {
-    val request = ImageRequest.Builder(this.context)
-        .data(url)
-        .target(this)
-        .error(errorRes)
-        .listener(
-            onStart = {
-                progressIndicator.visibility = View.VISIBLE
-                this.visibility = View.VISIBLE
-            },
+    progressIndicator.isVisible = true
+    this.load(url) {
+        crossfade(true)
+        error(errorRes)
+        lifecycle(lifecycleOwner)
+        listener(
             onSuccess = { _, _ ->
-                progressIndicator.visibility = View.GONE
+                progressIndicator.isVisible = false
+                onSuccess?.invoke()
             },
-            onError = { _, _ ->
-                progressIndicator.visibility = View.GONE
-                this.setImageResource(errorRes)
-                this.visibility = View.VISIBLE
+            onError = { _, result ->
+                progressIndicator.isVisible = false
+                this@loadWithIndicator.setImageResource(errorRes)
+                onError?.invoke()
             }
         )
-        .build()
-
-    ImageLoader(this.context).enqueue(request)
+    }
 }

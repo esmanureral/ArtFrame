@@ -9,5 +9,7 @@
     <color name="icon_color">#838894</color>
     <color name="divider_color">#908F8F</color>
     <color name="progress_indicator_color">#FFFFFF</color>
+    <color name="button_next_color">#4C62A7</color>
+    <color name="shadow_color">#000000</color>
 
 </resources>

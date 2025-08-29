@@ -13,5 +13,12 @@
     <color name="label_color">#7B828E</color>
     <color name="bottom_bar_icon_color">#e3e3e3</color>
     <color name="transparent_color">#4DFFFFFF</color>
+    <color name="button_next_color">#243465</color>
+    <color name="correct_answer">#9BBC67</color>
+    <color name="wrong_answer">#A05858</color>
+    <color name="option_color">#717E81</color>
+    <color name="artwork_border">#8B5A2B</color>
+    <color name="artwork_border_game">#A0522D</color>
+    <color name="shadow_color">#000000</color>
 
 </resources>

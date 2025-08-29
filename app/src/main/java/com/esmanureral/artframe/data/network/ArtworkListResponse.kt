@@ -14,5 +14,7 @@ data class Artwork(
     @SerializedName("image_id")
     val imageId: String?,
     @SerializedName("classification_title")
-    val classificationTitle: String?
+    val classificationTitle: String?,
+    @SerializedName("artist_title")
+    val artistTitle: String?,
 )

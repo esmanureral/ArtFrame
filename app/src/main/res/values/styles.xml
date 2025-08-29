@@ -43,6 +43,11 @@
         <item name="android:focusableInTouchMode">true</item>
     </style>
 
+    <style name="CollectionTextStyle">
+        <item name="android:textSize">@dimen/item_year_text_size</item>
+        <item name="android:textColor">@color/option_color</item>
+    </style>
+
     <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
     </style>
@@ -54,6 +59,11 @@
         <item name="cornerSizeTopLeft">@dimen/iv_favorite_margin</item>
         <item name="cornerSizeBottomRight">@dimen/custom_card_view_style</item>
         <item name="cornerSizeBottomLeft">@dimen/custom_card_view_style</item>
+    </style>
+
+    <style name="OptionButtonStyle">
+        <item name="backgroundTint">@color/option_color</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
 </resources>

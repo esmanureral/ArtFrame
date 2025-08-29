@@ -29,6 +29,7 @@
     <string name="place_of_origin">Place of Origin</string>
     <string name="tv_credit_line_label">Collection</string>
     <string name="artwork_image_url">https://www.artic.edu/iiif/2/%s/full/1600,/0/default.jpg</string>
+    <string name="virtual_image_url">https://clementcariou.github.io/virtual-art-gallery/build</string>
     <string name="tv_years">Years</string>
     <string name="no_favorites">No favorites added yet</string>
     <string name="image_saved">Image downloaded</string>
@@ -57,5 +58,26 @@
     <string name="image_view_favorite">image view favorite</string>
     <string name="delete_item">Delete the selected item</string>
     <string name="delete_all">Delete all</string>
+    <string name="quiz_score">Score: %1$d</string>
+    <string name="tv_question">Question: %1$d</string>
+    <string name="text_view_question">Question: </string>
+    <string name="tv_score">Score:</string>
+    <string name="tv_correct">Correct: %1$d</string>
+    <string name="tv_wrong">Wrong:</string>
+    <string name="btn_next_question">Next Question</string>
+    <string name="quiz_title">Game</string>
+    <string name="error_message">An error occurred while loading the question.</string>
+    <string name="correct_answer">Correct Answer</string>
+    <string name="collections_text">Collections</string>
+    <string name="thanks_text">Thanks to Clément Cariou</string>
+    <string name="close_button">close button</string>
+    <string name="dark_night_theme">dark/night theme</string>
+    <string name="tv_question_text">Guess the artist of this artwork?</string>
+    <string name="progress_text">Game is Loading...</string>
+    <string name="label_all_collections">All Collections:</string>
+    <string name="label_your_collection">Collections you own:</string>
+    <string name="label_collections_value">Collections value:</string>
+    <string name="artwork_price">$%s</string>
+    <string name="artwork_count">%d</string>
 
 </resources>

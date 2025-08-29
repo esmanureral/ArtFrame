@@ -1,0 +1,60 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardArtwork"
+        android:layout_width="@dimen/result_game_width"
+        android:layout_height="@dimen/result_game_height"
+        app:cardCornerRadius="@dimen/iv_favorite_margin"
+        app:cardElevation="@dimen/space_4dp"
+        app:cardUseCompatPadding="true"
+        app:strokeColor="@color/artwork_border_game"
+        app:strokeWidth="@dimen/indicator_height">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/imgArtworkWon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@id/tvPrice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressIndicator"
+                android:layout_width="@dimen/progress_indicator_size"
+                android:layout_height="@dimen/progress_indicator_size"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:visibility="visible"
+                app:indicatorColor="@color/progress_indicator_color"
+                app:layout_constraintBottom_toBottomOf="@id/imgArtworkWon"
+                app:layout_constraintEnd_toEndOf="@id/imgArtworkWon"
+                app:layout_constraintStart_toStartOf="@id/imgArtworkWon"
+                app:layout_constraintTop_toTopOf="@id/imgArtworkWon" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_4dp"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/item_year_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="$100,000" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

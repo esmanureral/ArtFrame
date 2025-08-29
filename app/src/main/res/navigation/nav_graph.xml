@@ -11,6 +11,10 @@
         <action
             android:id="@+id/action_artworkListFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_artworkListFragment_to_virtualArtGalleryFragment"
+            app:destination="@id/virtualArtGalleryFragment" />
+
     </fragment>
 
     <fragment
@@ -82,6 +86,7 @@
             android:name="imageUrl"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.esmanureral.artframe.presentation.favorites.FavoritesFragment"
@@ -95,5 +100,27 @@
             android:id="@+id/action_favoritesFragment_to_artistArtworkFragment"
             app:destination="@id/artistArtworkFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.esmanureral.artframe.presentation.game.QuizFragment"
+        android:label="QuizFragment">
+        <action
+            android:id="@+id/action_quizFragment_to_resultGameFragment"
+            app:destination="@id/resultGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultGameFragment"
+        android:name="com.esmanureral.artframe.presentation.collection.CollectionFragment"
+        android:label="ResultGameFragment">
+        <action
+            android:id="@+id/action_resultGameFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/virtualArtGalleryFragment"
+        android:name="com.esmanureral.artframe.presentation.virtual.VirtualArtGalleryFragment"
+        android:label="VirtualArtGalleryFragment" />
 
 </navigation>
