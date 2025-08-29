@@ -11,6 +11,8 @@ import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.CollectionArtwork
 import com.esmanureral.artframe.databinding.FragmentCollectionBinding
+import java.text.NumberFormat
+import java.util.Locale
 
 class CollectionFragment : Fragment() {
 
@@ -39,7 +41,7 @@ class CollectionFragment : Fragment() {
     private fun getCollections() {
         binding.progressBarCollections.isVisible = true
         pref = ArtWorkSharedPreferences(requireContext())
-        val collections = pref.loadPopularArtworks()
+        val collections = pref.loadPopularArtworks().sortedByDescending { it.isOwned }
         loadData(collections)
         binding.progressBarCollections.isVisible = false
     }
@@ -49,6 +51,10 @@ class CollectionFragment : Fragment() {
         tvAllCollections.text = getString(R.string.artwork_count, artworks.size)
         tvYourCollections.text =
             getString(R.string.artwork_count, artworks.count { it.isOwned })
+
+        val ownedValue = artworks.filter { it.isOwned }.sumOf { it.price }
+        val formattedValue = NumberFormat.getNumberInstance(Locale.US).format(ownedValue.toLong())
+        tvCollectionsValue.text = "$$formattedValue"
     }
 
     private fun setupRecyclerView() {

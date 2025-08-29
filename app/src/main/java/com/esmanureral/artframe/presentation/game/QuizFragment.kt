@@ -93,6 +93,10 @@ class QuizFragment : Fragment() {
                 prefs.savePopularArtworks(collections)
             }
         }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressIndicator.isVisible = isLoading
+        }
     }
 
     private fun setupNextButton() = with(binding) {
@@ -107,23 +111,24 @@ class QuizFragment : Fragment() {
 
     private fun showQuestion(question: QuizQuestion) = with(binding) {
         val optionButtons = listOf(btnOption1, btnOption2, btnOption3)
-        buttonList.forEach { it.text = "" }
+        btnOption1.post {
+            loadButtons(question = question)
 
-        ivArtwork.loadWithIndicator(
-            url = question.imageUrl,
-            progressIndicator = progressIndicator,
-            errorRes = R.drawable.error,
-            onSuccess = {
-                loadButtons(question = question)
-
-                val previousAnswer = viewModel.answeredQuestions[question.artworkId]
-                previousAnswer?.let { answer ->
-                    val selectedBtn = optionButtons.firstOrNull { it.text == answer }
-                    selectedBtn?.let { checkAnswer(it, question) }
-                }
-            },
-            onError = { viewModel.loadNewQuestion() }
-        )
+            ivArtwork.loadWithIndicator(
+                url = question.imageUrl,
+                progressIndicator = progressIndicator,
+                errorRes = R.drawable.error,
+                onSuccess = {
+                    val previousAnswer = viewModel.answeredQuestions[question.artworkId]
+                    previousAnswer?.let { answer ->
+                        val selectedBtn = optionButtons.firstOrNull { it.text == answer }
+                        selectedBtn?.let { checkAnswer(it, question) }
+                    }
+                },
+                onError = { viewModel.loadNewQuestion() },
+                lifecycleOwner = viewLifecycleOwner
+            )
+        }
     }
 
     private fun setupOptionButton(button: Button, optionText: String, question: QuizQuestion) {
@@ -177,17 +182,20 @@ class QuizFragment : Fragment() {
         containerGame.isVisible = true
     }
 
-    private fun loadButtons(question: QuizQuestion) {
-        buttonList.forEachIndexed { index, button ->
+    private fun loadButtons(question: QuizQuestion) = with(binding) {
+        val count = minOf(buttonList.size, question.options.size)
+
+        repeat(count) { index ->
+            val button = buttonList[index]
             resetOptionStyle(button)
             button.text = question.options[index]
             setupOptionButton(button, optionText = question.options[index], question)
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        buttonList.clear()
     }
 }

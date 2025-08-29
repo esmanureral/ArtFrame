@@ -45,8 +45,6 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val _popularArtworks = MutableLiveData<List<CollectionArtwork>>(emptyList())
     val popularArtworks: LiveData<List<CollectionArtwork>> get() = _popularArtworks
 
-    private val popularArtworksList = mutableListOf<CollectionArtwork>()
-
     val isCollectionsReady = MutableLiveData(false)
 
     private val popularArtistIds = listOf(
@@ -61,13 +59,17 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private fun loadArtists() {
         if (!_allArtists.value.isNullOrEmpty()) return
 
+        _isLoading.value = true
+
         viewModelScope.launch {
             try {
                 val response = api.getArtists(page = 1, limit = 100)
                 if (response.isSuccessful) {
-                    val artists = response.body()?.data
+                    val data = response.body()?.data
+
+                    val artists = data
                         ?.mapNotNull { it.title }
-                        ?.filter { it.isNotBlank() && it != "Unknown" && it != "Anonymous" }
+                        ?.filter { it.isNotEmpty() && it != "Unknown" && it != "Anonymous" }
                         ?.distinct()
                         ?.take(100) ?: emptyList()
 
@@ -76,9 +78,12 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
                 } else {
                     _error.value = true
                 }
+
+                _isLoading.value = false
             } catch (e: Exception) {
                 Log.e("LoadArtistsError", "Error loading artists", e)
                 _error.value = true
+                _isLoading.value = false
             }
         }
     }
@@ -90,20 +95,26 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private suspend fun fetchPopularArtworksFromApi() {
-        popularArtworksList.clear()
+        _popularArtworks.value = emptyList()
+
+        val newList = mutableListOf<CollectionArtwork>()
 
         for (artistId in popularArtistIds) {
             val response = api.getArtworksByArtist(artistId, limit = 20)
             if (response.isSuccessful) {
                 response.body()?.data?.forEach { artwork ->
 
-                    if (!artwork.imageId.isNullOrBlank()) {
-                        popularArtworksList.add(buildCollectionArtwork(artwork, artistId))
+                    if (!artwork.imageId.isNullOrBlank() && artwork.artistTitle.isNullOrBlank()
+                            .not()
+                    ) {
+                        newList.add(buildCollectionArtwork(artwork, artistId))
                     }
                 }
             }
             delay(100)
         }
+        _popularArtworks.value = newList
+        isCollectionsReady.value = true
     }
 
     private fun buildCollectionArtwork(artwork: Artwork, artistId: Int): CollectionArtwork {
@@ -118,7 +129,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             price = price,
             isOwned = false,
             imageUrl = imageUrl,
-            artistTitle = artwork.artistTitle
+            artistTitle = artwork.artistTitle ?: "-"
         )
     }
 
@@ -149,7 +160,8 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
                     val randomArtwork = filteredArtworks.random()
                     createQuizQuestion(randomArtwork)
                 } else {
-                    _error.value = true
+                    delay(100)
+                    loadNewQuestion()
                 }
             } else {
                 _error.value = true
@@ -180,7 +192,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             if (popularArtworks.isNotEmpty()) {
                 val selected = popularArtworks.random()
                 val artist = selected.artistTitle
-                if (artist.isBlank() || artist == "Unknown" || artist == "Anonymous") {
+                if (artist == "" || artist == "Unknown" || artist == "Anonymous") {
                     loadNewQuestion()
                     return
                 }
@@ -197,7 +209,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             if (detailResponse.isSuccessful) {
                 detailResponse.body()?.data?.toUIModel()?.let { artworkDetail ->
                     val artist = artworkDetail.artistTitle
-                    if (artist.isBlank() || artist == "Unknown" || artist == "Anonymous") {
+                    if (artist == "" || artist == "Unknown" || artist == "Anonymous") {
                         loadNewQuestion()
                         return
                     }
@@ -222,7 +234,6 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
-
 
 
     private fun generateOptions(correctAnswer: String): List<String> {

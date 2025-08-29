@@ -48,11 +48,9 @@ class CollectionAdapter(
                     onError = {
                         notFoundItems.add(artwork.artworkId)
 
-                        if (isLastItem) {
-                            if (notFoundItems.isNotEmpty()) {
-                                onItemsNotFound(notFoundItems.toList())
-                                notFoundItems.clear()
-                            }
+                        if (notFoundItems.isNotEmpty()) {
+                            onItemsNotFound(notFoundItems.toList())
+                            notFoundItems.clear()
                         }
                     },
                     onSuccess = {

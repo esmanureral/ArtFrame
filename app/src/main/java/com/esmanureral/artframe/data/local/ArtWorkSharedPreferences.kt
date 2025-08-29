@@ -127,8 +127,10 @@ class ArtWorkSharedPreferences(context: Context) {
 
     fun savePopularArtworks(list: List<CollectionArtwork>) {
         val json = Gson().toJson(list)
-        prefs.edit().putString(POPULAR_ARTWORK__KEY, json).apply()
-        prefs.edit().putBoolean(POPULAR_ARTIST__KEY, true).apply()
+        prefs.edit { putString(POPULAR_ARTWORK__KEY, json) }
+        if (list.isNotEmpty()) {
+            prefs.edit { putBoolean(POPULAR_ARTIST__KEY, true) }
+        }
     }
 
     fun loadPopularArtworks(): List<CollectionArtwork> {

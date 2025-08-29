@@ -6,6 +6,6 @@ data class CollectionArtwork(
     val price: Double,
     var isOwned: Boolean,
     val imageUrl: String,
-    val artistTitle: String?,
+    val artistTitle: String,
     val isUnknown: Boolean = false
 )
