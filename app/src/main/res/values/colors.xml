@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <color name="primary">#FFFFFF</color>
+    <color name="onPrimary">#000000</color>
+    <color name="surface">#9FA2A6</color>
+    <color name="full_screen">#FFFFFF</color>
+    <color name="shimmer_color">#DDDDDD</color>
+    <color name="icon_color">#525A66</color>
+    <color name="divider_color">#D0D6D6</color>
+    <color name="primaryDark">#FBFBFB</color>
+    <color name="progress_indicator_color">#000000</color>
+    <color name="label_color">#7B828E</color>
+    <color name="bottom_bar_icon_color">#e3e3e3</color>
+    <color name="transparent_color">#4DFFFFFF</color>
+    <color name="button_next_color">#243465</color>
+    <color name="correct_answer">#9BBC67</color>
+    <color name="wrong_answer">#A05858</color>
+    <color name="option_color">#717E81</color>
+    <color name="artwork_border">#8B5A2B</color>
+    <color name="artwork_border_game">#A0522D</color>
+    <color name="shadow_color">#000000</color>
+
 </resources>

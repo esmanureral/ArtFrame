@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/artworkListFragment">
+
+    <fragment
+        android:id="@+id/artworkListFragment"
+        android:name="com.esmanureral.artframe.presentation.artwork.ArtworkListFragment"
+        android:label="ArtworkListFragment">
+        <action
+            android:id="@+id/action_artworkListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_artworkListFragment_to_virtualArtGalleryFragment"
+            app:destination="@id/virtualArtGalleryFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.esmanureral.artframe.presentation.artworkdetail.ArtWorkDetailFragment"
+        android:label="DetailFragment">
+        <argument
+            android:name="artwork_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detailFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_artistArtworkFragment"
+            app:destination="@id/artistArtworkFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_fullScreenImageFragment"
+            app:destination="@id/fullScreenImageFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/artistListFragment"
+        android:name="com.esmanureral.artframe.presentation.artistlist.ArtistListFragment"
+        android:label="ArtistListFragment">
+        <argument
+            android:name="artist_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_artistListFragment_to_artistArtworkFragment"
+            app:destination="@id/artistArtworkFragment" />
+        <action
+            android:id="@+id/action_artistListFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/artistArtworkFragment"
+        android:name="com.esmanureral.artframe.presentation.artistdetail.ArtistDetailFragment"
+        android:label="ArtistArtworkFragment">
+        <argument
+            android:name="artistId"
+            app:argType="integer" />
+        <argument
+            android:name="artistName"
+            app:argType="string" />
+        <argument
+            android:name="birthDate"
+            app:argType="string"
+            app:nullable="@null" />
+        <argument
+            android:name="deathDate"
+            app:argType="string"
+            app:nullable="@null" />
+        <argument
+            android:name="itemType"
+            app:argType="com.esmanureral.artframe.presentation.deleteItem.DeleteItemType" />
+
+        <action
+            android:id="@+id/action_artistArtworkFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fullScreenImageFragment"
+        android:name="com.esmanureral.artframe.FullScreenImageFragment"
+        android:label="FullScreenImageFragment">
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.esmanureral.artframe.presentation.favorites.FavoritesFragment"
+        android:label="FavoritesFragment">
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_artistArtworkFragment"
+            app:destination="@id/artistArtworkFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.esmanureral.artframe.presentation.game.QuizFragment"
+        android:label="QuizFragment">
+        <action
+            android:id="@+id/action_quizFragment_to_resultGameFragment"
+            app:destination="@id/resultGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultGameFragment"
+        android:name="com.esmanureral.artframe.presentation.collection.CollectionFragment"
+        android:label="ResultGameFragment">
+        <action
+            android:id="@+id/action_resultGameFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/virtualArtGalleryFragment"
+        android:name="com.esmanureral.artframe.presentation.virtual.VirtualArtGalleryFragment"
+        android:label="VirtualArtGalleryFragment" />
+
+</navigation>
