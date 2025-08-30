@@ -14,7 +14,7 @@
 - ❤️ **Favori Yönetimi** - Kişisel koleksiyon
 - 👨‍🎨 **Sanatçı Profilleri** - Detaylı bilgiler
 - 🎮 **Quiz Oyunu** - Sanat bilgi testi
-- 🔍 **Tam Ekran Görüntüleme** - Zoom ve pan desteği
+- 🔍 **Tam Ekran Görüntüleme** - Zoom desteği
 - 🌙 **Karanlık Tema** - Göz dostu arayüz
 - 📱 **Modern UI/UX** - Material Design 3
 ---
