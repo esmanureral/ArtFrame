@@ -20,25 +20,32 @@
 ---
 ## 📱 Ekran Görüntüleri
 
-| 🎨 Artworks Ekranı | 🎨 Artist Ekranı |
-|-------------------|----------------|
-| <img src="images/artworks1.png" width="200" alt="Artwork 1"/> <img src="images/artworks2.png" width="200" alt="Artwork 2"/> | <img src="images/artist1.png" width="200" alt="Artist 1"/> <img src="images/artist2.png" width="200" alt="Artist 2"/> |
+### 🎨 Artworks Ekranı
+<img src="images/artworks1.png" width="200" alt="Artwork 1"/> <img src="images/artworks2.png" width="200" alt="Artwork 2"/>
 
-| ⭐ Favoriler Ekranı |
-|-------------------|
-| <img src="images/fav1.png" width="200" alt="Favorite 1"/> <img src="images/fav2.png" width="200" alt="Favorite 2"/> <img src="images/fav3.png" width="200" alt="Favorite 3"/> <img src="images/fav4.png" width="200" alt="Favorite 4"/> |
+### 👩‍🎨 Artist Ekranı
+<img src="images/artist1.png" width="200" alt="Artist 1"/><img src="images/artist2.png" width="200" alt="Artist 2"/>
 
-| 🎨 Artworks Detail Ekranı | 🔍 Full Screen Ekranı |
-|-------------------|----------------|
-| <img src="images/artworkdetail1.png" width="200" alt="Artwork Detail 1"/> <img src="images/artworkdetail2.png" width="200" alt="Artwork Detail 2"/> | <img src="images/fullscreen1.png" width="200" alt="Full Screen 1"/> <img src="images/fullscreen2.png" width="200" alt="Full Screen 2"/> |
+### ⭐ Favoriler Ekranı
+<img src="images/fav1.png" width="200" alt="Favorite 1"/><img src="images/fav2.png" width="200" alt="Favorite 2"/>
+<img src="images/fav3.png" width="200" alt="Favorite 3"/><img src="images/fav4.png" width="200" alt="Favorite 4"/>
 
-| 👩‍🎨 Artist Detail Ekranı |
-|------------------------|
-| <img src="images/artistartwork.png" width="200" alt="Artist Detail 1"/> |
+### 🎨 Artworks Detail Ekranı
+<img src="images/artworkdetail1.png" width="200" alt="Artwork Detail 1"/> <img src="images/artworkdetail2.png" width="200" alt="Artwork Detail 2"/>
 
-| 🕹 Game Ekranı | 🕹 Game Ekranı |
-|-------------------|----------------|
-| <img src="images/game1.png" width="200" alt="Game 1 1"/> <img src="images/game2.png" width="200" alt="Game 2"/> | <img src="images/webview.png" width="200" alt="Web 1"/> <img src="images/webview2.png" width="200" alt="Web 2"/> |
+### 🔍 Full Screen Ekranı
+<img src="images/fullscreen1.png" width="200" alt="Full Screen 1"/><img src="images/fullscreen2.png" width="200" alt="Full Screen 2"/>
+
+### 👩‍🎨 Artist Detail Ekranı
+<img src="images/artistartwork.png" width="200" alt="Artist Detail 1"/>
+
+### 🕹 Game Ekranı
+<img src="images/game1.png" width="200" alt="Game 1"/><img src="images/game2.png" width="200" alt="Game 2"/>
+
+### 🌐 WebView Ekranı
+<img src="images/webview.png" width="200" alt="Web 1"/><img src="images/webview2.png" width="200" alt="Web 2"/>
+
+
 ## 📌 Projede Kullandığım Teknolojiler
 
 ### 🔧 Temel Teknolojiler
