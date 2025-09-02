@@ -29,7 +29,7 @@ class ArtistDetailFragment : Fragment() {
     ) = FragmentArtistArtworkBinding.inflate(inflater, container, false).also { _binding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        favoritesPrefs = ArtWorkSharedPreferences(requireContext())
+        initFavoritesPrefs()
         with(binding) {
             tvArtistTitle.text = args.artistName
             tvYears.text = getString(
@@ -43,6 +43,10 @@ class ArtistDetailFragment : Fragment() {
         observeViewModel()
         viewModel.fetchArtworksByArtist(args.artistId)
         setupFavoriteIcon()
+    }
+
+    private fun initFavoritesPrefs() {
+        favoritesPrefs = ArtWorkSharedPreferences(requireContext())
     }
 
     private fun setupAdapter() {

@@ -23,6 +23,15 @@ class ArtistDetailAdapter(
                 root.setOnClickListener { onItemClick(item) }
             }
         }
+
+        private fun loadArtworkImage(binding: ItemArtistArtworkBinding, imageId: String?) {
+            val imageUrl = binding.root.context.getString(R.string.artwork_image_url, imageId)
+            binding.ivArtworkImage.loadWithIndicator(
+                url = imageUrl,
+                progressIndicator = binding.progressIndicator,
+                errorRes = R.drawable.error
+            )
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -43,14 +52,5 @@ class ArtistDetailAdapter(
         artworks.clear()
         artworks.addAll(newArtworks)
         notifyDataSetChanged()
-    }
-
-    private fun loadArtworkImage(binding: ItemArtistArtworkBinding, imageId: String?) {
-        val imageUrl = binding.root.context.getString(R.string.artwork_image_url, imageId)
-        binding.ivArtworkImage.loadWithIndicator(
-            url = imageUrl,
-            progressIndicator = binding.progressIndicator,
-            errorRes = R.drawable.error
-        )
     }
 }
