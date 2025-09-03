@@ -52,16 +52,16 @@ class ArtistListFragment : Fragment() {
     private fun createScrollListener() = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(rv, dx, dy)
-            checkForPagination(rv)
+            checkForPagination(rv = rv)
         }
     }
 
     private fun navigateToArtistDetail(artist: ArtistListUI) {
         val action = ArtistListFragmentDirections.actionArtistListFragmentToArtistArtworkFragment(
-            artist.id,
-            artist.title,
-            artist.birthDate ?: getString(R.string.year_unknown),
-            artist.deathDate ?: getString(R.string.year_unknown),
+            artistId = artist.id,
+            artistName = artist.title,
+            birthDate = artist.birthDate ?: getString(R.string.year_unknown),
+            deathDate = artist.deathDate ?: getString(R.string.year_unknown),
             itemType = DeleteItemType.ARTIST
         )
         findNavController().navigate(action)
@@ -89,15 +89,11 @@ class ArtistListFragment : Fragment() {
     }
 
     private fun setLoadingState(isLoading: Boolean) = with(binding) {
-        if (isLoading) {
-            shimmerLayout.startShimmer()
-            shimmerLayout.visibility = View.VISIBLE
-            rvArtists.visibility = View.GONE
-        } else {
-            shimmerLayout.stopShimmer()
-            shimmerLayout.visibility = View.GONE
-            rvArtists.visibility = View.VISIBLE
+        shimmerLayout.apply {
+            if (isLoading) startShimmer() else stopShimmer()
+            visibility = if (isLoading) View.VISIBLE else View.GONE
         }
+        rvArtists.visibility = if (isLoading) View.GONE else View.VISIBLE
     }
 
     override fun onDestroyView() {
