@@ -21,12 +21,8 @@ class ArtworkAdapter(
 
         fun bind(item: ArtworkUI) = with(binding) {
             tvTitle.text = item.title
-            loadArtwork(item.imageId)
-            setClickListener(item)
-        }
-
-        private fun setClickListener(item: ArtworkUI) {
-            binding.root.setOnClickListener { onItemClick(item) }
+            loadArtwork(imageId = item.imageId)
+            root.setOnClickListener { onItemClick(item) }
         }
 
         private fun ItemArtworkBinding.loadArtwork(imageId: String) {

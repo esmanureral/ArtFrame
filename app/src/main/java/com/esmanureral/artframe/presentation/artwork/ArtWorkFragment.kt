@@ -91,9 +91,10 @@ class ArtworkListFragment : Fragment() {
     }
 
     private fun navigateToDetail(artworkId: Int) {
-        val navController = requireActivity().findNavController(R.id.nav_host_fragment)
-        navController.navigate(
-            ArtworkListFragmentDirections.actionArtworkListFragmentToDetailFragment(artworkId)
+        findNavController().navigate(
+            ArtworkListFragmentDirections.actionArtworkListFragmentToDetailFragment(
+                artworkId = artworkId
+            )
         )
     }
 
@@ -105,8 +106,7 @@ class ArtworkListFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.artworks.observe(viewLifecycleOwner) { newItems ->
-            adapter.submitList(newItems.toList())
-
+            adapter.submitList(newItems)
         }
     }
 
