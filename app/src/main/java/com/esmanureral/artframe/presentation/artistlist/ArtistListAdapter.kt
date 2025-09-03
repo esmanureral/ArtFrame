@@ -1,5 +1,6 @@
 package com.esmanureral.artframe.presentation.artistlist
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -24,30 +25,41 @@ class ArtistListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(artist: ArtistListUI) = with(binding) {
-            val context = root.context
             tvArtistName.text = artist.title
-            val birth = artist.birthDate ?: "?"
-            val death = artist.deathDate ?: "?"
-            tvYears.text = context.getString(R.string.artist_years, birth, death)
+            tvYears.text = formatArtistYears(context = root.context, artist = artist)
+            updateFavoriteIcon(artist = artist)
+            setupFavoriteClick(artist = artist)
+            setupRootClick(artist = artist)
+            setupRootLongClick(artist = artist)
+        }
 
-            updateFavoriteIcon(artist)
-
+        private fun setupFavoriteClick(artist: ArtistListUI) = with(binding) {
             if (isRemoveFavorite) {
                 ivFavorite.setOnClickListener {
-                    showDeleteBottomSheet(artist, DeleteItemType.ARTIST)
+                    showDeleteBottomSheet(artist = artist, itemType = DeleteItemType.ARTIST)
                 }
             } else {
-                ivFavorite.setOnClickListener { toggleFavorite(artist) }
+                toggleFavorite(artist = artist)
             }
+        }
 
+        private fun setupRootClick(artist: ArtistListUI) = with(binding) {
             root.setOnClickListener { onItemClick(artist) }
+        }
 
+        private fun setupRootLongClick(artist: ArtistListUI) = with(binding) {
             if (isRemoveFavorite) {
                 root.setOnLongClickListener {
-                    showDeleteBottomSheet(artist, DeleteItemType.ARTIST)
+                    showDeleteBottomSheet(artist = artist, itemType = DeleteItemType.ARTIST)
                     true
                 }
             }
+        }
+
+        private fun formatArtistYears(context: Context, artist: ArtistListUI): String {
+            val birth = artist.birthDate ?: "?"
+            val death = artist.deathDate ?: "?"
+            return context.getString(R.string.artist_years, birth, death)
         }
 
         private fun updateFavoriteIcon(artist: ArtistListUI) {
@@ -57,64 +69,56 @@ class ArtistListAdapter(
             )
         }
 
-        private fun toggleFavorite(artist: ArtistListUI) = with(binding) {
+        private fun toggleFavorite(artist: ArtistListUI) {
             if (favoritesPrefs.isArtistFavorite(artist)) {
-                favoritesPrefs.removeArtistById(artistId = artist.id)
-                if (isRemoveFavorite) removeArtistFromList(adapterPosition)
-                else ivFavorite.setImageResource(R.drawable.favorite_border)
+                favoritesPrefs.removeArtistById(artist.id)
             } else {
                 favoritesPrefs.addArtistFavorite(artist)
-                ivFavorite.setImageResource(R.drawable.favorite_24)
             }
-        }
-
-        private fun removeArtistFromList(position: Int) {
-            if (position != RecyclerView.NO_POSITION) {
-                val newList = currentList.toMutableList()
-                newList.removeAt(position)
-                submitList(newList)
-            }
+            updateFavoriteIcon(artist)
         }
 
         private fun showDeleteBottomSheet(artist: ArtistListUI, itemType: DeleteItemType) {
             val bottomSheet = DeleteBottomSheet()
             bottomSheet.setListener(object : DeleteBottomSheet.DeleteListener {
                 override fun onDeleteItem() {
-                    when (itemType) {
-                        DeleteItemType.ARTWORK -> {
-                            favoritesPrefs.removeArtworkById(artworkId = artist.id)
-                        }
-
-                        DeleteItemType.ARTIST -> {
-                            favoritesPrefs.removeArtistById(artistId = artist.id)
-                        }
-                    }
-
-                    val position = currentList.indexOf(artist)
-                    if (position != -1) {
-                        val newList = currentList.toMutableList()
-                        newList.removeAt(position)
-                        submitList(newList)
-                    }
+                    handleSingleDelete(artist = artist, itemType = itemType)
                 }
 
                 override fun onDeleteAll() {
-                    when (itemType) {
-                        DeleteItemType.ARTWORK -> {
-                            favoritesPrefs.removeAllArtworks()
-                        }
-
-                        DeleteItemType.ARTIST -> {
-                            favoritesPrefs.removeAllArtists()
-                        }
-                    }
-
-                    submitList(emptyList())
+                    handleDeleteAll(itemType = itemType)
                 }
             })
             parentFragment?.let { fragment ->
                 bottomSheet.show(fragment.parentFragmentManager, "DeleteBottomSheet")
             }
+        }
+
+        private fun handleSingleDelete(artist: ArtistListUI, itemType: DeleteItemType) {
+            when (itemType) {
+                DeleteItemType.ARTWORK -> {
+                    favoritesPrefs.removeArtworkById(artworkId = artist.id)
+                }
+
+                DeleteItemType.ARTIST -> {
+                    favoritesPrefs.removeArtistById(artistId = artist.id)
+                }
+            }
+
+            val position = currentList.indexOf(artist)
+            if (position != -1) {
+                val newList = currentList.toMutableList()
+                newList.removeAt(position)
+                submitList(newList)
+            }
+        }
+
+        private fun handleDeleteAll(itemType: DeleteItemType) {
+            when (itemType) {
+                DeleteItemType.ARTWORK -> favoritesPrefs.removeAllArtworks()
+                DeleteItemType.ARTIST -> favoritesPrefs.removeAllArtists()
+            }
+            submitList(emptyList())
         }
     }
 
