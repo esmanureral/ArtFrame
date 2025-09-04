@@ -24,15 +24,10 @@ class CollectionAdapter(
         fun bind(artwork: CollectionArtwork) {
 
             val isLastItem = artworks.last().artworkId == artwork.artworkId
-
             loadArtworkImage(artwork = artwork, isLastItem = isLastItem)
-            showFormattedPrice(artwork.price)
-            applyOwnershipEffect(artwork.isOwned)
-            if (artwork.isOwned) {
-                binding.root.setOnClickListener {
-                    onClick(artwork.artworkId)
-                }
-            }
+            showFormattedPrice(price = artwork.price)
+            applyOwnershipEffect(isOwned = artwork.isOwned)
+            setupClickListener(artwork = artwork)
         }
 
         private fun loadArtworkImage(artwork: CollectionArtwork, isLastItem: Boolean) =
@@ -76,6 +71,14 @@ class CollectionAdapter(
             } else {
                 colorFilter = null
                 alpha = 1f
+            }
+        }
+
+        private fun setupClickListener(artwork: CollectionArtwork) {
+            if (artwork.isOwned) {
+                binding.root.setOnClickListener {
+                    onClick(artwork.artworkId)
+                }
             }
         }
     }

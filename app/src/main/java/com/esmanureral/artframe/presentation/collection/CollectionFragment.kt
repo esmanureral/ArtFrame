@@ -33,20 +33,20 @@ class CollectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        pref = ArtWorkSharedPreferences(requireContext())
         setupRecyclerView()
         setOnClickListener()
-        getCollections()
+        loadCollections()
     }
 
-    private fun getCollections() {
-        binding.progressBarCollections.isVisible = true
-        pref = ArtWorkSharedPreferences(requireContext())
+    private fun loadCollections() = with(binding) {
+        progressBarCollections.isVisible = true
         val collections = pref.loadPopularArtworks().sortedByDescending { it.isOwned }
-        loadData(collections)
-        binding.progressBarCollections.isVisible = false
+        displayCollections(collections)
+        progressBarCollections.isVisible = false
     }
 
-    private fun loadData(artworks: List<CollectionArtwork>) = with(binding) {
+    private fun displayCollections(artworks: List<CollectionArtwork>) = with(binding) {
         adapter.updateList(artworks)
         tvAllCollections.text = getString(R.string.artwork_count, artworks.size)
         tvYourCollections.text =
@@ -54,7 +54,7 @@ class CollectionFragment : Fragment() {
 
         val ownedValue = artworks.filter { it.isOwned }.sumOf { it.price }
         val formattedValue = NumberFormat.getNumberInstance(Locale.US).format(ownedValue.toLong())
-        tvCollectionsValue.text = "$$formattedValue"
+        tvCollectionsValue.text = getString(R.string.collection_value, formattedValue)
     }
 
     private fun setupRecyclerView() {
@@ -69,7 +69,7 @@ class CollectionFragment : Fragment() {
                 val current = pref.loadPopularArtworks().toMutableList()
                 current.removeAll { it.artworkId in notFoundItemList }
                 pref.savePopularArtworks(current)
-                getCollections()
+                loadCollections()
             }
         )
         binding.recyclerView.adapter = adapter

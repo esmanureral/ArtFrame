@@ -57,7 +57,7 @@ class ArtWorkDetailFragment : Fragment(), ImageRequest.Listener {
         super.onViewCreated(view, savedInstanceState)
         favoritesPrefs = ArtWorkSharedPreferences(requireContext())
         val artworkId = args.artworkId
-        viewModel.fetchArtworkDetail(artworkId)
+        viewModel.fetchArtworkDetail(id = artworkId)
         setupClickListeners()
         observeArtworkDetail()
     }
@@ -113,7 +113,7 @@ class ArtWorkDetailFragment : Fragment(), ImageRequest.Listener {
             ivArtwork.setOnClickListener {
                 currentArtwork?.let {
                     val imageUrl = getString(R.string.artwork_image_url, it.imageId)
-                    navigateToFullScreenImage(imageUrl)
+                    navigateToFullScreenImage(imageUrl = imageUrl)
                 }
             }
 
@@ -124,9 +124,9 @@ class ArtWorkDetailFragment : Fragment(), ImageRequest.Listener {
     }
 
     private fun updateUI(artwork: ArtworkDetailUI) {
-        bindTextFields(artwork)
-        loadArtworkImage(artwork)
-        updateFavoriteIcon(artwork)
+        bindTextFields(artwork = artwork)
+        loadArtworkImage(artwork = artwork)
+        updateFavoriteIcon(artwork = artwork)
         binding.appBar.animateCollapseExpand(favoritesPrefs)
     }
 
@@ -235,10 +235,6 @@ class ArtWorkDetailFragment : Fragment(), ImageRequest.Listener {
             })
             .build()
         loader.enqueue(request)
-    }
-
-    override fun onError(request: ImageRequest, result: ErrorResult) {
-        super.onError(request, result)
     }
 
     private fun saveBitmapToCache(bitmap: Bitmap): Uri? {

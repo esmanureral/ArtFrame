@@ -79,5 +79,6 @@
     <string name="label_collections_value">Collections value:</string>
     <string name="artwork_price">$%s</string>
     <string name="artwork_count">%d</string>
+    <string name="collection_value">$%1$s</string>
 
 </resources>
