@@ -23,24 +23,30 @@ class FavoritesAdapter(
     inner class FavoriteViewHolder(val binding: ItemFavArtworksBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(artwork: ArtworkDetailUI) {
-            with(binding) {
-                tvTitle.text = artwork.title
-                val imageUrl =
-                    root.context.getString(R.string.artwork_image_url, artwork.imageId)
-                ivArtwork.load(imageUrl) {
-                    crossfade(true)
-                    placeholder(R.drawable.black)
-                    error(R.drawable.error)
-                }
+            bindTitle(artwork)
+            bindImage(artwork)
+            setupClickListeners(artwork)
+        }
 
-                root.setOnClickListener {
-                    onItemClick(artwork)
-                }
+        private fun bindTitle(artwork: ArtworkDetailUI) {
+            binding.tvTitle.text = artwork.title
+        }
 
-                root.setOnLongClickListener {
-                    showDeleteBottomSheet(artwork, DeleteItemType.ARTWORK)
-                    true
-                }
+        private fun bindImage(artwork: ArtworkDetailUI) = with(binding) {
+            val imageUrl =
+                root.context.getString(R.string.artwork_image_url, artwork.imageId)
+            ivArtwork.load(imageUrl) {
+                crossfade(true)
+                placeholder(R.drawable.black)
+                error(R.drawable.error)
+            }
+        }
+
+        private fun setupClickListeners(artwork: ArtworkDetailUI) = with(binding) {
+            root.setOnClickListener { onItemClick(artwork) }
+            root.setOnLongClickListener {
+                showDeleteBottomSheet(artwork, DeleteItemType.ARTWORK)
+                true
             }
         }
 
