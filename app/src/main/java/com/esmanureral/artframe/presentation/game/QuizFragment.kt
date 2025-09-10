@@ -8,8 +8,8 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.esmanureral.artframe.ArtFrameApplication
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.QuizQuestion
@@ -21,7 +21,11 @@ class QuizFragment : Fragment() {
 
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: QuizViewModel by viewModels()
+    private val viewModel: QuizViewModel by lazy {
+        val app = requireActivity().application as ArtFrameApplication
+        val imageUrlTemplate = getString(R.string.artwork_image_url)
+        QuizViewModel(app.apiService, app.sharedPreferences, imageUrlTemplate)
+    }
     private lateinit var prefs: ArtWorkSharedPreferences
     private var questionIndex = 1
     private val buttonList = mutableListOf<Button>()

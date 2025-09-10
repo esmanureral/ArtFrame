@@ -2,20 +2,14 @@ package com.esmanureral.artframe.presentation.artwork
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import com.esmanureral.artframe.data.network.ApiClient
 import com.esmanureral.artframe.data.network.ApiService
 import com.esmanureral.artframe.presentation.artwork.model.ArtworkUI
 import com.esmanureral.artframe.presentation.artwork.model.toUIModel
 
-class ArtWorkViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val api: ApiService by lazy {
-        ApiClient.getApi(getApplication())
-    }
+class ArtWorkViewModel(private val apiService: ApiService) : ViewModel() {
 
     private val _artworks = MutableLiveData<List<ArtworkUI>>()
     val artworks: LiveData<List<ArtworkUI>> get() = _artworks
@@ -34,7 +28,7 @@ class ArtWorkViewModel(application: Application) : AndroidViewModel(application)
         _isLoading.value = true
 
         viewModelScope.launch {
-            val response = api.getArtWorks(page = currentPage)
+            val response = apiService.getArtWorks(page = currentPage)
             val includedClassificationsLower = getIncludedClassifications().map { it.lowercase() }
 
             if (response.isSuccessful) {

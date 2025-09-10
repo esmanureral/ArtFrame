@@ -1,20 +1,14 @@
 package com.esmanureral.artframe.presentation.artistdetail
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.esmanureral.artframe.data.network.ApiClient
 import com.esmanureral.artframe.data.network.ApiService
 import com.esmanureral.artframe.data.network.Artwork
 import kotlinx.coroutines.launch
 
-class ArtistDetailViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val api: ApiService by lazy {
-        ApiClient.getApi(getApplication())
-    }
+class ArtistDetailViewModel(private val apiService: ApiService) : ViewModel() {
 
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
@@ -27,7 +21,7 @@ class ArtistDetailViewModel(application: Application) : AndroidViewModel(applica
         _isLoading.value = true
 
         viewModelScope.launch {
-            val response = api.getArtworksByArtist(artistId)
+            val response = apiService.getArtworksByArtist(artistId)
             if (response.isSuccessful) {
                 val artworksWithImages = response.body()?.data
                     ?.filter { !it.imageId.isNullOrBlank() }

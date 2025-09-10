@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.esmanureral.artframe.ArtFrameApplication
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.databinding.FragmentArtworkListBinding
 
@@ -20,7 +19,10 @@ class ArtworkListFragment : Fragment() {
     private val binding get() = _binding!!
     private var isDarkMode = false
 
-    private val viewModel: ArtWorkViewModel by viewModels()
+    private val viewModel: ArtWorkViewModel by lazy {
+        val app = requireActivity().application as ArtFrameApplication
+        ArtWorkViewModel(app.apiService)
+    }
     private lateinit var adapter: ArtworkAdapter
 
     override fun onCreateView(

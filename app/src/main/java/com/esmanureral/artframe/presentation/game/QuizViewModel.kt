@@ -1,14 +1,11 @@
 package com.esmanureral.artframe.presentation.game
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
-import com.esmanureral.artframe.data.network.ApiClient
 import com.esmanureral.artframe.data.network.ApiService
 import com.esmanureral.artframe.data.network.Artwork
 import com.esmanureral.artframe.data.network.CollectionArtwork
@@ -18,9 +15,11 @@ import com.esmanureral.artframe.presentation.artworkdetail.model.toUIModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class QuizViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val api: ApiService by lazy { ApiClient.getApi(getApplication()) }
+class QuizViewModel(
+    private val apiService: ApiService,
+    private val sharedPreferences: ArtWorkSharedPreferences,
+    private val imageUrlTemplate: String
+) : ViewModel() {
 
     private val _allArtists = MutableLiveData<List<String>>()
     val allArtists: LiveData<List<String>> get() = _allArtists
@@ -63,7 +62,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             try {
-                val response = api.getArtists(page = 1, limit = 100)
+                val response = apiService.getArtists(page = 1, limit = 100)
                 if (response.isSuccessful) {
                     val data = response.body()?.data
 
@@ -100,7 +99,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         val newList = mutableListOf<CollectionArtwork>()
 
         for (artistId in popularArtistIds) {
-            val response = api.getArtworksByArtist(artistId, limit = 20)
+            val response = apiService.getArtworksByArtist(artistId, limit = 20)
             if (response.isSuccessful) {
                 response.body()?.data?.forEach { artwork ->
 
@@ -119,10 +118,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun buildCollectionArtwork(artwork: Artwork, artistId: Int): CollectionArtwork {
         val price = (10_000..10_000_000).random().toDouble()
-        val imageUrl = getApplication<Application>().getString(
-            R.string.artwork_image_url,
-            artwork.imageId
-        )
+        val imageUrl = imageUrlTemplate.format(artwork.imageId)
         return CollectionArtwork(
             artworkId = artwork.id,
             artistId = artistId,
@@ -150,7 +146,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             val randomPage = (1..1000).random()
-            val response = api.getArtWorks(page = randomPage, limit = 100)
+            val response = apiService.getArtWorks(page = randomPage, limit = 100)
 
             if (response.isSuccessful) {
                 val artworks = response.body()?.data.orEmpty()
@@ -184,11 +180,10 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private suspend fun createQuizQuestion(artwork: Artwork) {
-        val pref = ArtWorkSharedPreferences(getApplication())
-        val questionNumber = pref.loadQuestionIndex()
+        val questionNumber = sharedPreferences.loadQuestionIndex()
 
         if (questionNumber % 5 == 0) {
-            val popularArtworks = pref.loadPopularArtworks().filter { !it.isOwned }
+            val popularArtworks = sharedPreferences.loadPopularArtworks().filter { !it.isOwned }
             if (popularArtworks.isNotEmpty()) {
                 val selected = popularArtworks.random()
                 val artist = selected.artistTitle
@@ -205,7 +200,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
                 return
             }
         } else {
-            val detailResponse = api.getArtworkDetail(artwork.id)
+            val detailResponse = apiService.getArtworkDetail(artwork.id)
             if (detailResponse.isSuccessful) {
                 detailResponse.body()?.data?.toUIModel()?.let { artworkDetail ->
                     val artist = artworkDetail.artistTitle
@@ -214,9 +209,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
                         return
                     }
 
-                    val imageUrl = getApplication<Application>().getString(
-                        R.string.artwork_image_url, artworkDetail.imageId
-                    )
+                    val imageUrl = imageUrlTemplate.format(artworkDetail.imageId)
 
                     val options = generateOptions(artist)
 
@@ -251,26 +244,25 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         correctAnswersList.add(correctAnswer)
         _correctAnswers.value = correctAnswersList.toList()
 
-        ArtWorkSharedPreferences(getApplication()).saveCorrectAnswers(correctAnswersList)
+        sharedPreferences.saveCorrectAnswers(correctAnswersList)
 
         updateOwnedArtwork(question.artworkId)
     }
 
     private fun updateOwnedArtwork(artworkId: String) {
-        val prefs = ArtWorkSharedPreferences(getApplication())
-        val artworks = prefs.loadPopularArtworks().toMutableList()
+        val artworks = sharedPreferences.loadPopularArtworks().toMutableList()
 
         val index = artworks.indexOfFirst { it.artworkId.toString() == artworkId }
         if (index != -1) {
             val updated = artworks[index].copy(isOwned = true)
             artworks[index] = updated
-            prefs.savePopularArtworks(artworks)
+            sharedPreferences.savePopularArtworks(artworks)
             _popularArtworks.value = artworks
         }
     }
 
     private fun loadCorrectAnswersFromPrefs() {
-        val savedAnswers = ArtWorkSharedPreferences(getApplication()).loadCorrectAnswers()
+        val savedAnswers = sharedPreferences.loadCorrectAnswers()
         correctAnswersList.addAll(savedAnswers)
         _correctAnswers.value = correctAnswersList.toList()
     }

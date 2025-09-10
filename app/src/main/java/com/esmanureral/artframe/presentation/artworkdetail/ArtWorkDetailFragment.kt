@@ -17,12 +17,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.ImageLoader
-import coil.request.ErrorResult
 import coil.request.ImageRequest
+import com.esmanureral.artframe.ArtFrameApplication
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.animateCollapseExpand
@@ -40,7 +39,10 @@ class ArtWorkDetailFragment : Fragment(), ImageRequest.Listener {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ArtWorkDetailViewModel by viewModels()
+    private val viewModel: ArtWorkDetailViewModel by lazy {
+        val app = requireActivity().application as ArtFrameApplication
+        ArtWorkDetailViewModel(app.apiService)
+    }
     private var currentArtwork: ArtworkDetailUI? = null
     private lateinit var favoritesPrefs: ArtWorkSharedPreferences
     private val args: ArtWorkDetailFragmentArgs by navArgs()

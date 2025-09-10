@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.esmanureral.artframe.ArtFrameApplication
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.Artwork
@@ -19,7 +19,10 @@ class ArtistDetailFragment : Fragment() {
     private var _binding: FragmentArtistArtworkBinding? = null
     private val binding get() = _binding!!
     private val args: ArtistDetailFragmentArgs by navArgs()
-    private val viewModel: ArtistDetailViewModel by viewModels()
+    private val viewModel: ArtistDetailViewModel by lazy {
+        val app = requireActivity().application as ArtFrameApplication
+        ArtistDetailViewModel(app.apiService)
+    }
     private lateinit var adapter: ArtistDetailAdapter
     private lateinit var favoritesPrefs: ArtWorkSharedPreferences
 

@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.esmanureral.artframe.ArtFrameApplication
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.databinding.FragmentArtistListBinding
@@ -18,7 +18,10 @@ import com.esmanureral.artframe.presentation.deleteItem.DeleteItemType
 class ArtistListFragment : Fragment() {
     private var _binding: FragmentArtistListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ArtistListViewModel by viewModels()
+    private val viewModel: ArtistListViewModel by lazy {
+        val app = requireActivity().application as ArtFrameApplication
+        ArtistListViewModel(app.apiService)
+    }
     private lateinit var adapter: ArtistListAdapter
     private lateinit var favoritesPrefs: ArtWorkSharedPreferences
 
