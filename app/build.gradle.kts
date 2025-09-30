@@ -38,10 +38,10 @@ android {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
-        buildFeatures {
-            viewBinding = true
-            buildConfig = true
-        }
+    }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
 }
 
