@@ -25,7 +25,7 @@
     <dimen name="padding_32dp">32dp</dimen>
     <dimen name="padding_64dp">64dp</dimen>
     <dimen name="padding_40dp">40dp</dimen>
-    <dimen name="progress_indicator_size">40dp</dimen>
+    <dimen name="progress_indicator_size">30dp</dimen>
     <dimen name="iv_favorite_margin">16dp</dimen>
     <dimen name="custom_card_view_style">0dp</dimen>
     <dimen name="iv_favorite_bottom">26dp</dimen>

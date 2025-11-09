@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.esmanureral.artframe.databinding.ActivityMainBinding
-import com.facebook.shimmer.BuildConfig
+import com.esmanureral.artframe.BuildConfig
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -92,6 +92,6 @@ class MainActivity : AppCompatActivity() {
             binding.launchOverlay.visibility = View.GONE
             isLaunching = false
             binding.bottomNavigationView.visibility = View.VISIBLE
-        }, 3000L)
+        }, 2500L)
     }
 }
