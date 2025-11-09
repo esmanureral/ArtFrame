@@ -1,53 +1,114 @@
-# ArtFrame Privacy Policy
+<h1>
+  <img src="images/logo.png" width="50" alt="ArtFrame Logo" style="vertical-align: middle;">
+  <span style="vertical-align: middle;">ArtFrame</span>
+</h1>
 
-Bu repository, ArtFrame uygulaması için Google Play Store gizlilik politikasını içerir.
+## 📱 Uygulama Hakkında
+🖼️ **ArtFrame**, sanatseverlere hitap eden, zengin özelliklerle donatılmış bir mobil uygulama. Uygulama, kullanıcıların farklı sanat eserlerini ve sanatçıları keşfetmesini sağlarken, aynı zamanda her sanat eseri için detaylı bilgiler sunuyor. Kullanıcılar beğendikleri eser ve sanatçıları favorilerine ekleyebilir, sanatçılara ait tüm eserleri görebilir ve eserleri cihazlarına indirebilir, paylaşabilir veya duvar kağıdı olarak ayarlayabilir.
 
-## 📁 Dosyalar
+🎮 **Uygulamanın öne çıkan özelliklerinden biri de**, kullanıcıların sanat alanındaki genel kültürünü test edebileceği sanat eseri tahmin oyunudur. Oyunda doğru tahminlerde bulundukça, dünyaca ünlü eserleri koleksiyonunuza ekleyebilirsiniz.
 
-- `PRIVACY_POLICY.md` - İngilizce gizlilik politikası (Google Play Store için)
-- `PRIVACY_POLICY_TR.md` - Türkçe gizlilik politikası (isteğe bağlı)
 
-## 🚀 Kullanım
 
-Bu gizlilik politikası dosyalarını Google Play Store'da uygulamanızın gizlilik politikası URL'si olarak kullanabilirsiniz.
 
-### GitHub'da Yayınlama
+## 🎯 Özellikler
+- 🖼️ **Sanat Eseri Keşfi** - Geniş koleksiyon
+- ❤️ **Favori Yönetimi** - Kişisel koleksiyon
+- 👨‍🎨 **Sanatçı Profilleri** - Detaylı bilgiler
+- 🎮 **Quiz Oyunu** - Sanat bilgi testi
+- 🔍 **Tam Ekran Görüntüleme** - Zoom desteği
+- 🌙 **Karanlık Tema** - Göz dostu arayüz
+- 📱 **Modern UI/UX** - Material Design 3
+---
+## 📱 Ekran Görüntüleri
 
-1. Bu repository'yi GitHub'a push edin
-2. Settings > Pages > Deploy from a branch > main
-3. URL'ler:
-   - İngilizce: `https://yourusername.github.io/ArtFrame/PRIVACY_POLICY.md`
-   - Türkçe: `https://yourusername.github.io/ArtFrame/PRIVACY_POLICY_TR.md`
+### 🎨 Artworks Ekranı
+<img src="images/artworks1.png" width="200" alt="Artwork 1"/> <img src="images/artworks2.png" width="200" alt="Artwork 2"/>
 
-### Google Play Console'da Ekleme
+### 👩‍🎨 Artist Ekranı
+<img src="images/artist1.png" width="200" alt="Artist 1"/><img src="images/artist2.png" width="200" alt="Artist 2"/>
 
-1. Google Play Console > Store listing > Privacy Policy
-2. URL'yi ekleyin: `https://yourusername.github.io/ArtFrame/PRIVACY_POLICY.md` (İngilizce)
+### ⭐ Favoriler Ekranı
+<img src="images/fav1.png" width="200" alt="Favorite 1"/><img src="images/fav2.png" width="200" alt="Favorite 2"/>
+<img src="images/fav3.png" width="200" alt="Favorite 3"/><img src="images/fav4.png" width="200" alt="Favorite 4"/>
 
-## 📋 Özellikler
+### 🎨 Artworks Detail Ekranı
+<img src="images/artworkdetail1.png" width="200" alt="Artwork Detail 1"/> <img src="images/artworkdetail2.png" width="200" alt="Artwork Detail 2"/>
 
-- ✅ Google Play Store uyumlu
-- ✅ COPPA uyumlu (13 yaş altı çocuklar)
-- ✅ GDPR uyumlu
-- ✅ İngilizce ve Türkçe dil desteği
-- ✅ Detaylı veri işleme açıklamaları
+### 🔍 Full Screen Ekranı
+<img src="images/fullscreen1.png" width="200" alt="Full Screen 1"/><img src="images/fullscreen2.png" width="200" alt="Full Screen 2"/>
 
-## 🔧 Özelleştirme
+### 👩‍🎨 Artist Detail Ekranı
+<img src="images/artistartwork.png" width="200" alt="Artist Detail 1"/>
 
-Kullanmadan önce şu kısımları güncelleyin:
 
-- `[Your Email Address]` - E-posta adresiniz
-- `[Your Address]` - Adresiniz
-- `yourusername` - GitHub kullanıcı adınız
 
-## 📞 İletişim
 
-Gizlilik politikası ile ilgili sorularınız için: [Your Email Address]
+### 🕹 Game Ekranı
+<img src="images/game1.png" width="200" alt="Game 1"/><img src="images/game2.png" width="200" alt="Game 2"/>
 
-## 📅 Son Güncelleme
+### 🌐 WebView Ekranı
+<img src="images/webview.png" width="200" alt="Web 1"/><img src="images/webview2.png" width="200" alt="Web 2"/>
 
-Son güncelleme: 19 Aralık 2024
+
+
+## 📌 Projede Kullandığım Teknolojiler
+
+
+
+
+
+### 🔧 Temel Teknolojiler
+- **Retrofit** - API çağrıları
+- **ViewModel & LiveData** - State yönetimi
+- **Coroutines** - Asenkron işlemler
+- **Coil** - Görsel yükleme
+- **SharedPreferences** - Yerel veri saklama
+- **Gson** - JSON parsing
+
+### 🎨 UI & UX
+- **Material Design Components** - Modern arayüz
+- **PhotoView** - Zoom destekli görüntüleme
+- **Navigation Component** - Ekran navigasyonu
+- **BottomNavigationView** - Alt navigasyon
+- **RecyclerView, ConstraintLayout, CardView** - Layout bileşenleri
+- **Shimmer** - Loading animasyonları
+- **Dark Theme** - Karanlık tema desteği
+
+### 🚀 Gelişmiş Özellikler
+- **Pagination** - Sayfalama
+- **ListAdapter** - Liste yönetimi
+- **WebView** - Web içerik görüntüleme
+- **Empty View** - Boş durum gösterimi
+- **Error State** - Hata durumu yönetimi
 
 ---
+## 🏗️ Proje Yapısı
 
-**Not:** Bu gizlilik politikası ArtFrame uygulaması için özelleştirilmiştir. Başka uygulamalar için kullanmadan önce uygun şekilde güncelleyin.
+```
+📁 app/src/main/java/com/esmanureral/artframe/
+├── 🎯 MainActivity.kt               
+├── 📱 presentation/                  
+│   ├── 🖼️ artwork/                  
+│   ├── 🔍 artworkdetail/           
+│   ├── 👨‍🎨 artistlist/              
+│   ├── 📋 artistdetail/            
+│   ├── ❤️ favorites/                
+│   ├── 🎮 game/                   
+│   └── 🏛️ virtual/                 
+├── 💾 data/                      
+│   ├── 🌐 network/                
+│   └── 💿 local/                
+└── 🛠️ utils/                      
+```
+## 🌐 API
+
+- Art Institute of Chicago API kullanılarak gerçek sanat eseri verileri çekilmektedir.
+
+<div align="center">
+
+### ⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!
+
+**ArtFrame** ile sanatın büyülü dünyasını keşfedin! 🎨✨
+
+</div>
