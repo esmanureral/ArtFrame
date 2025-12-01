@@ -2,6 +2,8 @@
   <img src="images/logo.png" width="50" alt="ArtFrame Logo" style="vertical-align: middle;">
   <span style="vertical-align: middle;">ArtFrame</span>
 </h1>
+Uygulamayı indirmek için --->> https://play.google.com/store/apps/details?id=com.esmanureral.artframe 
+
 
 ## 📱 Uygulama Hakkında
 🖼️ **ArtFrame**, sanatseverlere hitap eden, zengin özelliklerle donatılmış bir mobil uygulama. Uygulama, kullanıcıların farklı sanat eserlerini ve sanatçıları keşfetmesini sağlarken, aynı zamanda her sanat eseri için detaylı bilgiler sunuyor. Kullanıcılar beğendikleri eser ve sanatçıları favorilerine ekleyebilir, sanatçılara ait tüm eserleri görebilir ve eserleri cihazlarına indirebilir, paylaşabilir veya duvar kağıdı olarak ayarlayabilir.
