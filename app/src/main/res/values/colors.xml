@@ -20,5 +20,11 @@
     <color name="artwork_border">#8B5A2B</color>
     <color name="artwork_border_game">#A0522D</color>
     <color name="shadow_color">#000000</color>
+    <color name="onboarding_background">#F8F6F3</color>
+    <color name="onboarding_accent">#243465</color>
+    <color name="onboarding_text_secondary">#5C636E</color>
+    <color name="onboarding_title">#2D3142</color>
+    <color name="onboarding_subtitle">#8E9199</color>
+    <color name="onboarding_dot_inactive">#D1D5DB</color>
 
 </resources>

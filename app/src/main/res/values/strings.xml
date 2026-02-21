@@ -80,5 +80,18 @@
     <string name="artwork_price">$%s</string>
     <string name="artwork_count">%d</string>
     <string name="collection_value">$%1$s</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="onboarding_title_1">Discover Artworks</string>
+    <string name="onboarding_desc_1">Browse thousands of artworks, read details, and meet the artists.</string>
+    <string name="onboarding_title_2">Collect Your Favorites</string>
+    <string name="onboarding_desc_2">Add the artworks you love to your favorites and build your personal collection.</string>
+    <string name="onboarding_title_3">Learn with Quizzes</string>
+    <string name="onboarding_desc_3">Guess the artist from the artwork, earn points, and test your art knowledge.</string>
+    <string name="onboarding_title_4">Explore Virtual Gallery</string>
+    <string name="onboarding_desc_4">View your collections and experience the gallery within the app.</string>
+    <string name="onboarding_btn_next">Next</string>
+    <string name="onboarding_btn_back">Back</string>
+    <string name="onboarding_btn_skip">Skip</string>
+    <string name="onboarding_btn_start">Get Started</string>
 
 </resources>

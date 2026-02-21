@@ -66,4 +66,21 @@
         <item name="android:textColor">@color/primary</item>
     </style>
 
+    <style name="OnboardingTitle">
+        <item name="android:textColor">@color/onboarding_title</item>
+        <item name="android:textSize">@dimen/tv_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/playfair_display</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+    </style>
+
+    <style name="OnboardingSubtitle">
+        <item name="android:textColor">@color/onboarding_subtitle</item>
+        <item name="android:textSize">@dimen/item_artist_text_size</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:lineSpacingExtra">@dimen/translation_6</item>
+        <item name="android:alpha">0.95</item>
+    </style>
+
 </resources>
