@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:paddingTop="@dimen/toolbar_title_margin_start"
+    android:paddingBottom="@dimen/iv_favorite_margin">
+
+    <FrameLayout
+        android:id="@+id/lottieFrame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="@dimen/iv_favorite_margin"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            tools:ignore="ContentDescription" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/OnboardingTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/padding_32dp"
+        app:layout_constraintBottom_toTopOf="@id/tvDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lottieFrame"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Discover Artworks" />
+
+    <TextView
+        android:id="@+id/tvDesc"
+        style="@style/OnboardingSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/circle_background_size"
+        android:paddingTop="@dimen/tv_years_shimmer"
+        android:paddingBottom="@dimen/toolbar_title_margin_start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        tools:text="Browse thousands of artworks, read details." />
+</androidx.constraintlayout.widget.ConstraintLayout>
