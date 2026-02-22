@@ -113,6 +113,9 @@
         <action
             android:id="@+id/action_quizFragment_to_resultGameFragment"
             app:destination="@id/resultGameFragment" />
+        <action
+            android:id="@+id/action_quizFragment_to_fullScreenImageFragment"
+            app:destination="@id/fullScreenImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultGameFragment"

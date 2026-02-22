@@ -8,6 +8,9 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.esmanureral.artframe.ArtFrameApplication
 import com.esmanureral.artframe.R
@@ -21,10 +24,15 @@ class QuizFragment : Fragment() {
 
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: QuizViewModel by lazy {
+    private val viewModel: QuizViewModel by activityViewModels {
         val app = requireActivity().application as ArtFrameApplication
         val imageUrlTemplate = getString(R.string.artwork_image_url)
-        QuizViewModel(app.apiService, app.sharedPreferences, imageUrlTemplate)
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return QuizViewModel(app.apiService, app.sharedPreferences, imageUrlTemplate) as T
+            }
+        }
     }
     private lateinit var prefs: ArtWorkSharedPreferences
     private var questionIndex = 1
@@ -62,6 +70,7 @@ class QuizFragment : Fragment() {
     private fun setupButtons() {
         val optionButtons = listOf(binding.btnOption1, binding.btnOption2, binding.btnOption3)
         buttonList.addAll(elements = optionButtons)
+        disableOptions(buttonList)
     }
 
     private fun setOnClickListeners() = with(binding) {
@@ -69,6 +78,15 @@ class QuizFragment : Fragment() {
             findNavController().navigate(
                 QuizFragmentDirections.actionQuizFragmentToResultGameFragment()
             )
+        }
+        btnResetQuiz.setOnClickListener {
+            viewModel.resetQuiz()
+            questionIndex = 1
+            prefs.saveQuestionIndex(questionIndex)
+            tvQuestionNumber.text = getString(R.string.tv_question, questionIndex)
+            buttonList.forEach { resetOptionStyle(it) }
+            disableOptions(buttonList)
+            viewModel.startQuiz()
         }
     }
 
@@ -99,7 +117,15 @@ class QuizFragment : Fragment() {
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressIndicator.isVisible = isLoading
+            if (isLoading) {
+                binding.groupProgress.isVisible = true
+                binding.containerGame.isVisible = false
+            } else {
+                if (viewModel.quizQuestion.value != null) {
+                    binding.groupProgress.isVisible = false
+                    binding.containerGame.isVisible = true
+                }
+            }
         }
     }
 
@@ -110,6 +136,7 @@ class QuizFragment : Fragment() {
             tvQuestionNumber.text = getString(R.string.tv_question, questionIndex)
             prefs.saveQuestionIndex(questionIndex)
             viewModel.loadNewQuestion()
+            disableOptions(buttonList)
         }
     }
 
@@ -117,6 +144,13 @@ class QuizFragment : Fragment() {
         val optionButtons = listOf(btnOption1, btnOption2, btnOption3)
         btnOption1.post {
             loadButtons(question = question)
+            disableOptions(optionButtons)
+
+            ivArtwork.setOnClickListener {
+                findNavController().navigate(
+                    QuizFragmentDirections.actionQuizFragmentToFullScreenImageFragment(question.imageUrl)
+                )
+            }
 
             ivArtwork.loadWithIndicator(
                 url = question.imageUrl,
@@ -124,9 +158,11 @@ class QuizFragment : Fragment() {
                 errorRes = R.drawable.error,
                 onSuccess = {
                     val previousAnswer = viewModel.answeredQuestions[question.artworkId]
-                    previousAnswer?.let { answer ->
-                        val selectedBtn = optionButtons.firstOrNull { it.text == answer }
+                    if (previousAnswer != null) {
+                        val selectedBtn = optionButtons.firstOrNull { it.text == previousAnswer }
                         selectedBtn?.let { checkAnswer(it, question) }
+                    } else {
+                        optionButtons.forEach { it.isEnabled = true }
                     }
                 },
                 onError = { viewModel.loadNewQuestion() },
@@ -145,11 +181,17 @@ class QuizFragment : Fragment() {
         val optionButtons = listOf(btnOption1, btnOption2, btnOption3)
         val correctButton = optionButtons.first { it.text == question.correctAnswer }
 
-        viewModel.recordAnswer(question.artworkId, selectedButton.text.toString())
+        val isAlreadyAnswered = viewModel.answeredQuestions.containsKey(question.artworkId)
+
+        if (!isAlreadyAnswered) {
+            viewModel.recordAnswer(question.artworkId, selectedButton.text.toString())
+        }
 
         if (selectedButton == correctButton) {
             highlightAnswer(selectedButton, R.color.correct_answer, R.color.primary)
-            viewModel.onCorrectAnswer(question)
+            if (!isAlreadyAnswered) {
+                viewModel.onCorrectAnswer(question)
+            }
         } else {
             highlightAnswer(selectedButton, R.color.wrong_answer, R.color.primary)
             highlightAnswer(correctButton, R.color.correct_answer, R.color.primary)
@@ -168,7 +210,6 @@ class QuizFragment : Fragment() {
 
     private fun resetOptionStyle(button: Button) {
         button.apply {
-            isEnabled = true
             setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.option_color))
             setTextColor(ContextCompat.getColor(requireContext(), R.color.primary))
         }

@@ -73,12 +73,12 @@ class QuizViewModel(
                         ?.take(100) ?: emptyList()
 
                     _allArtists.value = artists
+                    _isLoading.value = false
                     loadNewQuestion()
                 } else {
                     _error.value = true
+                    _isLoading.value = false
                 }
-
-                _isLoading.value = false
             } catch (e: Exception) {
                 Log.e("LoadArtistsError", "Error loading artists", e)
                 _error.value = true
@@ -138,6 +138,7 @@ class QuizViewModel(
     }
 
     fun loadNewQuestion() {
+        if (_isLoading.value == true) return
         val artists = _allArtists.value ?: return
         if (artists.isEmpty()) return
 
@@ -236,6 +237,9 @@ class QuizViewModel(
     }
 
     fun onCorrectAnswer(question: QuizQuestion) {
+        if (correctAnswersList.any { it.artworkId == question.artworkId }) {
+            return
+        }
         val correctAnswer = CorrectAnswer(
             artworkId = question.artworkId,
             imageUrl = question.imageUrl,
@@ -269,9 +273,11 @@ class QuizViewModel(
 
     fun resetQuiz() {
         correctAnswersList.clear()
+        _answeredQuestions.clear()
         _correctAnswers.value = emptyList()
         _quizQuestion.value = null
         _error.value = false
+        sharedPreferences.saveCorrectAnswers(emptyList())
     }
 
     fun recordAnswer(artworkId: String, answer: String) {
