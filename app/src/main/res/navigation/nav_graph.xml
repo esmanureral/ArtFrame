@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/artworkListFragment">
+    app:startDestination="@id/onboardingFragment">
 
     <fragment
         android:id="@+id/artworkListFragment"
@@ -17,6 +18,10 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.esmanureral.artframe.presentation.onboarding.OnboardingFragment"
+        tools:layout="@layout/fragment_onboarding" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.esmanureral.artframe.presentation.artworkdetail.ArtWorkDetailFragment"
