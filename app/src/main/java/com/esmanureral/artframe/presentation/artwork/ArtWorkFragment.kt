@@ -99,9 +99,16 @@ class ArtworkListFragment : Fragment() {
     }
 
     private fun navigateToVirtualGallery() {
-        val action = ArtworkListFragmentDirections
-            .actionArtworkListFragmentToVirtualArtGalleryFragment()
-        findNavController().navigate(action)
+        android.app.AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.virtual_gallery_title))
+            .setMessage(getString(R.string.virtual_gallery_warning))
+            .setPositiveButton(getString(R.string.btn_enter)) { _, _ ->
+                val action = ArtworkListFragmentDirections
+                    .actionArtworkListFragmentToVirtualArtGalleryFragment()
+                findNavController().navigate(action)
+            }
+            .setNegativeButton(getString(R.string.btn_cancel), null)
+            .show()
     }
 
     private fun toggleTheme() {

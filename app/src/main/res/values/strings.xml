@@ -93,5 +93,10 @@
     <string name="onboarding_btn_back">Back</string>
     <string name="onboarding_btn_skip">Skip</string>
     <string name="onboarding_btn_start">Get Started</string>
+    <string name="virtual_gallery_title">Virtual Art Gallery</string>
+    <string name="virtual_gallery_warning">Experience immersive artworks in a fully interactive space.
+For the best performance, we recommend a stable internet connection.Do you want to continue?</string>
+    <string name="btn_enter">Enter</string>
+    <string name="btn_cancel">Cancel</string>
 
 </resources>
