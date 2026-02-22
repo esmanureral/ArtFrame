@@ -29,7 +29,13 @@ class MainActivity : AppCompatActivity() {
         setupBottomNav(navController)
         setupDestinationListener(navController)
 
-        startLaunchAnimation()
+        if (savedInstanceState == null) {
+            startLaunchAnimation()
+        } else {
+            isLaunching = false
+            hideLaunchOverlay()
+            showBottomNavIfAllowed()
+        }
     }
 
     override fun onDestroy() {
