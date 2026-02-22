@@ -26,5 +26,6 @@
     <color name="onboarding_title">#2D3142</color>
     <color name="onboarding_subtitle">#8E9199</color>
     <color name="onboarding_dot_inactive">#D1D5DB</color>
+    <color name="onboarding_gradient">#FAFAFA</color>
 
 </resources>

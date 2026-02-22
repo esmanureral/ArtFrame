@@ -17,6 +17,7 @@ fun ImageView.loadWithIndicator(
     progressIndicator.isVisible = true
     this.load(url) {
         crossfade(true)
+        placeholder(R.drawable.shimmer_rect)
         error(errorRes)
         lifecycle(lifecycleOwner)
         listener(

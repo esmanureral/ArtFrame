@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="300" android:exitFadeDuration="300">
+
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/fab_bg_radius" />
+            <solid android:color="@color/onboarding_accent" />
+            <size android:width="@dimen/icon_size" android:height="@dimen/padding_8dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/onboarding_dot_inactive" />
+            <size android:width="@dimen/padding_8dp" android:height="@dimen/padding_8dp" />
+        </shape>
+    </item>
+
+</selector>
