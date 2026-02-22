@@ -118,8 +118,12 @@ class QuizFragment : Fragment() {
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
-                binding.groupProgress.isVisible = true
-                binding.containerGame.isVisible = false
+                if (viewModel.quizQuestion.value == null) {
+                    binding.groupProgress.isVisible = true
+                    binding.containerGame.isVisible = false
+                } else {
+                    binding.progressIndicator.isVisible = true
+                }
             } else {
                 if (viewModel.quizQuestion.value != null) {
                     binding.groupProgress.isVisible = false
