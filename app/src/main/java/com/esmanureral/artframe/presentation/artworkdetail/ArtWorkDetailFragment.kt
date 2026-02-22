@@ -19,7 +19,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import coil.ImageLoader
+import coil.imageLoader
 import coil.request.ImageRequest
 import com.esmanureral.artframe.ArtFrameApplication
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
@@ -225,7 +225,7 @@ class ArtWorkDetailFragment : Fragment(), ImageRequest.Listener {
 
     private fun loadBitmapFromUrl(imageUrl: String, callback: (Bitmap?) -> Unit) {
         val context = requireContext()
-        val loader = ImageLoader(context)
+        val loader = context.imageLoader
         val request = ImageRequest.Builder(context)
             .data(imageUrl)
             .allowHardware(false)
