@@ -1,10 +1,15 @@
 package com.esmanureral.artframe.presentation.artwork
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +23,13 @@ class ArtworkListFragment : Fragment() {
     private var _binding: FragmentArtworkListBinding? = null
     private val binding get() = _binding!!
     private var isDarkMode = false
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) println("Notification permission granted")
+        else println("Notification permission denied")
+    }
 
     private val viewModel: ArtWorkViewModel by lazy {
         val app = requireActivity().application as ArtFrameApplication
@@ -38,6 +50,23 @@ class ArtworkListFragment : Fragment() {
         observeViewModel()
         setupClickListeners()
         initThemeIcon()
+        checkNotificationPermission()
+    }
+
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    // Permission is granted
+                }
+                else -> {
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        }
     }
 
     private fun initThemeIcon() {

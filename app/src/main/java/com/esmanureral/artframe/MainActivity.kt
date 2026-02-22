@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController()
 
-        setupPermission()
         showDebugToastIfNeeded()
         setupBottomNav(navController)
         setupDestinationListener(navController)
@@ -49,16 +48,6 @@ class MainActivity : AppCompatActivity() {
         return navHostFragment.navController
     }
 
-    private fun setupPermission() {
-        PermissionHelper.requestNotificationPermission(this) { granted ->
-            logNotificationPermission(granted)
-        }
-    }
-
-    private fun logNotificationPermission(granted: Boolean) {
-        if (granted) println("Notification permission granted")
-        else println("Notification permission denied")
-    }
 
     private fun showDebugToastIfNeeded() {
         if (BuildConfig.DEBUG) {
