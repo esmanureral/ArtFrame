@@ -99,5 +99,8 @@ For the best performance, we recommend a stable internet connection.Do you want 
     <string name="btn_enter">Enter</string>
     <string name="btn_cancel">Cancel</string>
     <string name="tv_reset">Reset</string>
+    <string name="dialog_success_title">Tebrikler!</string>
+    <string name="dialog_success_desc">Popüler bir sanat eserini doğru bildin ve koleksiyonuna ekledin!</string>
+    <string name="dialog_success_btn">Harika</string>
 
 </resources>

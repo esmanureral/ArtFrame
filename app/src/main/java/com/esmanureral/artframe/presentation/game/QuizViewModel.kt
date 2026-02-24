@@ -146,25 +146,32 @@ class QuizViewModel(
         _error.value = false
 
         viewModelScope.launch {
-            val randomPage = (1..1000).random()
-            val response = apiService.getArtWorks(page = randomPage, limit = 100)
+            fetchQuestionRecursive()
+            _isLoading.value = false
+        }
+    }
 
-            if (response.isSuccessful) {
-                val artworks = response.body()?.data.orEmpty()
-                val filteredArtworks = filterArtworks(artworks, getIncludedClassifications())
+    private suspend fun fetchQuestionRecursive() {
+        val randomPage = (1..1000).random()
+        val response = apiService.getArtWorks(page = randomPage, limit = 100)
 
-                if (filteredArtworks.isNotEmpty()) {
-                    val randomArtwork = filteredArtworks.random()
-                    createQuizQuestion(randomArtwork)
-                } else {
+        if (response.isSuccessful) {
+            val artworks = response.body()?.data.orEmpty()
+            val filteredArtworks = filterArtworks(artworks, getIncludedClassifications())
+
+            if (filteredArtworks.isNotEmpty()) {
+                val randomArtwork = filteredArtworks.random()
+                val success = createQuizQuestion(randomArtwork)
+                if (!success) {
                     delay(100)
-                    loadNewQuestion()
+                    fetchQuestionRecursive()
                 }
             } else {
-                _error.value = true
+                delay(100)
+                fetchQuestionRecursive()
             }
-
-            _isLoading.value = false
+        } else {
+            _error.value = true
         }
     }
 
@@ -180,7 +187,7 @@ class QuizViewModel(
             }
     }
 
-    private suspend fun createQuizQuestion(artwork: Artwork) {
+    private suspend fun createQuizQuestion(artwork: Artwork): Boolean {
         val questionNumber = sharedPreferences.loadQuestionIndex()
 
         if (questionNumber % 5 == 0) {
@@ -189,43 +196,45 @@ class QuizViewModel(
                 val selected = popularArtworks.random()
                 val artist = selected.artistTitle
                 if (artist == "" || artist == "Unknown" || artist == "Anonymous") {
-                    loadNewQuestion()
-                    return
+                    return false
                 }
                 _quizQuestion.value = QuizQuestion(
                     artworkId = selected.artworkId.toString(),
                     imageUrl = selected.imageUrl,
                     correctAnswer = artist,
-                    options = generateOptions(artist)
+                    options = generateOptions(artist),
+                    isPopular = true
                 )
-                return
+                return true
             }
-        } else {
-            val detailResponse = apiService.getArtworkDetail(artwork.id)
-            if (detailResponse.isSuccessful) {
-                detailResponse.body()?.data?.toUIModel()?.let { artworkDetail ->
-                    val artist = artworkDetail.artistTitle
-                    if (artist == "" || artist == "Unknown" || artist == "Anonymous") {
-                        loadNewQuestion()
-                        return
-                    }
+        }
 
-                    val imageUrl = imageUrlTemplate.format(artworkDetail.imageId)
+        val detailResponse = apiService.getArtworkDetail(artwork.id)
+        if (detailResponse.isSuccessful) {
+            val artworkDetail = detailResponse.body()?.data?.toUIModel()
+            if (artworkDetail != null) {
+                val artist = artworkDetail.artistTitle
+                if (artist == "" || artist == "Unknown" || artist == "Anonymous") {
+                    return false
+                }
 
-                    val options = generateOptions(artist)
+                val imageUrl = imageUrlTemplate.format(artworkDetail.imageId)
+                val options = generateOptions(artist)
 
-                    _quizQuestion.value = QuizQuestion(
-                        artworkId = artwork.id.toString(),
-                        imageUrl = imageUrl,
-                        correctAnswer = artist,
-                        options = options
-                    )
-
-                    _isLoading.value = false
-                } ?: run { _error.value = true }
+                _quizQuestion.value = QuizQuestion(
+                    artworkId = artwork.id.toString(),
+                    imageUrl = imageUrl,
+                    correctAnswer = artist,
+                    options = options
+                )
+                return true
             } else {
                 _error.value = true
+                return true
             }
+        } else {
+            _error.value = true
+            return true
         }
     }
 

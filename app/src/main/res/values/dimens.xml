@@ -46,5 +46,11 @@
     <dimen name="result_game_width">140dp</dimen>
     <dimen name="result_game_height">180dp</dimen>
     <dimen name="logo_image_view">150dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="success_icon_size">80dp</dimen>
+    <dimen name="dialog_title_text_size">24sp</dimen>
+    <dimen name="dialog_desc_text_size">16sp</dimen>
 
 </resources>

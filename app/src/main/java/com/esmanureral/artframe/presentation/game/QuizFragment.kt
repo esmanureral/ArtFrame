@@ -9,6 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -195,6 +198,9 @@ class QuizFragment : Fragment() {
             highlightAnswer(selectedButton, R.color.correct_answer, R.color.primary)
             if (!isAlreadyAnswered) {
                 viewModel.onCorrectAnswer(question)
+                if (question.isPopular) {
+                    showPopularSuccessDialog()
+                }
             }
         } else {
             highlightAnswer(selectedButton, R.color.wrong_answer, R.color.primary)
@@ -202,6 +208,22 @@ class QuizFragment : Fragment() {
         }
 
         disableOptions(optionButtons)
+    }
+
+    private fun showPopularSuccessDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_popular_success, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnAwesome = dialogView.findViewById<Button>(R.id.btnAwesome)
+        btnAwesome.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun updateScoreUI(correctCount: Int) = with(binding) {
