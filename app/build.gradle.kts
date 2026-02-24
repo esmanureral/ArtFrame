@@ -93,4 +93,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("androidx.datastore:datastore-preferences:1.2.0")
+    implementation("com.airbnb.android:lottie:6.4.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.2")
 }

@@ -4,5 +4,6 @@ data class QuizQuestion(
     val artworkId: String = "",
     val imageUrl: String,
     val correctAnswer: String,
-    val options: List<String>
+    val options: List<String>,
+    val isPopular: Boolean = false
 )

@@ -37,6 +37,8 @@ class FavoritesAdapter(
                 root.context.getString(R.string.artwork_image_url, artwork.imageId)
             ivArtwork.load(imageUrl) {
                 crossfade(true)
+                memoryCachePolicy(coil.request.CachePolicy.ENABLED)
+                diskCachePolicy(coil.request.CachePolicy.ENABLED)
                 placeholder(R.drawable.black)
                 error(R.drawable.error)
             }

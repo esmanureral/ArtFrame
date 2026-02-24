@@ -71,6 +71,18 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/btn_reset_quiz"
+                    style="@style/TvDetailLabelStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_reset"
+                    android:textColor="@color/wrong_answer"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_score"
+                    app:layout_constraintStart_toEndOf="@id/tv_question_number"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/tv_score"
                     style="@style/TvDetailLabelStyle"
                     android:layout_width="wrap_content"
