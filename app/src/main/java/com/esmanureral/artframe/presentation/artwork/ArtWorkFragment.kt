@@ -17,12 +17,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.esmanureral.artframe.ArtFrameApplication
 import com.esmanureral.artframe.R
 import com.esmanureral.artframe.databinding.FragmentArtworkListBinding
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 class ArtworkListFragment : Fragment() {
 
     private var _binding: FragmentArtworkListBinding? = null
     private val binding get() = _binding!!
     private var isDarkMode = false
+    private var mInterstitialAd: InterstitialAd? = null
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -51,6 +58,30 @@ class ArtworkListFragment : Fragment() {
         setupClickListeners()
         initThemeIcon()
         checkNotificationPermission()
+        setupAdMob()
+    }
+
+    private fun setupAdMob() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+        loadInterstitialAd()
+    }
+
+    private fun loadInterstitialAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            requireContext(),
+            "ca-app-pub-2867897791067261/5925128838",
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    mInterstitialAd = null
+                }
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    mInterstitialAd = interstitialAd
+                }
+            }
+        )
     }
 
     private fun checkNotificationPermission() {
@@ -103,12 +134,34 @@ class ArtworkListFragment : Fragment() {
             .setTitle(getString(R.string.virtual_gallery_title))
             .setMessage(getString(R.string.virtual_gallery_warning))
             .setPositiveButton(getString(R.string.btn_enter)) { _, _ ->
-                val action = ArtworkListFragmentDirections
-                    .actionArtworkListFragmentToVirtualArtGalleryFragment()
-                findNavController().navigate(action)
+                showInterstitialAndNavigate {
+                    val action = ArtworkListFragmentDirections
+                        .actionArtworkListFragmentToVirtualArtGalleryFragment()
+                    findNavController().navigate(action)
+                }
             }
             .setNegativeButton(getString(R.string.btn_cancel), null)
             .show()
+    }
+
+    private fun showInterstitialAndNavigate(onNavigate: () -> Unit) {
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    mInterstitialAd = null
+                    loadInterstitialAd()
+                    onNavigate()
+                }
+
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    mInterstitialAd = null
+                    onNavigate()
+                }
+            }
+            mInterstitialAd?.show(requireActivity())
+        } else {
+            onNavigate()
+        }
     }
 
     private fun toggleTheme() {

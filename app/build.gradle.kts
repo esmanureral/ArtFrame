@@ -22,8 +22,8 @@ android {
         applicationId = "com.esmanureral.artframe"
         minSdk = 24
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.3"
+        versionCode = 5
+        versionName = "1.4"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -96,4 +96,5 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.2.0")
     implementation("com.airbnb.android:lottie:6.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.2")
+    implementation("com.google.android.gms:play-services-ads:23.0.0")
 }

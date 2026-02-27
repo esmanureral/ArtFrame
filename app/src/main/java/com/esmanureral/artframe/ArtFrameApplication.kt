@@ -9,6 +9,7 @@ import coil.request.CachePolicy
 import com.esmanureral.artframe.data.local.ArtWorkSharedPreferences
 import com.esmanureral.artframe.data.network.ApiClient
 import com.esmanureral.artframe.data.network.ApiService
+import com.google.android.gms.ads.MobileAds
 
 class ArtFrameApplication : Application(), ImageLoaderFactory {
 
@@ -20,6 +21,7 @@ class ArtFrameApplication : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
+        MobileAds.initialize(this) {}
         apiService = ApiClient.getApi(this)
         sharedPreferences = ArtWorkSharedPreferences(this)
     }
